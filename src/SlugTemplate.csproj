@@ -17,6 +17,7 @@
 		</ItemGroup>
 		<ItemGroup>
 			<CopyPlugins Include="$(TargetPath)" />
+            <CopyPlugins Include="$(TargetDir)$(TargetName).pdb" />
 		</ItemGroup>
 		
         <Delete Files="@(RemovePlugins)" />
