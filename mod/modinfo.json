@@ -1,0 +1,10 @@
+﻿{
+	"id": "GrimmChildren Mod",
+	"name": "Slugcat Template",
+	"version": "0.1.0",
+	"authors": "GrimmChildren: too lazy to grab information right now",
+	"description": "Mod description: We'll get to it when we get to it",
+	"requirements": [ "slime-cubed.slugbase" ],
+	"requirements_names": [ "SlugBase" ],
+	"tags": [ "Custom Slugcat", "Campaigns" ]
+}
