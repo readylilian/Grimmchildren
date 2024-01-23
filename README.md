@@ -1,5 +1,4 @@
 # Grimmchildren
-
 # This is to help you guys set up a symlink between the game and mod so you aren't constantly copying folders over every time you Build. I'm making the assumption you use a windows computer. I have no clue how well this will work on other systems
 
 # First off, on the steam workshop (rainworlds specifically), find and subscribe to Slugbase. I have it set up as a mod dependency so it's needed to run.
