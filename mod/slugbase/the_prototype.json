@@ -1,9 +1,10 @@
 {
 	"id": "Prototype",
-	"name": "The Prototype",
+	"name": "Snow Cat",
 	"description": "A recolored copy of The Survivor that demonstrates some custom SlugBase features.<LINE>This is a template mod for SlugBase.",
 	"features": {
 		"select_menu_scene": "Slugcat_Prototype",
-		"select_menu_scene_ascended": "Ghost_Prototype"
+		"select_menu_scene_ascended": "Ghost_Prototype",
+		"start_room": "CD_ROOM1",
 	}
 }
