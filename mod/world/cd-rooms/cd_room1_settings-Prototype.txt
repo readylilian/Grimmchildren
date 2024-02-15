@@ -1,0 +1,2 @@
+Template: NONE
+PlacedObjects: SnowSource><367.4419><530.3063><Column~0~100~50~86.60254~1~0.3804348, DataPearl><248.4653><162.8031><0~0~0~0~Misc~0, 
