@@ -1,17 +1,10 @@
 ﻿using BepInEx;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoreSlugcats;
-using CoralBrain;
-using Expedition;
-using JollyCoop;
 using RWCustom;
 using UnityEngine;
-using UnityEngine.UIElements;
 using static Player;
+using Fisobs;
+using Fisobs.Core;
+using System;
 
 
 namespace Fireball
@@ -27,12 +20,12 @@ namespace Fireball
         public static int fireBalls = 0;
         public bool metIterator = true;
 
-        private AbstractPhysicalObject fireEntity;
+        //private AbstractPhysicalObject fireEntity = new Fireball();
         public class firingState
         {
-            public Vector2 direction;
+            public IntVector2 direction;
             public bool firing;
-            private int charging;
+            private int charging = 1;
             //The most it could be charged is 10
             public int Charging
             {
@@ -46,6 +39,10 @@ namespace Fireball
                     {
                         charging += value;
                     }
+                    else if (charging + value <=0)
+                    {
+                        charging = 1;
+                    }
                     else
                     {
                         charging = 10;
@@ -58,32 +55,54 @@ namespace Fireball
             {
                 get 
                 {
-                    return direction.normalized * charging;
+                    return direction.ToVector2().normalized * charging;
                 }
             }
         }
 
         private void OnEnable()
         {
-            
+            Content.Register(new FireballFisob());
+            On.RainWorld.OnModsInit += RainWorldOnModsInitHook;
+
             On.Player.SwallowObject += SnowSwallowObject;
-            On.Player.Regurgitate += NoRegurge;
-            On.Player.ThrowObject += Fire;
+            //On.Player.Regurgitate += NoRegurge;
+            //On.Player.ThrowObject += Fire;
+            On.Room.AddObject += RoomAddFire;
+
         }
 
-        private void Fire(On.Player.orig_ThrowObject orig, Player self, int grasp, bool eu)
+        private void RainWorldOnModsInitHook(On.RainWorld.orig_OnModsInit orig, RainWorld self)
         {
-            if (self.SlugCatClass == new SlugcatStats.Name("SnowCat") && metIterator)
+            orig(self);
+            Fireball.LoadSprites();
+        }
+
+        private void RoomAddFire(On.Room.orig_AddObject orig, Room self, UpdatableAndDeletable obj)
+        {
+            if(obj is Fireball fire && fireBalls > 0)
             {
+                fireBalls--;
+                Debug.Log("Trying to add fireball");
+                firingState firing = new firingState();
+                firing.direction = new IntVector2(0,1);
+                Debug.Log("Firing direction: " + firing.direction);
+                var tilePos = self.GetTilePosition(self.PlayersInRoom[0].bodyChunks[0].pos);
+                Debug.Log("Tile Position: " + tilePos);
+                var pos = new WorldCoordinate(self.abstractRoom.index, tilePos.x, tilePos.y, 0);
+                var abstr = new FireballAbstract(self.world, pos, self.game.GetNewID());
+                obj = new Fireball(abstr, fire.tailPos, firing.Velocity);
+                Debug.Log("Object: " + obj);
+                //self.PlayersInRoom[0].objectInStomach = null;
+                self.abstractRoom.AddEntity(abstr);
+                Debug.Log("Entity in room");
             }
-            else
-            {
-                orig(self, grasp, eu);
-            }
+            orig(self, obj);
         }
 
         private void SnowSwallowObject(On.Player.orig_SwallowObject orig, Player self, int grasp)
         {
+            Debug.Log("Tried to swallow");
             //Registering didn't work, even moving this stuff over to slugbase
             //so create the name when you check it
             if (self.SlugCatClass == new SlugcatStats.Name("SnowCat") && metIterator)
@@ -104,12 +123,26 @@ namespace Fireball
                 abstractPhysicalObject.realizedObject.RemoveFromRoom();
                 abstractPhysicalObject.Abstractize(self.abstractCreature.pos);
                 abstractPhysicalObject.Room.RemoveEntity(abstractPhysicalObject);
-                self.mainBodyChunk.vel.y += 2f;
-                self.room.PlaySound(SoundID.Slugcat_Swallow_Item, self.mainBodyChunk);
+
                 //We can make this fancy a little later, so the # of fireballs you get
                 //Can change based on what we eat or something, for now just add two
                 fireBalls += 2;
                 Debug.Log(fireBalls);
+                //Add fireball to room
+                var ourpos = new WorldCoordinate(self.room.abstractRoom.index, (int)self.bodyChunks[0].pos.x, (int)self.bodyChunks[0].pos.y, 0);
+                //Placeholder values
+                Debug.Log("Break 1");
+                var abstr = new FireballAbstract(self.room.world, ourpos, self.room.game.GetNewID())
+                {
+                    hue = 0f,
+                    saturation = 1f
+                };
+                //Use our velocity
+                Debug.Log("Break 2");
+                self.objectInStomach = abstr;
+                self.objectInStomach.Abstractize(self.abstractCreature.pos);
+                self.mainBodyChunk.vel.y += 2f;
+                self.room.PlaySound(SoundID.Slugcat_Swallow_Item, self.mainBodyChunk);
                 return;
             }
             else
@@ -118,73 +151,6 @@ namespace Fireball
             }
 
         }
-        private void NoRegurge(On.Player.orig_Regurgitate orig, Player self)
-        {
-            //If our cat tries to throw up don't do anything
-            if (self.SlugCatClass == new SlugcatStats.Name("SnowCat") && metIterator)
-            {
-                if(fireBalls > 0)
-                {
-                    //Basically the same that the base has, but adjusted for only spitting out fireballs.
-                    //Add fireball to room
-                    self.room.abstractRoom.AddEntity(fireEntity);
-                    fireEntity.pos = self.abstractCreature.pos;
-                    fireEntity.RealizeInRoom();
-                    Vector2 pos = self.bodyChunks[0].pos;
-                    Vector2 vector = Custom.DirVec(self.bodyChunks[1].pos, self.bodyChunks[0].pos);
-                    bool flag = false;
-                    if (Mathf.Abs(self.bodyChunks[0].pos.y - self.bodyChunks[1].pos.y) > Mathf.Abs(self.bodyChunks[0].pos.x - self.bodyChunks[1].pos.x) && self.bodyChunks[0].pos.y > self.bodyChunks[1].pos.y)
-                    {
-                        pos += Custom.DirVec(self.bodyChunks[1].pos, self.bodyChunks[0].pos) * 5f;
-                        vector *= -1f;
-                        vector.x += 0.4f * (float)self.flipDirection;
-                        vector.Normalize();
-                        flag = true;
-                    }
-                    fireEntity.realizedObject.firstChunk.HardSetPosition(pos);
-                    fireEntity.realizedObject.firstChunk.vel = Vector2.ClampMagnitude((vector * 2f + Custom.RNV() * UnityEngine.Random.value) / fireEntity.realizedObject.firstChunk.mass, 6f);
-                    self.bodyChunks[0].pos -= vector * 2f;
-                    self.bodyChunks[0].vel -= vector * 2f;
-                    if (self.graphicsModule != null)
-                    {
-                        (self.graphicsModule as PlayerGraphics).head.vel += Custom.RNV() * UnityEngine.Random.value * 3f;
-                    }
-                    for (int i = 0; i < 3; i++)
-                    {
-                        self.room.AddObject(new WaterDrip(pos + Custom.RNV() * UnityEngine.Random.value * 1.5f, Custom.RNV() * 3f * UnityEngine.Random.value + vector * Mathf.Lerp(2f, 6f, UnityEngine.Random.value), waterColor: false));
-                    }
-                    self.room.PlaySound(SoundID.Slugcat_Regurgitate_Item, self.mainBodyChunk);
-                    if (fireEntity.realizedObject is Hazer && self.graphicsModule != null)
-                    {
-                        (fireEntity.realizedObject as Hazer).SpitOutByPlayer(PlayerGraphics.SlugcatColor(self.playerState.slugcatCharacter));
-                    }
-                    if (flag && self.FreeHand() > -1)
-                    {
-                        if (ModManager.MMF && ((self.grasps[0] != null) ^ (self.grasps[1] != null)) && self.Grabability(fireEntity.realizedObject) == ObjectGrabability.BigOneHand)
-                        {
-                            int num = 0;
-                            if (self.FreeHand() == 0)
-                            {
-                                num = 1;
-                            }
-                            if (self.Grabability(self.grasps[num].grabbed) != ObjectGrabability.BigOneHand)
-                            {
-                                self.SlugcatGrab(fireEntity.realizedObject, self.FreeHand());
-                            }
-                        }
-                        else
-                        {
-                            self.SlugcatGrab(fireEntity.realizedObject, self.FreeHand());
-                        }
-                    }
-                    fireBalls--;
-                }    
-                return;
-            }
-            else
-            {
-                orig(self);
-            }
-        }
+
     }
 }
