@@ -66,8 +66,6 @@ namespace Fireball
             On.RainWorld.OnModsInit += RainWorldOnModsInitHook;
 
             On.Player.SwallowObject += SnowSwallowObject;
-            //On.Player.Regurgitate += NoRegurge;
-            //On.Player.ThrowObject += Fire;
             On.Room.AddObject += RoomAddFire;
 
         }
@@ -83,19 +81,11 @@ namespace Fireball
             if(obj is Fireball fire && fireBalls > 0)
             {
                 fireBalls--;
-                Debug.Log("Trying to add fireball");
                 firingState firing = new firingState();
                 firing.direction = new IntVector2(0,1);
-                Debug.Log("Firing direction: " + firing.direction);
-                var tilePos = self.GetTilePosition(self.PlayersInRoom[0].bodyChunks[0].pos);
-                Debug.Log("Tile Position: " + tilePos);
-                var pos = new WorldCoordinate(self.abstractRoom.index, tilePos.x, tilePos.y, 0);
-                var abstr = new FireballAbstract(self.world, pos, self.game.GetNewID());
+                var abstr = new FireballAbstract(self.world, self.PlayersInRoom[0].abstractCreature.pos, self.game.GetNewID());
                 obj = new Fireball(abstr, fire.tailPos, firing.Velocity);
-                Debug.Log("Object: " + obj);
-                //self.PlayersInRoom[0].objectInStomach = null;
                 self.abstractRoom.AddEntity(abstr);
-                Debug.Log("Entity in room");
             }
             orig(self, obj);
         }
@@ -126,19 +116,10 @@ namespace Fireball
 
                 //We can make this fancy a little later, so the # of fireballs you get
                 //Can change based on what we eat or something, for now just add two
-                fireBalls += 2;
-                Debug.Log(fireBalls);
+                fireBalls += 1;
                 //Add fireball to room
-                var ourpos = new WorldCoordinate(self.room.abstractRoom.index, (int)self.bodyChunks[0].pos.x, (int)self.bodyChunks[0].pos.y, 0);
-                //Placeholder values
-                Debug.Log("Break 1");
-                var abstr = new FireballAbstract(self.room.world, ourpos, self.room.game.GetNewID())
-                {
-                    hue = 0f,
-                    saturation = 1f
-                };
+                var abstr = new FireballAbstract(self.room.world, self.abstractCreature.pos, self.room.game.GetNewID());
                 //Use our velocity
-                Debug.Log("Break 2");
                 self.objectInStomach = abstr;
                 self.objectInStomach.Abstractize(self.abstractCreature.pos);
                 self.mainBodyChunk.vel.y += 2f;
