@@ -95,7 +95,7 @@ namespace Fireball
                         base.firstChunk.pos = bodyChunk.pos;
                         ChangeMode(Mode.Free);
                         base.firstChunk.vel *= 0.5f;
-                        //room.PlaySound(SoundID.Spear_Hit_Small_Creature, bodyChunk);
+                        room.PlaySound(SoundID.Spear_Hit_Small_Creature, bodyChunk);
                         break;
                     }
                     if (num6 <= 0.6f && room.physicalObjects[0][num7].appendages != null)
@@ -163,10 +163,13 @@ namespace Fireball
             //Don't hit oracles
             if (result.obj is Oracle)
                 return hit;
-            //another creature was hit
-            room.PlaySound(SoundID.Rock_Hit_Creature, firstChunk);
+            //another creature was 
             if (result.obj is Creature && result.obj != thrownBy)
             {
+                if(!result.obj.ToString().Contains("Slugcat"))
+                {
+                    room.PlaySound(SoundID.Rock_Hit_Creature, firstChunk);
+                }
                 Debug.Log(result.obj);
                 Debug.Log("Fireball hit creature");
                 BodyChunk bodyChunk = null;
@@ -189,10 +192,6 @@ namespace Fireball
         public override void TerrainImpact(int chunk, IntVector2 direction, float speed, bool firstContact)
         {
             base.TerrainImpact(chunk, direction, speed, firstContact);
-            if (firstContact && speed > 2f)
-            {
-                room.PlaySound(SoundID.Spear_Fragment_Bounce, base.firstChunk, loop: false, Custom.LerpMap(speed, 0f, 8f, 0.2f, 1f), 1f);
-            }
             //Reset thrownby once it hits the ground, so you can't use a thrown ball to do damage while it's held
             thrownBy = null;
             beenThrown = true;
