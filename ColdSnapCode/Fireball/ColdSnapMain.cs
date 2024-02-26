@@ -38,6 +38,7 @@ namespace Fireball
         //Enables our mod hooks
         private void OnEnable()
         {
+            Debug.Log("Fireball is enabled");
             Content.Register(new FireballFisob());
             On.RainWorld.OnModsInit += RainWorldOnModsInitHook;
 
@@ -48,6 +49,7 @@ namespace Fireball
 
         private void RainWorldOnModsInitHook(On.RainWorld.orig_OnModsInit orig, RainWorld self)
         {
+            Debug.Log("Fireball is loading sprites");
             orig(self);
             Fireball.LoadSprites();
         }
