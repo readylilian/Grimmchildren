@@ -95,7 +95,7 @@ namespace Fireball
                         base.firstChunk.pos = bodyChunk.pos;
                         ChangeMode(Mode.Free);
                         base.firstChunk.vel *= 0.5f;
-                        room.PlaySound(SoundID.Spear_Hit_Small_Creature, bodyChunk);
+                        //room.PlaySound(SoundID.Spear_Hit_Small_Creature, bodyChunk);
                         break;
                     }
                     if (num6 <= 0.6f && room.physicalObjects[0][num7].appendages != null)
