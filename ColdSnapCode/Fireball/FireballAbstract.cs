@@ -21,7 +21,7 @@ namespace Fireball
         {
             base.Realize();
             if (realizedObject == null)
-                realizedObject = new Fireball(this, Room.realizedRoom.MiddleOfTile(pos.Tile), Vector2.zero);
+                realizedObject = new Fireball(this,Room.realizedRoom.MiddleOfTile(pos.Tile), Vector2.zero);
         }
 
         public float hue;

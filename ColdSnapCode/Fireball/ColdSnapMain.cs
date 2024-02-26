@@ -20,46 +20,22 @@ namespace Fireball
         public static int fireBalls = 0;
         public bool metIterator = true;
 
-        //private AbstractPhysicalObject fireEntity = new Fireball();
+        //This doesn't do much rn, would love to expand it out later.
         public class firingState
         {
             public IntVector2 direction;
-            public bool firing;
-            private int charging = 1;
-            //The most it could be charged is 10
-            public int Charging
-            {
-                get
-                {
-                    return charging;
-                }
-                set
-                {
-                    if (charging + value > 10)
-                    {
-                        charging += value;
-                    }
-                    else if (charging + value <=0)
-                    {
-                        charging = 1;
-                    }
-                    else
-                    {
-                        charging = 10;
-                    }
-                }
-            }
 
             //Basic velocity, will need to change once it's applied
             public Vector2 Velocity
             {
                 get 
                 {
-                    return direction.ToVector2().normalized * charging;
+                    return direction.ToVector2().normalized * 1;
                 }
             }
         }
 
+        //Enables our mod hooks
         private void OnEnable()
         {
             Content.Register(new FireballFisob());
@@ -76,6 +52,7 @@ namespace Fireball
             Fireball.LoadSprites();
         }
 
+        //Adds a fireball to the room
         private void RoomAddFire(On.Room.orig_AddObject orig, Room self, UpdatableAndDeletable obj)
         {
             if(obj is Fireball fire && fireBalls > 0)
@@ -90,6 +67,7 @@ namespace Fireball
             orig(self, obj);
         }
 
+        //When we swallow an object, if it's our cat, make it a fireball
         private void SnowSwallowObject(On.Player.orig_SwallowObject orig, Player self, int grasp)
         {
             Debug.Log("Tried to swallow");
