@@ -1,12 +1,17 @@
 ﻿using System;
 using BepInEx;
+using Fisobs.Core;
 using UnityEngine;
 using SlugBase.Features;
 using SlugTemplate.Hooks;
+using SlugTemplate.Ice_Block;
 using static SlugBase.Features.FeatureTypes;
 
 namespace SlugTemplate
 {
+    // Additional dependency for Fisobs to prevent errors. I think. I don't know what this does.
+    [BepInDependency("github.notfood.BepInExPartialityWrapper", BepInDependency.DependencyFlags.SoftDependency)]
+    
     // Connects us to the api
     [BepInPlugin("GrimmChildrenMod", "GrimmChildren", "0.1.0")]
     public class Plugin : BaseUnityPlugin
@@ -29,7 +34,27 @@ namespace SlugTemplate
         // Enable all mod hooks. This is the entry point for the entire mod
         public void OnEnable()
         {
+            // Add custom objects to the game
+            Content.Register(new IceBlockFisobs());
+            
+            // Temp method for testing
+            On.Player.ctor += Player_ctor;
+            
+            // Add hooks to the game
             On.RainWorld.OnModsInit += RainWorld_OnModsInit;
+        }
+
+        private void Player_ctor(On.Player.orig_ctor orig, Player self, AbstractCreature abstractCreature, World world)
+        {
+            orig(self, abstractCreature, world);
+            AbstractIceBlock iceBlock = new AbstractIceBlock(world, AbstractPhysicalObject.AbstractObjectType.CollisionField, null,
+                self.room.GetWorldCoordinate(self.mainBodyChunk.pos), abstractCreature.Room.world.game.GetNewID());
+            
+            // Add to room 
+            abstractCreature.Room.AddEntity(iceBlock);
+            
+            // Realize in room
+            iceBlock.RealizeInRoom();
         }
 
         private void RainWorld_OnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld self)
