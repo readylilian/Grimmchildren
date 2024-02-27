@@ -4,10 +4,11 @@ using UnityEngine;
 using System.IO;
 using System;
 using System.Threading;
+using MoreSlugcats;
 
 namespace Fireball
 {
-    sealed class Fireball : Weapon
+    sealed class Fireball : Weapon, IProvideWarmth
     {
         public float lastDarkness = -1f;
         public float darkness;
@@ -16,6 +17,11 @@ namespace Fireball
         private Color blackColor;
 
         public FireballAbstract Abstr { get; }
+
+        public Room loadedRoom => room;
+        public float warmth => RainWorldGame.DefaultHeatSourceWarmth;
+        public float range => 350f;
+
         public float damage;
 
         private float lifespan;
@@ -267,6 +273,11 @@ namespace Fireball
                 Debug.LogError("LoadSprites exception: " + ex.ToString());
             }
             Debug.Log("LoadSprites called");
+        }
+
+        public Vector2 Position()
+        {
+            return tailPos;
         }
     }
 }
