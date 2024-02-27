@@ -11,6 +11,12 @@
         </Reference>
     </ItemGroup>
     
+    <ItemGroup>
+      <Reference Include="Fisobs">
+        <HintPath>..\ColdSnapCode\References\Fisobs.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    
     <Target Name="GenerateMod" AfterTargets="PostBuildEvent">
 		<ItemGroup>
 			<RemovePlugins Include="../mod/plugins/*.dll" />
@@ -19,9 +25,12 @@
 			<CopyPlugins Include="$(TargetPath)" />
             <CopyPlugins Include="$(TargetDir)$(TargetName).pdb" />
 		</ItemGroup>
-		
-        <Delete Files="@(RemovePlugins)" />
-        <Copy SourceFiles="@(CopyPlugins)" DestinationFolder="../mod/plugins/" />
+      <Delete Files="@(RemovePlugins)" />
+      <Copy SourceFiles="@(CopyPlugins)" DestinationFolder="../mod/plugins/" />
+    <ItemGroup>
+      <Assets Include="$(ProjectDir)assets/**/*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Assets)" DestinationFiles="$(RainWorldDir)/RainWorld_Data/StreamingAssets/mods/$(ProjectName)/%(RecursiveDir)%(Filename)%(Extension)" />
     </Target>
     
 </Project>
