@@ -24,7 +24,7 @@ namespace Fireball
             Debug.Log("Tried to grab fireball name: " + data);
             // Fisobs autoloads the file in the mod folder named "icon_{Type}.png"
             // To use that, just remove the png suffix: "icon_CentiShield"
-            return "icon_Fireball";
+            return "";
         }
     }
 }
