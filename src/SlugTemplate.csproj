@@ -12,11 +12,11 @@
     </ItemGroup>
     
     <ItemGroup>
-      <None Remove="assets\icon_Fireball.png" />
+      <None Remove="assets/icon_Fireball.png" />
     </ItemGroup>
     
     <ItemGroup>
-      <EmbeddedResource Include="assets\icon_Fireball.png">
+      <EmbeddedResource Include="assets/icon_Fireball.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>

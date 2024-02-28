@@ -209,6 +209,7 @@ namespace Fireball
         //-----------------------------------Sprite Stuff Do Not Touch-----------------------------------------------------------------
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
+            Debug.Log("Tried to draw sprite");
             sLeaser.sprites = new FSprite[2];
             sLeaser.sprites[0] = new FSprite("icon_Fireball", true);
             sLeaser.sprites[1] = new FSprite("icon_Fireball", true);
