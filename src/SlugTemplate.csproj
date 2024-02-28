@@ -12,16 +12,6 @@
     </ItemGroup>
     
     <ItemGroup>
-      <None Remove="assets/icon_Fireball.png" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <EmbeddedResource Include="assets/icon_Fireball.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </EmbeddedResource>
-    </ItemGroup>
-    
-    <ItemGroup>
       <Reference Include="Fisobs">
         <HintPath>..\ColdSnapCode\References\Fisobs.dll</HintPath>
       </Reference>
