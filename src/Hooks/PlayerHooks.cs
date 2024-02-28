@@ -34,7 +34,6 @@ namespace SlugTemplate.Hooks
 
             Debug.Log("Fireball is enabled");
             Content.Register(new FireballFisob());
-            On.RainWorld.OnModsInit += RainWorldOnModsInitHook;
 
             On.Player.SwallowObject += SnowSwallowObject;
             On.Room.AddObject += RoomAddFire;
@@ -51,12 +50,6 @@ namespace SlugTemplate.Hooks
 
             // Currently, we don't have an if statement to specify which slugcat this happens to
             // This means it happens to all of them, in every campaign for each jump
-        }
-        private static void RainWorldOnModsInitHook(On.RainWorld.orig_OnModsInit orig, RainWorld self)
-        {
-            Debug.Log("Fireball is loading sprites");
-            orig(self);
-            Fireball.Fireball.LoadSprites();
         }
 
         //Adds a fireball to the room

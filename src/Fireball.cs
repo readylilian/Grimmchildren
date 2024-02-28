@@ -262,19 +262,6 @@ namespace Fireball
             }
         }
 
-        public static void LoadSprites()
-        {
-            try
-            {
-                Futile.atlasManager.LoadAtlas("assets" + Path.DirectorySeparatorChar + "fireball");
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError("LoadSprites exception: " + ex.ToString());
-            }
-            Debug.Log("LoadSprites called");
-        }
-
         public Vector2 Position()
         {
             return tailPos;
