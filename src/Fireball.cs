@@ -207,6 +207,19 @@ namespace Fireball
         { }
 
         //-----------------------------------Sprite Stuff Do Not Touch-----------------------------------------------------------------
+        public static void LoadSprites()
+        {
+            try
+            {
+                Futile.atlasManager.LoadAtlas("sprites" + Path.DirectorySeparatorChar + "pokeballs");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("LoadSprites exception: " + ex.ToString());
+            }
+            Debug.Log("LoadSprites called");
+        }
+
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
             Debug.Log("Tried to draw sprite");

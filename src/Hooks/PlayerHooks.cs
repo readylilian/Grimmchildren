@@ -37,6 +37,8 @@ namespace SlugTemplate.Hooks
 
             On.Player.SwallowObject += SnowSwallowObject;
             On.Room.AddObject += RoomAddFire;
+
+            Fireball.Fireball.LoadSprites();
         }
 
         private static void Player_Jump(On.Player.orig_Jump orig, Player self)
