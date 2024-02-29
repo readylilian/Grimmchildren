@@ -31,7 +31,12 @@ public static class PlayerHooks
         // example of a hook
         On.Player.Jump += Player_Jump; 
         
-        Content.Register(new FireballFisob());
+        // Why is this in this class anyway
+        Content.Register(new IContent[]
+        {
+            new FireballFisob()
+        });
+
         Debug.Log("Fireball is enabled");
 
         On.Player.SwallowObject += SnowSwallowObject;

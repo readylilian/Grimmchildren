@@ -57,7 +57,7 @@ namespace SlugTemplate
         // Load any resources, such as sprites or sounds
         private void LoadResources(RainWorld rainWorld)
         {
-            // Unused, sad
+            Futile.atlasManager.LoadImage("atlases/icon_Fireball");
         }
     }
 }

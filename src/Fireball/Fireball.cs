@@ -226,8 +226,8 @@ using MoreSlugcats;
             Debug.Log("Tried to draw sprite");
             //Futile.atlasManager.LogAllElementNames();
             sLeaser.sprites = new FSprite[2];
-            sLeaser.sprites[0] = new FSprite(Futile.atlasManager.GetElementWithName("icon_Fireball"));
-            sLeaser.sprites[1] = new FSprite(Futile.atlasManager.GetElementWithName("icon_Fireball"));
+            sLeaser.sprites[0] = new FSprite(Futile.atlasManager.GetElementWithName("Symbol_FireEgg"));
+            sLeaser.sprites[1] = new FSprite(Futile.atlasManager.GetElementWithName("Symbol_FireEgg"));
             AddToContainer(sLeaser, rCam, null);
         }
 
