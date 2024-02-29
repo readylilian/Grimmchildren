@@ -206,10 +206,19 @@ using MoreSlugcats;
         public override void ChangeMode(Mode newMode)
         { }
 
-        public override void SetRandomSpin()
+
+        // room is null which fires error, but if no error occurs the fireball doesn't spawn?
+        /*public override void PlaceInRoom(Room placeRoom)
         {
-            base.SetRandomSpin();
-        }
+            room = placeRoom;
+            placeRoom.AddObject(this);
+            for (int i = 0; i < base.bodyChunks.Length; i++)
+            {
+                base.bodyChunks[i].HardSetPosition(placeRoom.MiddleOfTile(this.abstractPhysicalObject.pos));
+            }
+            this.NewRoom(placeRoom);
+            this.SetRandomSpin();
+        }*/
 
         //-----------------------------------Sprite Stuff Do Not Touch-----------------------------------------------------------------
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
