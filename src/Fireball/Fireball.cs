@@ -1,4 +1,6 @@
-﻿using RWCustom;
+﻿namespace SlugTemplate.Fireball;
+
+using RWCustom;
 using Fisobs;
 using UnityEngine;
 using System.IO;
@@ -6,9 +8,7 @@ using System;
 using System.Threading;
 using MoreSlugcats;
 
-namespace Fireball
-{
-    sealed class Fireball : Weapon, IProvideWarmth
+    class Fireball : Weapon, IProvideWarmth
     {
         public float lastDarkness = -1f;
         public float darkness;
@@ -206,26 +206,19 @@ namespace Fireball
         public override void ChangeMode(Mode newMode)
         { }
 
-        //-----------------------------------Sprite Stuff Do Not Touch-----------------------------------------------------------------
-        public static void LoadSprites()
+        public override void SetRandomSpin()
         {
-            try
-            {
-                Futile.atlasManager.LoadAtlas("sprites" + Path.DirectorySeparatorChar + "pokeballs");
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError("LoadSprites exception: " + ex.ToString());
-            }
-            Debug.Log("LoadSprites called");
+            base.SetRandomSpin();
         }
 
+        //-----------------------------------Sprite Stuff Do Not Touch-----------------------------------------------------------------
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
             Debug.Log("Tried to draw sprite");
+            //Futile.atlasManager.LogAllElementNames();
             sLeaser.sprites = new FSprite[2];
-            sLeaser.sprites[0] = new FSprite("icon_Fireball", true);
-            sLeaser.sprites[1] = new FSprite("icon_Fireball", true);
+            sLeaser.sprites[0] = new FSprite(Futile.atlasManager.GetElementWithName("icon_Fireball"));
+            sLeaser.sprites[1] = new FSprite(Futile.atlasManager.GetElementWithName("icon_Fireball"));
             AddToContainer(sLeaser, rCam, null);
         }
 
@@ -281,7 +274,3 @@ namespace Fireball
             return tailPos;
         }
     }
-}
-
-
-
