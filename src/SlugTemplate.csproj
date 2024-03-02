@@ -11,6 +11,12 @@
         </Reference>
     </ItemGroup>
     
+    <ItemGroup>
+      <Reference Include="UnityEngine.ImageConversionModule">
+        <HintPath>C:\Users\chase\Downloads\UnityEngine.ImageConversionModule.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    
     <Target Name="GenerateMod" AfterTargets="PostBuildEvent">
 		<ItemGroup>
 			<RemovePlugins Include="../mod/plugins/*.dll" />
