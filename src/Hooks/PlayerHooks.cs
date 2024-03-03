@@ -6,6 +6,7 @@ using SlugBase.Assets;
 using BepInEx;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
+using IL.Menu;
 
 namespace SlugTemplate.Hooks;
 
@@ -18,6 +19,7 @@ public static class PlayerHooks
 
         AssetLoader.LoadAssets();
         ApplyPlayerGraphicsHooks();
+        //MenuDepthIllustrationHook();
     }
 
     private static void Player_Jump(On.Player.orig_Jump orig, Player self)
@@ -32,6 +34,20 @@ public static class PlayerHooks
         // Currently, we don't have an if statement to specify which slugcat this happens to
         // This means it happens to all of them, in every campaign for each jump
     }
+
+/*    public static void MenuDepthIllustrationHook()
+    {
+        On.Menu.MenuScene.AddIllustration += MenuScene_AddIllustration;
+    }
+    public static void MenuScene_AddIllustration(On.Menu.MenuScene.orig_AddIllustration orig, Menu.MenuScene self, Menu.MenuIllustration newIllu)
+    {
+        orig.Invoke(self, newIllu);
+        if (newIllu is MenuDepthIllustration && newIllu.fileName == "snow.png")
+        {
+            newIllu.sprite
+        }
+    }*/
+
 
 
     //Most of this code was ripped in pieces from a mod called pearlcat, they did it really well and I didn't understand the graphics code without it

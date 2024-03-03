@@ -3,7 +3,7 @@
 	"name": "Snow Cat",
 	"description": "A custom campaign featuring a slugcat that must brave a freezing world",
 	"features": {
-		"select_menu_scene": "Slugcat_Prototype",
+		"select_menu_scene": "snowcat_scenes",
 		"select_menu_scene_ascended": "Ghost_Prototype",
 		"start_room": "CD_ROOM1"
 	}
