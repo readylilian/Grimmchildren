@@ -68,7 +68,7 @@ namespace SlugTemplate
                 }
             }
 
-            public static void LoadSprites()
+        /*    public static void LoadSprites()
             {
                 foreach (string filePath in AssetManager.ListDirectory("snowcat_sprites", false, false))
                 {
@@ -82,9 +82,9 @@ namespace SlugTemplate
                         }
                     }
                 }
-            }
+            }*/
 
-            public static void LoadTextures()
+         /*   public static void LoadTextures()
             {
                 foreach (string filePath in AssetManager.ListDirectory("snowcat_textures", false, false))
                 {
@@ -114,7 +114,7 @@ namespace SlugTemplate
                     return null;
                 }
                 return texture;
-            }
+            }*/
 
             public const string ATLASES_DIRPATH = "snowcat_atlases";
 
