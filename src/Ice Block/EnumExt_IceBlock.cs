@@ -1,6 +1,6 @@
 ﻿namespace SlugTemplate.Ice_Block;
 
-public class EnumExt_IceBlock
+public static class EnumExt_IceBlock
 {
-    public static readonly AbstractPhysicalObject.AbstractObjectType IceBlock;
+    public static readonly AbstractPhysicalObject.AbstractObjectType IceBlock = new("IceBlock",true);
 }

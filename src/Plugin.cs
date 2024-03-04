@@ -14,7 +14,7 @@ namespace SlugTemplate
     
     // Connects us to the api
     [BepInPlugin("GrimmChildrenMod", "GrimmChildren", "0.1.0")]
-    public class Plugin : BaseUnityPlugin
+    public sealed class Plugin : BaseUnityPlugin
     {
         public static Options options;
         
@@ -37,11 +37,17 @@ namespace SlugTemplate
             // Add custom objects to the game
             Content.Register(new IceBlockFisobs());
             
-            // Temp method for testing
-            On.Player.ctor += Player_ctor;
-            
             // Add hooks to the game
             On.RainWorld.OnModsInit += RainWorld_OnModsInit;
+            
+            // Temp method for testing
+            On.Player.ctor += Player_ctor;
+            //On.Player.MovementUpdate += PlayerOnMovementUpdate;
+        }
+
+        private void PlayerOnMovementUpdate(On.Player.orig_MovementUpdate orig, Player self, bool eu)
+        {
+            orig(self, eu);
         }
 
         private void Player_ctor(On.Player.orig_ctor orig, Player self, AbstractCreature abstractCreature, World world)
