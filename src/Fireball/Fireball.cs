@@ -1,10 +1,13 @@
-﻿using RWCustom;
+﻿namespace SlugTemplate.Fireball;
+
+using RWCustom;
 using Fisobs;
 using UnityEngine;
 using System.IO;
 using System;
 using System.Threading;
 using MoreSlugcats;
+using System.Diagnostics;
 
 namespace SlugTemplate
 {
@@ -205,8 +208,6 @@ namespace SlugTemplate
         //I know this doesn't do anything but the whole thing breaks if we get rid of it
         public override void ChangeMode(Mode newMode)
         { }
-
-        //-----------------------------------Sprite Stuff Do Not Touch-----------------------------------------------------------------
         public static void LoadSprites()
         {
             try
@@ -218,7 +219,8 @@ namespace SlugTemplate
                 Debug.LogError("LoadSprites exception: " + ex.ToString());
             }
             Debug.Log("LoadSprites called in fireball");
-        }
+ 
+      
 
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
@@ -281,7 +283,3 @@ namespace SlugTemplate
             return tailPos;
         }
     }
-}
-
-
-
