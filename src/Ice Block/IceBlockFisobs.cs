@@ -6,7 +6,7 @@ using MoreSlugcats;
 
 namespace SlugTemplate.Ice_Block;
 
-public class IceBlockFisobs : Fisob
+/*public class IceBlockFisobs : 
 {
     // This method registers the Fisob in the game
     public IceBlockFisobs() : base(EnumExt_IceBlock.IceBlock)
@@ -34,4 +34,4 @@ public class IceBlockFisobs : Fisob
 
         return result;
     }
-}
+}*/

@@ -2,5 +2,5 @@
 
 public static class EnumExt_IceBlock
 {
-    public static readonly AbstractPhysicalObject.AbstractObjectType IceBlock = new("IceBlock",true);
+    public static readonly PlacedObject.Type IceBlock = new("IceBlock",true);
 }
