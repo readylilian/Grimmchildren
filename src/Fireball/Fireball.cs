@@ -1,13 +1,10 @@
-﻿namespace SlugTemplate.Fireball;
-
-using RWCustom;
+﻿using RWCustom;
 using Fisobs;
 using UnityEngine;
 using System.IO;
 using System;
 using System.Threading;
 using MoreSlugcats;
-using System.Diagnostics;
 
 namespace SlugTemplate
 {
@@ -175,7 +172,7 @@ namespace SlugTemplate
             //another creature was 
             if (result.obj is Creature && result.obj != thrownBy)
             {
-                if(!result.obj.ToString().Contains("Slugcat"))
+                if (!result.obj.ToString().Contains("Slugcat"))
                 {
                     room.PlaySound(SoundID.Rock_Hit_Creature, firstChunk);
                 }
@@ -219,8 +216,9 @@ namespace SlugTemplate
                 Debug.LogError("LoadSprites exception: " + ex.ToString());
             }
             Debug.Log("LoadSprites called in fireball");
- 
-      
+        }
+
+
 
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
@@ -283,3 +281,4 @@ namespace SlugTemplate
             return tailPos;
         }
     }
+}

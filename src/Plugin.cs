@@ -3,7 +3,6 @@ using BepInEx;
 using Fisobs.Core;
 using UnityEngine;
 using SlugBase.Features;
-using SlugTemplate.Fireball;
 using SlugTemplate.Hooks;
 using static SlugBase.Features.FeatureTypes;
 
@@ -57,7 +56,7 @@ namespace SlugTemplate
         // Load any resources, such as sprites or sounds
         private void LoadResources(RainWorld rainWorld)
         {
-            Futile.atlasManager.LoadImage("atlases/icon_Fireball");
+            //Futile.atlasManager.LoadImage("atlases/icon_Fireball");
         }
     }
 }

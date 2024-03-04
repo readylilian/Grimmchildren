@@ -2,37 +2,18 @@
 using System;
 using Fisobs.Core;
 using RWCustom;
-using SlugTemplate.Fireball;
 using UnityEngine;
 
 namespace SlugTemplate.Hooks;
 
 public static class PlayerHooks
 {
-    public static int fireBalls = 0;
-    public static bool metIterator = true;
-
-    //This doesn't do much rn, would love to expand it out later.
-    public class firingState
+    public static void Init()
     {
-        public IntVector2 direction;
+        // example of a hook
+        On.Player.Jump += Player_Jump;
 
-            //Basic velocity, will need to change once it's applied
-            public Vector2 Velocity
-            {
-                get
-                {
-                    return direction.ToVector2().normalized * 1;
-                }
-            }
-        }
-
-        public static void Init()
-        {
-            // example of a hook
-            On.Player.Jump += Player_Jump;
-
-        }
+    }
 
     private static void Player_Jump(On.Player.orig_Jump orig, Player self)
     {
@@ -45,7 +26,7 @@ public static class PlayerHooks
 
             // Currently, we don't have an if statement to specify which slugcat this happens to
             // This means it happens to all of them, in every campaign for each jump
-        }
+        
 
     }
 }
