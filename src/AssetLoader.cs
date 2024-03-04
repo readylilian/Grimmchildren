@@ -68,55 +68,55 @@ namespace SlugTemplate
                 }
             }
 
-        /*    public static void LoadSprites()
+        public static void LoadSprites()
+        {
+            foreach (string filePath in AssetManager.ListDirectory("snowcat_sprites", false, false))
             {
-                foreach (string filePath in AssetManager.ListDirectory("snowcat_sprites", false, false))
+                if (!(Path.GetExtension(filePath).ToLower() != ".png"))
                 {
-                    if (!(Path.GetExtension(filePath).ToLower() != ".png"))
+                    string atlasName = Path.GetFileNameWithoutExtension(filePath);
+                    Texture2D texture = AssetLoader.FileToTexture2D(filePath);
+                    if (!(texture == null))
                     {
-                        string atlasName = Path.GetFileNameWithoutExtension(filePath);
-                        Texture2D texture = AssetLoader.FileToTexture2D(filePath);
-                        if (!(texture == null))
-                        {
-                            Futile.atlasManager.LoadAtlasFromTexture(atlasName, texture, false);
-                        }
-                    }
-                }
-            }*/
-
-         /*   public static void LoadTextures()
-            {
-                foreach (string filePath in AssetManager.ListDirectory("snowcat_textures", false, false))
-                {
-                    if (!(Path.GetExtension(filePath).ToLower() != ".png"))
-                    {
-                        string textureName = Path.GetFileNameWithoutExtension(filePath);
-                        Texture2D texture = AssetLoader.FileToTexture2D(filePath);
-                        if (!(texture == null))
-                        {
-                            AssetLoader.Textures.Add(textureName, texture);
-                        }
+                        Futile.atlasManager.LoadAtlasFromTexture(atlasName, texture, false);
                     }
                 }
             }
+        }
 
-            public static Texture2D FileToTexture2D(string filePath)
+        public static void LoadTextures()
+        {
+            foreach (string filePath in AssetManager.ListDirectory("snowcat_textures", false, false))
             {
-                byte[] fileData = File.ReadAllBytes(filePath);
-                Texture2D texture = new Texture2D(0, 0, TextureFormat.RGBA32, false)
+                if (!(Path.GetExtension(filePath).ToLower() != ".png"))
                 {
-                    anisoLevel = 0,
-                    filterMode = 0
-                };
-                //image conversion is a default method in unity, this should work
-                if (!ImageConversion.LoadImage(texture, fileData))
-                {
-                    return null;
+                    string textureName = Path.GetFileNameWithoutExtension(filePath);
+                    Texture2D texture = AssetLoader.FileToTexture2D(filePath);
+                    if (!(texture == null))
+                    {
+                        AssetLoader.Textures.Add(textureName, texture);
+                    }
                 }
-                return texture;
-            }*/
+            }
+        }
 
-            public const string ATLASES_DIRPATH = "snowcat_atlases";
+        public static Texture2D FileToTexture2D(string filePath)
+        {
+            byte[] fileData = File.ReadAllBytes(filePath);
+            Texture2D texture = new Texture2D(0, 0, TextureFormat.RGBA32, false)
+            {
+                anisoLevel = 0,
+                filterMode = 0
+            };
+            //image conversion is a default method in unity, this should work
+            if (!ImageConversion.LoadImage(texture, fileData))
+            {
+                return null;
+            }
+            return texture;
+        }
+
+        public const string ATLASES_DIRPATH = "snowcat_atlases";
 
             public const string SPRITES_DIRPATH = "snowcat_sprites";
  

@@ -13,7 +13,7 @@
     
     <ItemGroup>
       <Reference Include="UnityEngine.ImageConversionModule">
-        <HintPath>C:\Users\chase\Downloads\UnityEngine.ImageConversionModule.dll</HintPath>
+        <HintPath>..\mod\plugins\UnityEngine.ImageConversionModule.dll</HintPath>
       </Reference>
     </ItemGroup>
     
