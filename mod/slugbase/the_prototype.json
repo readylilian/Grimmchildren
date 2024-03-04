@@ -5,6 +5,6 @@
 	"features": {
 		"select_menu_scene": "Slugcat_Prototype",
 		"select_menu_scene_ascended": "Ghost_Prototype",
-		"start_room": "CD_ROOM1",
+		"start_room": "CD_STARTINGROOM",
 	}
 }
