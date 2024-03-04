@@ -207,9 +207,15 @@ namespace SlugTemplate
         { }
         public static void LoadSprites()
         {
+            string path = Path.DirectorySeparatorChar +
+                "RainWorld_Data" + Path.DirectorySeparatorChar + "StreamingAssets" +
+                Path.DirectorySeparatorChar + "mods" + Path.DirectorySeparatorChar + "GrimmChildren" +
+                Path.DirectorySeparatorChar;
             try
             {
-                Futile.atlasManager.LoadAtlas("assets/icon_Fireball");
+                Debug.Log(Directory.GetCurrentDirectory());
+                Debug.Log(Directory.GetFiles(Directory.GetCurrentDirectory()));
+                Futile.atlasManager.LoadAtlas(Directory.GetCurrentDirectory() + path + "icon_Fireball");
             }
             catch (Exception ex)
             {
@@ -222,10 +228,11 @@ namespace SlugTemplate
 
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
+            Debug.Log(Directory.GetCurrentDirectory());
+
             Debug.Log("Tried to draw sprite");
-            sLeaser.sprites = new FSprite[2];
+            sLeaser.sprites = new FSprite[1];
             sLeaser.sprites[0] = new FSprite("icon_Fireball", true);
-            sLeaser.sprites[1] = new FSprite("icon_Fireball", true);
             AddToContainer(sLeaser, rCam, null);
         }
 
