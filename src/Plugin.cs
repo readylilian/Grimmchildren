@@ -5,6 +5,7 @@ using UnityEngine;
 using SlugBase.Features;
 using SlugTemplate.Hooks;
 using static SlugBase.Features.FeatureTypes;
+using System.IO;
 
 namespace SlugTemplate
 {
@@ -57,6 +58,7 @@ namespace SlugTemplate
         private void LoadResources(RainWorld rainWorld)
         {
             //Futile.atlasManager.LoadImage("atlases/icon_Fireball");
+            Futile.atlasManager.LoadImage("icon_Fireball");
         }
     }
 }

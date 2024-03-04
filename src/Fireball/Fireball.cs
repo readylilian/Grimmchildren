@@ -27,6 +27,7 @@ namespace SlugTemplate
         private float lifespan;
         private float timer;
         private bool beenThrown = false;
+
         //Mostly pearl, rock and spear stats
         public Fireball(FireballAbstract abstr, Vector2 pos, Vector2 vel) : base(abstr, abstr.world)
         {
@@ -205,26 +206,6 @@ namespace SlugTemplate
         //I know this doesn't do anything but the whole thing breaks if we get rid of it
         public override void ChangeMode(Mode newMode)
         { }
-        public static void LoadSprites()
-        {
-            string path = Path.DirectorySeparatorChar +
-                "RainWorld_Data" + Path.DirectorySeparatorChar + "StreamingAssets" +
-                Path.DirectorySeparatorChar + "mods" + Path.DirectorySeparatorChar + "GrimmChildren" +
-                Path.DirectorySeparatorChar;
-            try
-            {
-                Debug.Log(Directory.GetCurrentDirectory());
-                Debug.Log(Directory.GetFiles(Directory.GetCurrentDirectory()));
-                Futile.atlasManager.LoadAtlas(Directory.GetCurrentDirectory() + path + "icon_Fireball");
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError("LoadSprites exception: " + ex.ToString());
-            }
-            Debug.Log("LoadSprites called in fireball");
-        }
-
-
 
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {

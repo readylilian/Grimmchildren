@@ -4,6 +4,8 @@ using UnityEngine;
 using static Player;
 using Fisobs;
 using Fisobs.Core;
+using System.IO;
+using System;
 
 namespace SlugTemplate.Hooks
 {
@@ -11,6 +13,7 @@ namespace SlugTemplate.Hooks
     {
         public static int fireBalls = 0;
         public static bool metIterator = true;
+        private static bool filoaded = false;
 
         //This doesn't do much rn, would love to expand it out later.
         public class firingState
@@ -35,7 +38,7 @@ namespace SlugTemplate.Hooks
             On.Player.SwallowObject += SnowSwallowObject;
             On.Room.AddObject += RoomAddFire;
 
-            Fireball.LoadSprites();
+            //LoadSprites();
         }
 
 
@@ -96,6 +99,29 @@ namespace SlugTemplate.Hooks
                 orig(self, grasp);
             }
 
+        }
+
+        public static void LoadSprites()
+        {
+            if(!filoaded)
+            {
+                string path = Path.DirectorySeparatorChar +
+               "RainWorld_Data" + Path.DirectorySeparatorChar + "StreamingAssets" +
+               Path.DirectorySeparatorChar + "mods" + Path.DirectorySeparatorChar + "GrimmChildren" +
+               Path.DirectorySeparatorChar;
+                try
+                {
+                    Debug.Log(Directory.GetCurrentDirectory());
+                    Debug.Log(Directory.GetFiles(Directory.GetCurrentDirectory()));
+                    Futile.atlasManager.LoadImage(Directory.GetCurrentDirectory() + path + "icon_Fireball.png");
+                    filoaded = true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("LoadSprites exception: " + ex.ToString());
+                }
+                Debug.Log("LoadSprites called in fireball");
+            }
         }
     }
 }
