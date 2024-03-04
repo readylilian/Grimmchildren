@@ -1,5 +1,5 @@
 ﻿using Fisobs.Properties;
-namespace Fireball
+namespace SlugTemplate
 {
     internal class FireballProperties : ItemProperties
     {

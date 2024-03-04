@@ -3,7 +3,7 @@ using Fisobs.Items;
 using Fisobs.Properties;
 using Fisobs.Sandbox;
 
-namespace Fireball
+namespace SlugTemplate
 {
 
     sealed class FireballFisob : Fisob

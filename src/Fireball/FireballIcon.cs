@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace Fireball
+namespace SlugTemplate
 {
     sealed class FireballIcon : Icon
     {

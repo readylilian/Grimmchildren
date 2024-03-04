@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using MoreSlugcats;
 
-namespace Fireball
+namespace SlugTemplate
 {
     sealed class Fireball : Weapon, IProvideWarmth
     {
@@ -211,13 +211,13 @@ namespace Fireball
         {
             try
             {
-                Futile.atlasManager.LoadAtlas("sprites" + Path.DirectorySeparatorChar + "pokeballs");
+                Futile.atlasManager.LoadAtlas("assets/icon_Fireball");
             }
             catch (Exception ex)
             {
                 Debug.LogError("LoadSprites exception: " + ex.ToString());
             }
-            Debug.Log("LoadSprites called");
+            Debug.Log("LoadSprites called in fireball");
         }
 
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
