@@ -7,9 +7,7 @@ using RWCustom;
 public class IceBlock : UpdatableAndDeletable, IDrawable
 {
     private static float Rand => Random.value;
-
-    public AbstractIceBlock Abstr { get; }
-
+    
     public IntRect hitbox;
     
     /*public IceBlock(AbstractIceBlock abstractIceBlock, Vector2 pos) : base(abstractIceBlock)
@@ -27,56 +25,6 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
         
         // Might instantiate other variables here
     }
-    
-
-    /*public override void Update(bool eu)
-    {
-        this.WeatherInertia();
-        for (int i = 0; i < this.bodyChunks.Length; i++)
-        {
-            this.bodyChunks[i].Update();
-        }
-        this.abstractPhysicalObject.pos.Tile = this.room.GetTilePosition(this.firstChunk.pos);
-        for (int j = 0; j < this.bodyChunkConnections.Length; j++)
-        {
-            this.bodyChunkConnections[j].Update();
-        }
-        if (this.grabbedBy.Count > 0)
-        {
-            for (int k = this.grabbedBy.Count - 1; k >= 0; k--)
-            {
-                if (this.grabbedBy[k].discontinued || this.grabbedBy[k].grabber.grasps[this.grabbedBy[k].graspUsed] != this.grabbedBy[k])
-                {
-                    this.grabbedBy.RemoveAt(k);
-                }
-            }
-        }
-        if (this.room.abstractRoom.index != this.abstractPhysicalObject.pos.room)
-        {
-            if (this.abstractPhysicalObject.world != null && RainWorld.ShowLogs)
-            {
-                Debug.Log("ROOM MISMATCH FOR PHYSICAL OBJECT " + this.abstractPhysicalObject.type.ToString());
-                if (this.abstractPhysicalObject is AbstractCreature)
-                {
-                    Debug.Log("critter name: " + (this.abstractPhysicalObject as AbstractCreature).creatureTemplate.name);
-                }
-            }
-            this.abstractPhysicalObject.pos.room = this.room.abstractRoom.index;
-        }
-        if (!this.sticksRespawned)
-        {
-            this.RecreateSticksFromAbstract();
-            this.sticksRespawned = true;
-        }
-        base.Update(eu);
-        if (this.appendages != null)
-        {
-            for (int l = 0; l < this.appendages.Count; l++)
-            {
-                this.appendages[l].Update();
-            }
-        }
-    }*/
 
     // Not currently used but hopefully can be reformatted for melting
     /*private void Shatter()
