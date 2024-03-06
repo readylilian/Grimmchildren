@@ -1,5 +1,6 @@
 ﻿using System;
 using BepInEx;
+using RWCustom;
 using UnityEngine;
 using SlugBase.Features;
 using SlugTemplate.Hooks;
@@ -29,7 +30,9 @@ namespace SlugTemplate
         // Enable all mod hooks. This is the entry point for the entire mod
         public void OnEnable()
         {
+
             On.RainWorld.OnModsInit += RainWorld_OnModsInit;
+
         }
 
         private void RainWorld_OnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld self)
