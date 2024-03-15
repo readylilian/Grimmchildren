@@ -16,7 +16,7 @@ public static class PlayerHooks
     public static void Init()
     {
         // example of a hook
-        On.Player.Jump += Player_Jump;
+        //On.Player.Jump += Player_Jump;
 
         AssetLoader.LoadAssets();
         ApplyPlayerGraphicsHooks();
