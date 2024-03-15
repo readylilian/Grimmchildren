@@ -210,10 +210,18 @@ namespace SlugTemplate
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
             Debug.Log(Directory.GetCurrentDirectory());
+            FAtlas atlas = AssetLoader.GetAtlas("fireball");
+            if (atlas == null)
+            {
+                Debug.Log("Failed to draw sprite");
+                return;
+            }
+            Debug.Log("Atlast exists");
 
             Debug.Log("Tried to draw sprite");
             sLeaser.sprites = new FSprite[1];
-            sLeaser.sprites[0] = new FSprite("icon_Fireball", true);
+            Debug.Log(atlas.name);
+            sLeaser.sprites[0] = new FSprite("snowcat_fireball", true);
             AddToContainer(sLeaser, rCam, null);
         }
 

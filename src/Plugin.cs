@@ -61,7 +61,7 @@ namespace SlugTemplate
         private void LoadResources(RainWorld rainWorld)
         {
             //Futile.atlasManager.LoadImage("atlases/icon_Fireball");
-            Futile.atlasManager.LoadImage("icon_Fireball");
+            //Futile.atlasManager.LoadImage("icon_Fireball");
         }
     }
 }

@@ -37,8 +37,7 @@ namespace SlugTemplate.Hooks
             Content.Register(new FireballFisob());
             On.Player.SwallowObject += SnowSwallowObject;
             On.Room.AddObject += RoomAddFire;
-
-            //LoadSprites();
+            //Fireball.LoadSprites();
         }
 
 
@@ -63,7 +62,7 @@ namespace SlugTemplate.Hooks
             Debug.Log("Tried to swallow");
             //Registering didn't work, even moving this stuff over to slugbase
             //so create the name when you check it
-            if (self.SlugCatClass == new SlugcatStats.Name("SnowCat") && metIterator)
+            if (self.SlugCatClass == new SlugcatStats.Name("Snowcat") && metIterator)
             {
                 //This is mostly the normal code just updated for our dude and our level of access
                 //Removed any reference to objectInStomach to prevent storage
@@ -100,7 +99,7 @@ namespace SlugTemplate.Hooks
             }
 
         }
-
+        /*
         public static void LoadSprites()
         {
             if(!filoaded)
@@ -113,6 +112,7 @@ namespace SlugTemplate.Hooks
                 {
                     Debug.Log(Directory.GetCurrentDirectory());
                     Debug.Log(Directory.GetFiles(Directory.GetCurrentDirectory()));
+                    Futile.atlasManager.LoadAtlas(Directory.GetCurrentDirectory() + path + "icon_Fireball.json");
                     Futile.atlasManager.LoadImage(Directory.GetCurrentDirectory() + path + "icon_Fireball.png");
                     filoaded = true;
                 }
@@ -122,6 +122,6 @@ namespace SlugTemplate.Hooks
                 }
                 Debug.Log("LoadSprites called in fireball");
             }
-        }
+        }*/
     }
 }
