@@ -148,9 +148,4 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
             newContatiner.AddChild(sLeaser.sprites[i]);
         }
     }
-
-    public override string ToString()
-    {
-	    return base.ToString();
-    }
 }

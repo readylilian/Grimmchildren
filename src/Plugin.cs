@@ -61,7 +61,8 @@ namespace SlugTemplate
         // Load any resources, such as sprites or sounds
         private void LoadResources(RainWorld rainWorld)
         {
-            // Unused, sad
+            Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
+                "ColdSnap", false);
         }
     }
 }

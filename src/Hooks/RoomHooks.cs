@@ -7,7 +7,7 @@ public static class RoomHooks
     public static void Init()
     {
         // example of a hook
-        On.Room.Loaded += Room_Loaded;
+        //On.Room.Loaded += Room_Loaded;
         //On.World.GetAbstractRoom_string += World_GetAbstractRoom_string;
     }
 
@@ -40,7 +40,7 @@ public static class RoomHooks
 
         for (int i = 0; i < self.roomSettings.placedObjects.Count; i++)
         {
-            if (self.roomSettings.placedObjects[i].type == EnumExt_IceBlock.IceBlock)
+           // if (self.roomSettings.placedObjects[i].type == EnumExt_IceBlock.IceBlock)
             {
                 self.AddObject(
                     new IceBlock((self.roomSettings.placedObjects[i].data as PlacedObject.GridRectObjectData).Rect, self));
