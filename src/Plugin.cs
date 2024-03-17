@@ -37,6 +37,7 @@ namespace SlugTemplate
             
             // Add hooks to the game
             On.RainWorld.OnModsInit += RainWorld_OnModsInit;
+
         }
         
         private void RainWorld_OnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld self)
