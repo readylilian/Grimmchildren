@@ -13,7 +13,7 @@ namespace SlugTemplate.Hooks
     {
         public static int fireBalls = 0;
         public static bool metIterator = true;
-        private static bool filoaded = false;
+        //private static bool filoaded = false;
 
         //This doesn't do much rn, would love to expand it out later.
         public class firingState
@@ -37,7 +37,18 @@ namespace SlugTemplate.Hooks
             Content.Register(new FireballFisob());
             On.Player.SwallowObject += SnowSwallowObject;
             On.Room.AddObject += RoomAddFire;
+            //On.Weapon.SetRandomSpin += WeaponSetRandomSpin;
             //Fireball.LoadSprites();
+        }
+
+        private static void WeaponSetRandomSpin(On.Weapon.orig_SetRandomSpin orig, Weapon self)
+        {
+            // Room for some reason never saves its value in fireball so this will throw an error
+            // I've seen no other errors as a result of this yet, but it may need to be fixed eventually
+            if (self is not Fireball)
+            {
+                orig(self);
+            }
         }
 
 

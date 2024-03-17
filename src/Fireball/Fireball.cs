@@ -1,4 +1,5 @@
-﻿using RWCustom;
+﻿#nullable enable
+using RWCustom;
 using Fisobs;
 using UnityEngine;
 using System.IO;
@@ -84,7 +85,7 @@ namespace SlugTemplate
                     {
                         continue;
                     }
-                    if (room.physicalObjects[0][num7] is Weapon && mode == Mode.Thrown && (room.physicalObjects[0][num7] as Weapon).mode == Mode.Thrown && (room.physicalObjects[0][num7] as Weapon).HeavyWeapon)
+                    if (room.physicalObjects[0][num7] is Weapon && mode == Mode.Thrown && (room.physicalObjects[0][num7] as Weapon)?.mode == Mode.Thrown && ((room.physicalObjects[0][num7] as Weapon)!).HeavyWeapon)
                     {
                         if (HeavyWeapon)
                         {
@@ -95,7 +96,7 @@ namespace SlugTemplate
                         continue;
                     }
                     bodyChunk.vel += base.firstChunk.vel;
-                    HitSomethingWithoutStopping(room.physicalObjects[0][num7], bodyChunk, null);
+                    HitSomethingWithoutStopping(room.physicalObjects[0][num7], bodyChunk, null!);
                     num6 += bodyChunk.mass;
                     if (num6 > 0.6f)
                     {
@@ -111,8 +112,8 @@ namespace SlugTemplate
                         {
                             if (room.physicalObjects[0][num7].appendages[num11].canBeHit && room.physicalObjects[0][num7].appendages[num11].LineCross(base.firstChunk.lastPos, base.firstChunk.pos))
                             {
-                                (room.physicalObjects[0][num7].appendages[num11].owner as IHaveAppendages).ApplyForceOnAppendage(new Appendage.Pos(room.physicalObjects[0][num7].appendages[num11], 0, 0.5f), base.firstChunk.vel * base.firstChunk.mass);
-                                HitSomethingWithoutStopping(room.physicalObjects[0][num7], null, room.physicalObjects[0][num7].appendages[num11]);
+                                (room.physicalObjects[0][num7].appendages[num11].owner as IHaveAppendages)?.ApplyForceOnAppendage(new Appendage.Pos(room.physicalObjects[0][num7].appendages[num11], 0, 0.5f), base.firstChunk.vel * base.firstChunk.mass);
+                                HitSomethingWithoutStopping(room.physicalObjects[0][num7], null!, room.physicalObjects[0][num7].appendages[num11]);
                             }
                         }
                     }
@@ -179,7 +180,7 @@ namespace SlugTemplate
                 }
                 Debug.Log(result.obj);
                 Debug.Log("Fireball hit creature");
-                BodyChunk bodyChunk = null;
+                BodyChunk bodyChunk = null!;
                 Creature creature = (Creature)result.obj;
                 if (result.chunk != null)
                 {

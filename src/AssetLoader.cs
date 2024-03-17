@@ -6,6 +6,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.ImageConversion; // Not building for some reason
+
+//using UnityEngine;
+
 //This entire piece of code was ripped pretty much wholesale from the mod Pearlcat
 namespace SlugTemplate
 {
