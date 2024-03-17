@@ -9,6 +9,14 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
     private static float Rand => Random.value;
     
     public IntRect hitbox;
+    public FloatRect GetFloatHitbox
+    {
+	    get
+	    {
+		    return new FloatRect(hitbox.left * 20f - 2f, hitbox.bottom * 20f - 2f, hitbox.right * 20f + 22f,
+			    hitbox.top * 20f + 22f);
+	    }
+    }
     
     /*public IceBlock(AbstractIceBlock abstractIceBlock, Vector2 pos) : base(abstractIceBlock)
     {
@@ -73,7 +81,7 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
         sLeaser.sprites[0] = triangleMesh;
         sLeaser.sprites[0].shader = rCam.room.game.rainWorld.Shaders["FlareBomb"];
         sLeaser.sprites[0].color = new Color(0f, 0f, 1f);
-        this.AddToContainer(sLeaser, rCam, null);
+        AddToContainer(sLeaser, rCam, null);
     }
 
     public void DrawSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, float timeStacker, Vector2 camPos)
@@ -82,10 +90,10 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
         
         //float num = Mathf.Lerp(this.lastTurnedOn, this.turnedOn, timeStacker);
         sLeaser.sprites[0].alpha = 1;// = num;
-		Vector2 a = new Vector2((float)this.hitbox.left * 20f, (float)this.hitbox.bottom * 20f);
-		Vector2 a2 = new Vector2((float)(this.hitbox.right + 1) * 20f, (float)(this.hitbox.top + 1) * 20f);
-		Vector2 a3 = new Vector2((float)this.hitbox.left * 20f, (float)(this.hitbox.top + 1) * 20f);
-		Vector2 a4 = new Vector2((float)(this.hitbox.right + 1) * 20f, (float)this.hitbox.bottom * 20f);
+		Vector2 a = new Vector2(hitbox.left * 20f, hitbox.bottom * 20f);
+		Vector2 a2 = new Vector2((hitbox.right + 1) * 20f, (hitbox.top + 1) * 20f);
+		Vector2 a3 = new Vector2(hitbox.left * 20f, (hitbox.top + 1) * 20f);
+		Vector2 a4 = new Vector2((hitbox.right + 1) * 20f, hitbox.bottom * 20f);
 		float num2 = 120f; //* num;
 		float num3 = 30f;
 		float num4 = 1f;
@@ -139,5 +147,10 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
             sLeaser.sprites[i].RemoveFromContainer();
             newContatiner.AddChild(sLeaser.sprites[i]);
         }
+    }
+
+    public override string ToString()
+    {
+	    return base.ToString();
     }
 }
