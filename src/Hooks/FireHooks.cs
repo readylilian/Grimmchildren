@@ -62,6 +62,7 @@ namespace SlugTemplate.Hooks
                 firing.direction = new IntVector2(0, 1);
                 var abstr = new FireballAbstract(self.world, self.PlayersInRoom[0].abstractCreature.pos, self.game.GetNewID());
                 obj = new Fireball(abstr, fire.tailPos, firing.Velocity);
+                obj.room = self;
                 self.abstractRoom.AddEntity(abstr);
             }
             orig(self, obj);
