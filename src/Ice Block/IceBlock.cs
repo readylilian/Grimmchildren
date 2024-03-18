@@ -9,6 +9,7 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
     private static float Rand => Random.value;
     
     public IntRect hitbox;
+
     public FloatRect GetFloatHitbox
     {
 	    get
@@ -30,7 +31,7 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
     public IceBlock(IntRect rect, Room room)
     {
         hitbox = rect;
-        
+
         // Might instantiate other variables here
     }
 
@@ -60,28 +61,36 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
         Destroy();
     }*/
 
+   /* public override void Update(bool eu)
+    {
+	    base.Update(eu);
+	    //Rect areaRect = new Rect(owner.pos.x, owner.pos.y, owner.data.xHandle)
+    }*/
+
     public void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
     {
-        TriangleMesh.Triangle[] array = new TriangleMesh.Triangle[6];
-        for (int i = 0; i < 6; i++)
-        {
-            array[i] = new TriangleMesh.Triangle(i, i + 1, i + 2);
-        }
-        TriangleMesh triangleMesh = new TriangleMesh("Futile_White", array, false, false);
-        float num = 0.4f;
-        triangleMesh.UVvertices[0] = new Vector2(0f, 0f);
-        triangleMesh.UVvertices[1] = new Vector2(1f, 0f);
-        triangleMesh.UVvertices[2] = new Vector2(0f, num);
-        triangleMesh.UVvertices[3] = new Vector2(1f, num);
-        triangleMesh.UVvertices[4] = new Vector2(0f, 1f - num);
-        triangleMesh.UVvertices[5] = new Vector2(1f, 1f - num);
-        triangleMesh.UVvertices[6] = new Vector2(0f, 1f);
-        triangleMesh.UVvertices[7] = new Vector2(1f, 1f);
-        sLeaser.sprites = new FSprite[1];
-        sLeaser.sprites[0] = triangleMesh;
-        sLeaser.sprites[0].shader = rCam.room.game.rainWorld.Shaders["FlareBomb"];
-        sLeaser.sprites[0].color = new Color(0f, 0f, 1f);
-        AddToContainer(sLeaser, rCam, null);
+	    TriangleMesh.Triangle[] array = new TriangleMesh.Triangle[6];
+	    for (int i = 0; i < 6; i++)
+	    {
+		    array[i] = new TriangleMesh.Triangle(i, i + 1, i + 2);
+	    }
+	    TriangleMesh triangleMesh = new TriangleMesh("Futile_White", array, false, false);
+	    float num = 0.4f;
+	    triangleMesh.UVvertices[0] = new Vector2(0f, 0f);
+	    triangleMesh.UVvertices[1] = new Vector2(1f, 0f);
+	    triangleMesh.UVvertices[2] = new Vector2(0f, num);
+	    triangleMesh.UVvertices[3] = new Vector2(1f, num);
+	    triangleMesh.UVvertices[4] = new Vector2(0f, 1f - num);
+	    triangleMesh.UVvertices[5] = new Vector2(1f, 1f - num);
+	    triangleMesh.UVvertices[6] = new Vector2(0f, 1f);
+	    triangleMesh.UVvertices[7] = new Vector2(1f, 1f);
+	    sLeaser.sprites = new FSprite[1];
+	    sLeaser.sprites[0] = triangleMesh;
+	    sLeaser.sprites[0].shader = rCam.room.game.rainWorld.Shaders["FlareBomb"];
+	    sLeaser.sprites[0].color = new Color(0f, 0f, 1f);
+	    AddToContainer(sLeaser, rCam, null);
+	    //sLeaser.sprites[0] = new FSprite("Futile_White");
+	    //this.AddToContainer(sLeaser, rCam, null);
     }
 
     public void DrawSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, float timeStacker, Vector2 camPos)
@@ -117,7 +126,7 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
 		(sLeaser.sprites[0] as TriangleMesh).MoveVertice(7, a4 - camPos);
 		
             
-		sLeaser.sprites[0].color = new Color(.25f/*Mathf.InverseLerp(0f, 0.5f, this.zapLit) * num*/, .25f/*Mathf.InverseLerp(0f, 0.5f, this.zapLit) * num*/, 1f);
+		/*sLeaser.sprites[0].color = new Color(.25f/*Mathf.InverseLerp(0f, 0.5f, this.zapLit) * num*///, .25f/*Mathf.InverseLerp(0f, 0.5f, this.zapLit) * num*/, 1f);
 		if (base.slatedForDeletetion || this.room != rCam.room)
 		{
 			sLeaser.CleanSpritesAndRemove();
@@ -131,21 +140,6 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
 
     public void AddToContainer(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, FContainer newContatiner)
     {
-        if (newContatiner == null)
-        {
-            if (rCam.room.roomSettings.GetEffectAmount(RoomSettings.RoomEffect.Type.WaterLights) > 0f)
-            {
-                newContatiner = rCam.ReturnFContainer("Water");
-            }
-            else
-            {
-                newContatiner = rCam.ReturnFContainer("Foreground");
-            }
-        }
-        for (int i = 0; i < sLeaser.sprites.Length; i++)
-        {
-            sLeaser.sprites[i].RemoveFromContainer();
-            newContatiner.AddChild(sLeaser.sprites[i]);
-        }
+        rCam.ReturnFContainer("Foreground").AddChild(sLeaser.sprites[0]);
     }
 }

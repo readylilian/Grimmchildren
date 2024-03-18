@@ -41,10 +41,10 @@ public static class RoomHooks
         for (int i = 0; i < self.roomSettings.placedObjects.Count; i++)
         {
            // if (self.roomSettings.placedObjects[i].type == EnumExt_IceBlock.IceBlock)
-            {
-                self.AddObject(
-                    new IceBlock((self.roomSettings.placedObjects[i].data as PlacedObject.GridRectObjectData).Rect, self));
-            }
+           {
+               //self.AddObject(
+                 //  new IceBlock((self.roomSettings.placedObjects[i].data as PlacedObject.GridRectObjectData).Rect, self));
+           }
         }
     }
 }

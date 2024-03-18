@@ -1,4 +1,5 @@
 ﻿using RWCustom;
+using UnityEngine;
 
 namespace SlugTemplate.Ice_Block;
 
@@ -10,7 +11,7 @@ public class PlacedIceBlock : IceBlock
         IntRect.MakeFromIntVector2(((IceBlockData) owner.data).hitbox), room)
     {
         //IceBlockData iceBlockData = owner.data as IceBlockData;
-        this._po = owner;
+        _po = owner;
     }
 
     private IceBlockData _Data
@@ -22,9 +23,26 @@ public class PlacedIceBlock : IceBlock
         }
     }
 
-    // Useless currently. I just want to remember I can do this
     public override void Update(bool eu)
     {
         base.Update(eu);
+        Rect areaRect = new Rect(_po.pos.x, _po.pos.y, _Data.xHandle.magnitude, _Data.yHandle.magnitude);
+        Vector2 center = areaRect.center;
+        float angle = Custom.VecToDeg(_Data.yHandle);
+        foreach (UpdatableAndDeletable obj in room.updateList)
+        {
+            if (obj is PhysicalObject p)
+            {
+                foreach (BodyChunk chunk in p.bodyChunks)
+                {
+                    Vector2 rotatedPosition = Custom.RotateAroundVector(chunk.pos, _po.pos, -angle);
+                    Vector2 centerBias = (center - rotatedPosition).normalized * 0.01f;
+                    Vector2 collisionCandidate =
+                        Custom.RotateAroundVector(areaRect.GetClosestInteriorPoint(rotatedPosition), _po.pos, angle);
+                    centerBias = Custom.RotateAroundOrigo(centerBias, angle);
+                    p.PushOutOf(collisionCandidate + centerBias, 0f, -1);
+                }
+            }
+        }
     }
 }
