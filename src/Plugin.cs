@@ -1,13 +1,18 @@
 ﻿using System;
 using BepInEx;
 using RWCustom;
+using Fisobs.Core;
 using UnityEngine;
 using SlugBase.Features;
 using SlugTemplate.Hooks;
 using static SlugBase.Features.FeatureTypes;
+using System.IO;
 
 namespace SlugTemplate
 {
+    // Additional dependency for Fisobs to prevent errors. I think. I don't know what this does.
+    [BepInDependency("github.notfood.BepInExPartialityWrapper", BepInDependency.DependencyFlags.SoftDependency)]
+    
     // Connects us to the api
     [BepInPlugin("GrimmChildrenMod", "GrimmChildren", "0.1.0")]
     public class Plugin : BaseUnityPlugin
@@ -46,7 +51,7 @@ namespace SlugTemplate
             
             // Enable our custom hooks
             PlayerHooks.Init();
-            
+            FireHooks.Init();
             
             // Enables the options menu
             MachineConnector.SetRegisteredOI("GrimmChildrenMod", options);
@@ -55,7 +60,8 @@ namespace SlugTemplate
         // Load any resources, such as sprites or sounds
         private void LoadResources(RainWorld rainWorld)
         {
-            // Unused, sad
+            //Futile.atlasManager.LoadImage("atlases/icon_Fireball");
+            //Futile.atlasManager.LoadImage("icon_Fireball");
         }
     }
 }

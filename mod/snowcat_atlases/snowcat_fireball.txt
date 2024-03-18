@@ -1,0 +1,20 @@
+{"frames": {
+
+"snowcat_fireball.png":
+{
+	"frame": {"x":2,"y":2,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "snowcat_fireball.png",
+	"format": "RGBA8888",
+	"size": {"w":9,"h":9},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:2039487f3d59fb5924059ec57635f199:8a102d03c0a79f99a438e475b013d026:dd90b730fd10e32f5d5501d6e43b4950$"
+}
+}
