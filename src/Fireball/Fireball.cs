@@ -6,6 +6,7 @@ using System.IO;
 using System;
 using System.Threading;
 using MoreSlugcats;
+using MonoMod.Cil;
 
 namespace SlugTemplate
 {
