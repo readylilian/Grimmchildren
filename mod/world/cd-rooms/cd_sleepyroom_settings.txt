@@ -1,0 +1,16 @@
+DangerType: Blizzard
+RainIntensity: 0
+WaveSpeed: 0.5
+WaveLength: 1
+WaveAmplitude: 5.605194E-45
+SecondWaveLength: 0.1666667
+SecondWaveAmplitude: 0
+BkgDroneVolume: 0
+BkgDroneNoThreatVolume: 0
+Palette: 62
+EffectColorA: 15
+EffectColorB: 6
+Effects: HeatWave-0-688-441, MossWater-0-954-432, MosquitoInsects-0-621-530, LavaSurface-0.4891304-381-119, WaterViscosity-0.4782609-971-351, MurkyWater-1-20-20, 
+PlacedObjects: LanternOnStick><574.4496><270.7377><20~-49, SteamPipe><545.8018><199.5265><7~-27, LanternOnStick><457.4341><247.422><-9~-30, InsectGroup><616.3702><258.6522><56~27~0~0~GrassHopper~0.5, 
+AmbientSounds: OMNI><AM_ENV-Forest.ogg><760.2805><535.5524><0><0.1, OMNI><AM_ENV-Woods.ogg><752.929><367.8393><0.6413044><0.8826087, 
+FadePalette: 7, 0.1086956

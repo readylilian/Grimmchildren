@@ -2,9 +2,19 @@ DangerType: Blizzard
 CeilingDrips: 0
 RainIntensity: 1
 RumbleIntensity: 1
+WaveSpeed: 0.4786779
+WaveLength: 0.9020777
+WaveAmplitude: 0.01995415
+SecondWaveLength: 0.1666667
+SecondWaveAmplitude: 0
 Clouds: 0
 Grime: 0
+BkgDroneVolume: 0.3
+BkgDroneNoThreatVolume: 1
+RandomItemDensity: 0.5
+RandomItemSpearChance: 0.2
+WaterReflectionAlpha: 1
 Palette: 10
 EffectColorA: 0
 EffectColorB: 0
-Effects: LightBurn-0.3043478-20-20,
+Effects: Coldness-1-20-20, LightBurn-0.3043478-20-20, 
