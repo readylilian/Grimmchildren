@@ -46,8 +46,10 @@ namespace SlugTemplate
             
             // Honestly, no idea what the extra class does. I never had one in my mod.
             // This hook can probably be deleted if we never load resources
-            On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
+            //On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
 
+            Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
+                "ColdSnap", false);
             
             // Enable our custom hooks
             PlayerHooks.Init();
@@ -56,13 +58,6 @@ namespace SlugTemplate
             
             // Enables the options menu
             MachineConnector.SetRegisteredOI("GrimmChildrenMod", options);
-        }
-
-        // Load any resources, such as sprites or sounds
-        private void LoadResources(RainWorld rainWorld)
-        {
-            Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
-                "ColdSnap", false);
         }
     }
 }

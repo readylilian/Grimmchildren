@@ -69,68 +69,52 @@ public class IceBlock : UpdatableAndDeletable, IDrawable
 
     public void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
     {
-	    TriangleMesh.Triangle[] array = new TriangleMesh.Triangle[6];
-	    for (int i = 0; i < 6; i++)
-	    {
-		    array[i] = new TriangleMesh.Triangle(i, i + 1, i + 2);
-	    }
-	    TriangleMesh triangleMesh = new TriangleMesh("Futile_White", array, false, false);
-	    float num = 0.4f;
-	    triangleMesh.UVvertices[0] = new Vector2(0f, 0f);
-	    triangleMesh.UVvertices[1] = new Vector2(1f, 0f);
-	    triangleMesh.UVvertices[2] = new Vector2(0f, num);
-	    triangleMesh.UVvertices[3] = new Vector2(1f, num);
-	    triangleMesh.UVvertices[4] = new Vector2(0f, 1f - num);
-	    triangleMesh.UVvertices[5] = new Vector2(1f, 1f - num);
-	    triangleMesh.UVvertices[6] = new Vector2(0f, 1f);
-	    triangleMesh.UVvertices[7] = new Vector2(1f, 1f);
-	    sLeaser.sprites = new FSprite[1];
-	    sLeaser.sprites[0] = triangleMesh;
-	    sLeaser.sprites[0].shader = rCam.room.game.rainWorld.Shaders["FlareBomb"];
-	    sLeaser.sprites[0].color = new Color(0f, 0f, 1f);
-	    AddToContainer(sLeaser, rCam, null);
-	    //sLeaser.sprites[0] = new FSprite("Futile_White");
-	    //this.AddToContainer(sLeaser, rCam, null);
+	    sLeaser.sprites = new FSprite[3];
+	    sLeaser.sprites[0] = new FSprite("JetFishEyeA", true);
+	    sLeaser.sprites[1] = new FSprite("tinyStar", true);
+	    sLeaser.sprites[2] = new FSprite("Futile_White", true);
+	    sLeaser.sprites[2].shader = rCam.game.rainWorld.Shaders["FlatLightBehindTerrain"];
+	    this.AddToContainer(sLeaser, rCam, null);
     }
 
     public void DrawSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, float timeStacker, Vector2 camPos)
     {
-        sLeaser.sprites[0].color = Color.cyan;
-        
-        //float num = Mathf.Lerp(this.lastTurnedOn, this.turnedOn, timeStacker);
-        sLeaser.sprites[0].alpha = 1;// = num;
-		Vector2 a = new Vector2(hitbox.left * 20f, hitbox.bottom * 20f);
-		Vector2 a2 = new Vector2((hitbox.right + 1) * 20f, (hitbox.top + 1) * 20f);
-		Vector2 a3 = new Vector2(hitbox.left * 20f, (hitbox.top + 1) * 20f);
-		Vector2 a4 = new Vector2((hitbox.right + 1) * 20f, hitbox.bottom * 20f);
-		float num2 = 120f; //* num;
-		float num3 = 30f;
-		float num4 = 1f;
-		float num5 = 1f;
-		
-		a.x -= num2 * num4;
-		a3.x -= num2 * num5;
-		a2.x += num2 * num5;
-		a4.x += num2 * num4;
-		a.y -= num3;
-		a4.y -= num3;
-		a3.y += num3;
-		a2.y += num3;
-		(sLeaser.sprites[0] as TriangleMesh).MoveVertice(0, a3 - camPos);
-		(sLeaser.sprites[0] as TriangleMesh).MoveVertice(1, a2 - camPos);
-		(sLeaser.sprites[0] as TriangleMesh).MoveVertice(2, a3 + new Vector2(0f, -num3) - camPos);
-		(sLeaser.sprites[0] as TriangleMesh).MoveVertice(3, a2 + new Vector2(0f, -num3) - camPos);
-		(sLeaser.sprites[0] as TriangleMesh).MoveVertice(4, a + new Vector2(0f, num3) - camPos);
-		(sLeaser.sprites[0] as TriangleMesh).MoveVertice(5, a4 + new Vector2(0f, num3) - camPos);
-		(sLeaser.sprites[0] as TriangleMesh).MoveVertice(6, a - camPos);
-		(sLeaser.sprites[0] as TriangleMesh).MoveVertice(7, a4 - camPos);
-		
-            
-		/*sLeaser.sprites[0].color = new Color(.25f/*Mathf.InverseLerp(0f, 0.5f, this.zapLit) * num*///, .25f/*Mathf.InverseLerp(0f, 0.5f, this.zapLit) * num*/, 1f);
-		if (base.slatedForDeletetion || this.room != rCam.room)
-		{
-			sLeaser.CleanSpritesAndRemove();
-		}
+	    /*Vector2 vector = Vector2.Lerp(firstChunk.lastPos, base.firstChunk.pos, timeStacker);
+	    float num = Mathf.Lerp(this.lastGlimmer, this.glimmer, timeStacker);
+	    if (this.AbstractPearl.hidden)
+	    {
+		    vector.y -= 5f;
+		    num *= 1.2f;
+	    }
+	    sLeaser.sprites[1].x = vector.x - camPos.x - 0.5f;
+	    sLeaser.sprites[1].y = vector.y - camPos.y + 1.5f;
+	    sLeaser.sprites[0].x = vector.x - camPos.x;
+	    sLeaser.sprites[0].y = vector.y - camPos.y;
+	    sLeaser.sprites[2].x = vector.x - camPos.x;
+	    sLeaser.sprites[2].y = vector.y - camPos.y;*/
+	    /*sLeaser.sprites[0].color = Color.Lerp(Custom.RGB2RGBA(this.color * Mathf.Lerp(1f, 0.2f, this.darkness), 1f), new Color(1f, 1f, 1f), num);
+	    if (this.highlightColor != null)
+	    {
+		    Color color = Color.Lerp(this.highlightColor.Value, new Color(1f, 1f, 1f), num);
+		    sLeaser.sprites[2].color = color;
+		    sLeaser.sprites[1].color = Color.Lerp(Custom.RGB2RGBA(this.highlightColor.Value * Mathf.Lerp(1f, 0.5f, this.darkness), 1f), color, num);
+	    }
+	    else
+	    {
+		    sLeaser.sprites[1].color = Color.Lerp(Custom.RGB2RGBA(this.color * Mathf.Lerp(1.3f, 0.5f, this.darkness), 1f), new Color(1f, 1f, 1f), Mathf.Lerp(0.5f + 0.5f * num, 0.2f + 0.8f * num, this.darkness));
+	    }
+	    if (num > 0.9f && base.firstChunk.submersion == 1f)
+	    {
+		    sLeaser.sprites[0].color = new Color(0f, 0.003921569f, 0f);
+		    sLeaser.sprites[1].color = new Color(0f, 0.003921569f, 0f);
+	    }
+	    sLeaser.sprites[2].alpha = num * 0.5f;
+	    sLeaser.sprites[2].scale = 20f * num * ((this.AbstractPearl.dataPearlType != DataPearl.AbstractDataPearl.DataPearlType.Misc && this.AbstractPearl.dataPearlType != DataPearl.AbstractDataPearl.DataPearlType.Misc2) ? 1.35f : 1f) / 16f;
+	    sLeaser.sprites[1].isVisible = true;*/
+	    if (base.slatedForDeletetion || this.room != rCam.room)
+	    {
+		    sLeaser.CleanSpritesAndRemove();
+	    }
     }
 
     public void ApplyPalette(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, RoomPalette palette)
