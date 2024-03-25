@@ -1,14 +1,14 @@
-﻿using RWCustom;
+﻿using MoreSlugcats;
+using RWCustom;
 using UnityEngine;
 
 namespace SlugTemplate.Ice_Block;
 
-public class PlacedIceBlock : IceBlock
+public class PlacedIceBlock : SnowSource
 {
     private PlacedObject _po;
 
-    public PlacedIceBlock(PlacedObject owner, Room room) : base(
-        IntRect.MakeFromIntVector2(((IceBlockData) owner.data).hitbox), room)
+    public PlacedIceBlock(PlacedObject owner, Room room) : base(Vector2.zero)
     {
         //IceBlockData iceBlockData = owner.data as IceBlockData;
         _po = owner;
