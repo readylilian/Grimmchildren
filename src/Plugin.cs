@@ -33,11 +33,9 @@ namespace SlugTemplate
         public void OnEnable()
         {
             // Add custom objects to the game
-            //Content.Register(new IceBlockFisobs());
             
             // Add hooks to the game
             On.RainWorld.OnModsInit += RainWorld_OnModsInit;
-
         }
         
         private void RainWorld_OnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld self)
@@ -45,8 +43,9 @@ namespace SlugTemplate
             orig(self);
             
             // Required or keys mess up
-            On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
-            
+            //On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
+            Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
+                "ColdSnap", false);
             
             // Enable our custom hooks
             PlayerHooks.Init();

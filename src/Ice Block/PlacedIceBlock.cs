@@ -8,10 +8,11 @@ public class PlacedIceBlock : SnowSource
 {
     private PlacedObject _po;
 
-    public PlacedIceBlock(PlacedObject owner, Room room) : base(Vector2.zero)
+    public PlacedIceBlock(PlacedObject owner, Room room) : base(owner.pos)
     {
         //IceBlockData iceBlockData = owner.data as IceBlockData;
         _po = owner;
+        //new SnowSource()
     }
 
     private IceBlockData _Data
@@ -25,7 +26,11 @@ public class PlacedIceBlock : SnowSource
 
     public override void Update(bool eu)
     {
+        pos = _po.pos;
+        rad = _Data.radHandle.magnitude;
         base.Update(eu);
+        
+        
         Rect areaRect = new Rect(_po.pos.x, _po.pos.y, _Data.xHandle.magnitude, _Data.yHandle.magnitude);
         Vector2 center = areaRect.center;
         float angle = Custom.VecToDeg(_Data.yHandle);
