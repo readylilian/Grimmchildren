@@ -2,7 +2,7 @@
     {
         "id": "SRS",
         "roomId": "CD_ITERATORROOM",
-        "airFriction": 0.99,
+        "airFriction": 1,
         "annoyedScore": 5,
         "angryScore": 0,
         "talkHeight": 0,
@@ -12,7 +12,7 @@
             "y": 32
         },
         "roomEffects": {
-            "swarmers": 15
+            "swarmers": 0
         },
         "cornerPositions": [
             {
@@ -34,35 +34,35 @@
         ],
         "body": {
             "oracleColor": {
-                "r": 239,
+                "r": 74,
                 "g": 209,
-                "b": 74
+                "b": 239
             },
             "halo": null,
             "arm": {
                 "armColor": {
-                    "r": 255,
+                    "r": 0,
                     "g": 0,
-                    "b": 0
+                    "b": 239
                 },
                 "armHighlight": {
-                    "r": 255,
-                    "g": 0,
-                    "b": 0
+                    "r": 239,
+                    "g": 239,
+                    "b": 239
                 }
             },
             "sigil": null,
             "gown": {
                 "color": {
                     "type": "solid",
-                    "r": 255,
-                    "g": 0,
-                    "b": 0
+                    "r": 150,
+                    "g": 150,
+                    "b": 150
                 }
             },
             "eyes": {
                 "r": 0,
-                "g": 0,
+                "g": 239,
                 "b": 0
             }
         },
@@ -70,33 +70,20 @@
             "generic": [
                 {
                     "event": "playerEnter",
-                    "random": true,
                     "gravity": 1,
                     "sound": "SS_AI_Exit_Work_Mode",
                     "moveTo": {
                         "x": 241,
                         "y": 244
                     },
-                    "texts": [ "Hello <PlayerName>!", "This is a randomly picked dialog" ],
+                    "texts": [ "Little one… you seem cold, too… how awful" ],
                     "color": {
                         "r": 255,
                         "g": 0,
                         "b": 255,
                         "a": 255
                     },
-                    "action": "giveMark",
-                    "screens": [
-                        {
-                            "image": "aiimg3",
-                            "hold": 80,
-                            "alpha": 200,
-                            "pos": {
-                                "x": 370,
-                                "y": 300
-                            },
-                            "moveSpeed": 0
-                        }
-                    ]
+                    "action": "giveMark"
                 },
                 {
                     "event": "afterGiveMark",
@@ -108,15 +95,9 @@
                 },
                 {
                     "event": "afterGiveMark",
-                    "for": [ "Red" ],
-                    "texts": [ "This is only avalible for red!" ],
+                    "texts": [ "Little one… you seem cold, too… how awful" ],
                     "action": "giveKarma",
                     "actionParam": 9
-                },
-                {
-                    "event": "afterGiveMark",
-                    "for": [ "Red" ],
-                    "texts": [ "This is only avalible for red!" ]
                 },
                 {
                     "event": "afterGiveMark",
@@ -127,13 +108,17 @@
                     "hold": 4,
                     "movement": "talk",
                     "texts": [
-                        "This is the main dialog informing the player what to do.",
-                        "This occurs first if they player already has the mark."
+                        "long ago, my source of power was severed…",
+                        "I did not immediately cease to function, but I have been running thin ",
+                        "If you want to return this area back to how it was… I will need your help…",
+                        "If you restore the four connectors, I will be able to regain my full functionality…",
+                        "Here, a gift to help you",
+                        "Do not fail me, little one"
                     ]
                 },
                 {
                     "event": "playerConversation",
-                    "gravity": 0
+                    "gravity": 1
                 },
                 {
                     "event": "noeventy",
@@ -199,152 +184,6 @@
             "genMax": 100
         }
 
-    },
-    {
-        "id": "TEST",
-        "roomId": "SU_nowhere",
-        "gravity": 0.9,
-        "airFriction": 0.99,
-        "swarmers": 0,
-        "cornerPositions": [
-            {
-                "x": 10,
-                "y": 33
-            },
-            {
-                "x": 38,
-                "y": 33
-            },
-            {
-                "x": 38,
-                "y": 3
-            },
-            {
-                "x": 10,
-                "y": 3
-            }
-        ],
-        "body": {
-            "oracleColor": {
-                "color": {
-                    "r": 255,
-                    "g": 0,
-                    "b": 0,
-                    "a": 255
-                }
-            },
-            "eyes": {
-                "r": 255,
-                "g": 0,
-                "b": 0
-            },
-            "head": {
-                "r": 0,
-                "g": 0,
-                "b": 255
-            },
-            "chin": {
-                "r": 0,
-                "g": 0,
-                "b": 255
-            },
-            "neck": {
-                "r": 255,
-                "g": 255,
-                "b": 255
-            },
-            "torso": {
-                "r": 255,
-                "g": 127,
-                "b": 127
-            },
-            "arms": {
-                "r": 127,
-                "g": 127,
-                "b": 127
-            },
-            "hands": {
-                "r": 255,
-                "g": 0,
-                "b": 255
-            },
-            "legs": {
-                "r": 0,
-                "g": 0,
-                "b": 255
-            },
-            "feet": {
-                "r": 0,
-                "g": 0,
-                "b": 255
-            },
-            "_comment": "gown can also be null",
-            "gown": null,
-            "sigil": null
-        },
-        "dialogs": {
-            "generic": [
-                {
-                    "event": "playerEnter",
-                    "random": true,
-                    "hold": 5,
-                    "gravity": 0.8,
-                    "sound": "SS_AI_Exit_Work_Mode",
-                    "moveTo": {
-                        "x": 241,
-                        "y": 244
-                    },
-                    "texts": [ "Oh, hello!", "Welcome back <PlayerName>", "Hello <PlayerName>!" ],
-                    "action": "kickPlayerOut",
-                    "actionParam": "SU_test"
-                }
-            ]
-
-        }
-    },
-    {
-        "id": "SL",
-        "override": "moon",
-        "for": [ "Yellow", "Rivulet" ],
-        "events": {
-            "generic": [
-                {
-                    "event": "moonYellowFirstConversation",
-                    "texts": [ "This is custom text!" ]
-                },
-                {
-                    "event": "customSlug",
-                    "random": true,
-                    "texts": [ "This shows only for modded slugcats!", "Oh hello <PLAYERNAME>! This is dialog for modded slugs." ]
-                }
-            ],
-            "pearls": [
-                {
-                    "item": "SLchimney",
-                    "texts": [ "This is custom pearl text!" ]
-                }
-            ],
-            "items": [
-                {
-                    "item": "rock",
-                    "texts": [ "This is rock <PLAYERNAME>" ]
-                }
-            ]
-        }
-
-    },
-    {
-        "id": "SS",
-        "for": [ "sparkcat" ],
-        "events": {
-            "generic": [
-                {
-                    "event": "playerEnter",
-                    "texts": [ "This is custom text for custom slugcats like you <PLAYERNAME>!" ],
-                    "action": "kickPlayerOut"
-                }
-            ]
-        }
     }
 
 ]
