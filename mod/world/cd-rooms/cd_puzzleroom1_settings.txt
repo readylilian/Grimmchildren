@@ -2,10 +2,14 @@ DangerType: Blizzard
 CeilingDrips: 0
 RainIntensity: 1
 RumbleIntensity: 1
-WaveSpeed: 0.5092334
-WaveLength: 0.9271265
-WaveAmplitude: 0.01651409
+WaveSpeed: 0.5392768
+WaveLength: 0.8984899
+WaveAmplitude: 0.01893042
 SecondWaveLength: 0.1666667
 SecondWaveAmplitude: 0
+Grime: 0
+RandomItemDensity: 0
+RandomItemSpearChance: 0
+Palette: 5
 Effects: Coldness-1-30-30, 
-PlacedObjects: SnowSource><511.1957><514.8075><None~726~24~50~86.60254~0.7173913~1, SnowSource><841.459><1415.054><None~327~45~50~86.60254~0.75~1, SnowSource><233.551><1479.73><None~339~93~50~86.60254~0.7717391~1, 
+PlacedObjects: SnowSource><511.1957><514.8075><None~726~24~50~86.60254~0.7173913~1, SnowSource><810.459><1344.054><None~66~27~50~86.60254~0.75~1, SnowSource><253.551><1312.73><None~45~29~50~86.60254~0.7717391~1, 
