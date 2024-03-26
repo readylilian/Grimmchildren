@@ -147,8 +147,7 @@ public static class PlayerHooks
         FSprite legsSprite = sLeaser.sprites[4];
         FSprite markSprite = sLeaser.sprites[11];
         Color bodyColor = new Color(0.8f, 0.8f, 0.8f, 1.0f);
-        Color accentColor = new Color(0.8f, 0.8f, 0.8f, 1.0f); ;
-        Color cloakColor = new Color(0.8f, 0.8f, 0.8f, 1.0f); ;
+        Color accentColor = new Color(0.8f, 0.8f, 0.8f, 1.0f);
 
         bodySprite.color = bodyColor;
         hipsSprite.color = bodyColor;
