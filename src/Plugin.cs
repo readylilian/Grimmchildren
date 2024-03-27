@@ -40,6 +40,9 @@ namespace SlugTemplate
 
         }
 
+       // public static readonly Oracle.OracleID SRS = new Oracle.OracleID("SRS", register: true);
+
+
         private void RainWorld_OnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld self)
         {
             orig(self);
@@ -47,8 +50,8 @@ namespace SlugTemplate
             // Honestly, no idea what the extra class does. I never had one in my mod.
             // This hook can probably be deleted if we never load resources
             On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
+            //On.OracleBehavior.Update += OracleBehavior_Update;
 
-            
             // Enable our custom hooks
             PlayerHooks.Init();
             FireHooks.Init();
@@ -63,5 +66,14 @@ namespace SlugTemplate
             //Futile.atlasManager.LoadImage("atlases/icon_Fireball");
             //Futile.atlasManager.LoadImage("icon_Fireball");
         }
+
+/*        private void OracleBehavior_Update(On.OracleBehavior.orig_Update orig, OracleBehavior self, bool eu)
+        {
+            orig(self, eu);
+            if (self.oracle.ID == SRS)
+            {
+                // your custom code here
+            }
+        }*/
     }
 }

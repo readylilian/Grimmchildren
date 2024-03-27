@@ -55,8 +55,8 @@ namespace SlugTemplate
         public static void LoadAssets()
         {
             AssetLoader.LoadAtlases();
-            //AssetLoader.LoadSprites();
-            //AssetLoader.LoadTextures();
+            AssetLoader.LoadSprites();
+            AssetLoader.LoadTextures();
             Debug.Log("LoadAssets called");
         }
 

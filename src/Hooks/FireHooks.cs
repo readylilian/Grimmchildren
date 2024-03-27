@@ -61,7 +61,9 @@ namespace SlugTemplate.Hooks
                 firingState firing = new firingState();
                 firing.direction = new IntVector2(0, 1);
                 var abstr = new FireballAbstract(self.world, self.PlayersInRoom[0].abstractCreature.pos, self.game.GetNewID());
-                obj = new Fireball(abstr, fire.tailPos, firing.Velocity);
+                PlacedObject fakePObj = new PlacedObject(PlacedObject.Type.LightFixture, null);
+                self.AddObject(new HolyFire(self, fakePObj, fakePObj.data as PlacedObject.LightFixtureData));
+                obj = new Fireball(abstr, fire.tailPos, firing.Velocity, fakePObj);
                 obj.room = self;
                 self.abstractRoom.AddEntity(abstr);
             }

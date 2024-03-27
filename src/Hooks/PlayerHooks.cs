@@ -146,9 +146,8 @@ public static class PlayerHooks
         FSprite handRSprite = sLeaser.sprites[8];
         FSprite legsSprite = sLeaser.sprites[4];
         FSprite markSprite = sLeaser.sprites[11];
-        Color bodyColor = new Color(0.8f, 0.8f, 0.8f, 1.0f);
-        Color accentColor = new Color(0.8f, 0.8f, 0.8f, 1.0f); ;
-        Color cloakColor = new Color(0.8f, 0.8f, 0.8f, 1.0f); ;
+        Color bodyColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        Color accentColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
         bodySprite.color = bodyColor;
         hipsSprite.color = bodyColor;
@@ -159,8 +158,8 @@ public static class PlayerHooks
         armRSprite.color = accentColor;
         handLSprite.color = accentColor;
         handRSprite.color = accentColor;
-        markSprite.color = new Color(0.8f, 0.8f, 0.8f, 1.0f); ;
-        tailSprite.color = new Color(0.8f, 0.8f, 0.8f, 1.0f); ;
+        markSprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f); 
+        tailSprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f); 
 
 
     }

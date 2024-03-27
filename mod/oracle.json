@@ -1,0 +1,189 @@
+[
+    {
+        "id": "SRS",
+        "roomId": "CD_ITERATORROOM",
+        "airFriction": 1,
+        "annoyedScore": 5,
+        "angryScore": 0,
+        "talkHeight": 0,
+        "pearlFallback": "pebbles",
+        "startPos": {
+            "x": 9,
+            "y": 32
+        },
+        "roomEffects": {
+            "swarmers": 0
+        },
+        "cornerPositions": [
+            {
+                "x": 9,
+                "y": 32
+            },
+            {
+                "x": 38,
+                "y": 32
+            },
+            {
+                "x": 38,
+                "y": 3
+            },
+            {
+                "x": 10,
+                "y": 3
+            }
+        ],
+        "body": {
+            "oracleColor": {
+                "r": 74,
+                "g": 209,
+                "b": 239
+            },
+            "halo": null,
+            "arm": {
+                "armColor": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 239
+                },
+                "armHighlight": {
+                    "r": 239,
+                    "g": 239,
+                    "b": 239
+                }
+            },
+            "sigil": null,
+            "gown": {
+                "color": {
+                    "type": "solid",
+                    "r": 150,
+                    "g": 150,
+                    "b": 150
+                }
+            },
+            "eyes": {
+                "r": 0,
+                "g": 239,
+                "b": 0
+            }
+        },
+        "events": {
+            "generic": [
+                {
+                    "event": "playerEnter",
+                    "gravity": 1,
+                    "sound": "SS_AI_Exit_Work_Mode",
+                    "moveTo": {
+                        "x": 241,
+                        "y": 244
+                    },
+                    "texts": [ "Little one… you seem cold, too… how awful" ],
+                    "color": {
+                        "r": 255,
+                        "g": 0,
+                        "b": 255,
+                        "a": 255
+                    },
+                    "action": "giveMark"
+                },
+                {
+                    "event": "afterGiveMark",
+                    "texts": [ ". . .", "Are you recieving this?" ],
+                    "score": {
+                        "action": "set",
+                        "amount": 17
+                    }
+                },
+                {
+                    "event": "afterGiveMark",
+                    "texts": [ "Little one… you seem cold, too… how awful" ],
+                    "action": "giveKarma",
+                    "actionParam": 9
+                },
+                {
+                    "event": "afterGiveMark",
+                    "action": "startPlayerConversation"
+                },
+                {
+                    "event": "playerConversation",
+                    "hold": 4,
+                    "movement": "talk",
+                    "texts": [
+                        "long ago, my source of power was severed…",
+                        "I did not immediately cease to function, but I have been running thin ",
+                        "If you want to return this area back to how it was… I will need your help…",
+                        "If you restore the four connectors, I will be able to regain my full functionality…",
+                        "Here, a gift to help you",
+                        "Do not fail me, little one"
+                    ]
+                },
+                {
+                    "event": "playerConversation",
+                    "gravity": 1
+                },
+                {
+                    "event": "noeventy",
+                    "action": "kickPlayerOut",
+                    "gravity": 0,
+                    "actionParam": "SU_A63"
+                },
+                {
+                    "event": "playerAttack",
+                    "random": true,
+                    "texts": [ "Stop that!", "STOP.", "DONT." ],
+                    "gravity": 1,
+                    "score": {
+                        "action": "subtract",
+                        "amount": 10
+                    }
+                },
+                {
+                    "event": "oracleAnnoyed",
+                    "random": true,
+                    "movement": "keepDistance",
+                    "texts": [ "This shows when the oracle is mad at the player!", "LEAVE.", "GET OUT." ],
+                    "action": "kickPlayerOut",
+                    "actionParam": "SU_A63"
+                },
+                {
+                    "event": "oracleAngry",
+                    "texts": [ "GET OUT!" ],
+                    "movement": "keepDistance",
+                    "action": "killPlayer"
+                },
+                {
+                    "event": "customCodeEvent",
+                    "texts": [ "This event can be triggered by custom code" ]
+                }
+            ],
+            "pearls": [
+                {
+                    "item": "CC",
+                    "text": "this is a pearl dialog! for CC"
+                },
+                {
+                    "item": "Misc",
+                    "texts": [ "This is where the white pearl dialogs go." ]
+                }
+            ],
+            "items": [
+                {
+                    "item": "KarmaFlower",
+                    "text": "Be careful!"
+                }
+            ]
+        },
+        "overseers": {
+            "color": {
+                "r": 255,
+                "g": 0,
+                "b": 0
+            },
+            "regions": [ "SU" ],
+            "guideToRoom": "SU_ai",
+            "genMin": 0,
+            "genMax": 100
+        }
+
+    }
+
+]

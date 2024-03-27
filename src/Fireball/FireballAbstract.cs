@@ -21,7 +21,12 @@ namespace SlugTemplate
         {
             base.Realize();
             if (realizedObject == null)
-                realizedObject = new Fireball(this,Room.realizedRoom.MiddleOfTile(pos.Tile), Vector2.zero);
+            {
+                PlacedObject fakePObj = new PlacedObject(PlacedObject.Type.LightFixture, null);
+                Room.realizedRoom.AddObject(new HolyFire(Room.realizedRoom, fakePObj, fakePObj.data as PlacedObject.LightFixtureData));
+                realizedObject = new Fireball(this, Room.realizedRoom.MiddleOfTile(pos.Tile), Vector2.zero, fakePObj);
+            }
+                
         }
 
         public float hue;

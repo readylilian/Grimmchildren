@@ -6,6 +6,10 @@ using System.IO;
 using System;
 using System.Threading;
 using MoreSlugcats;
+using MonoMod.Cil;
+using IL.Smoke;
+using System.Collections.Generic;
+using UnityEngine.Assertions.Must;
 
 namespace SlugTemplate
 {
@@ -28,9 +32,15 @@ namespace SlugTemplate
         private float lifespan;
         private float timer;
         private bool beenThrown = false;
+        PlacedObject fakePObj;
+
+        /*private HolyFire flame;
+        private PlacedObject.Data flameData;
+        private PlacedObject.LightFixtureData fireLight;
+        private PlacedObject firebase;*/
 
         //Mostly pearl, rock and spear stats
-        public Fireball(FireballAbstract abstr, Vector2 pos, Vector2 vel) : base(abstr, abstr.world)
+        public Fireball(FireballAbstract abstr, Vector2 pos, Vector2 vel, PlacedObject fakeObj) : base(abstr, abstr.world)
         {
             Abstr = abstr;
             bodyChunks = new BodyChunk[1];
@@ -46,6 +56,12 @@ namespace SlugTemplate
             tailPos = base.firstChunk.pos;
             damage = 2f;
             lifespan = 3f;
+            /*firebase = new PlacedObject(PlacedObject.Type.LightSource, flameData);
+            flame = new HolyFire(room, firebase, fireLight);*/
+            fakePObj = fakeObj;
+        }
+        ~Fireball() {
+            
         }
 
         //Update the state of the fireball
@@ -57,21 +73,35 @@ namespace SlugTemplate
                 timer += Time.deltaTime;
                 if (timer >= lifespan)
                 {
+                    fakePObj.pos = new Vector2(-9999, -9999);
+                    fakePObj.active = false;
                     Destroy();
                 }
             }
+            
+
+
             firstChunk.collideWithTerrain = grabbedBy.Count == 0;
             firstChunk.collideWithSlopes = grabbedBy.Count == 0;
-
+            //flame.Update(eu);
             if (firstChunk.onSlope != 0)
                 surfaceFriction = 0f; //makes ball roll off slopes faster
+            
 
             //Allows ball to roll off slopes
             base.doNotTumbleAtLowSpeed = mode == Mode.Thrown;
 
-
+            
             //This is stolen almost directly from weapon update to get it to hit things
             Vector2 pos = base.firstChunk.pos + base.firstChunk.vel;
+            fakePObj.pos = pos + base.firstChunk.vel;
+            //room.AddObject(new FireParticles());
+            /* foreach (FireParticles fire in fires)
+             {
+                 fire.Update(eu);
+                 fire.UpdatePos(pos);
+             }*/
+
             SharedPhysics.CollisionResult result = SharedPhysics.TraceProjectileAgainstBodyChunks(this, room, firstFrameTraceFromPos.HasValue ? firstFrameTraceFromPos.Value : base.firstChunk.pos, ref pos, base.firstChunk.rad + ((thrownBy != null && thrownBy is Player) ? 5f : 0f), 1, thrownBy, hitAppendages: true);
             bool flag2 = HitSomething(result, eu);
             float num6 = 0f;
@@ -200,7 +230,7 @@ namespace SlugTemplate
         public override void TerrainImpact(int chunk, IntVector2 direction, float speed, bool firstContact)
         {
             base.TerrainImpact(chunk, direction, speed, firstContact);
-            //Reset thrownby once it hits the ground, so you can't use a thrown ball to do damage while it's held
+            //Reset thrownby once it hits the ground, so you can't use a thrown ball to do damage while it's held 
             thrownBy = null;
             beenThrown = true;
         }
@@ -214,15 +244,19 @@ namespace SlugTemplate
             FAtlas atlas = AssetLoader.GetAtlas("fireball");
             if (atlas == null)
             {
-                Debug.Log("Failed to draw sprite");
+                //Debug.Log("Failed to draw sprite");
                 return;
             }
-            Debug.Log("Atlast exists");
+            //Debug.Log("Atlast exists");
 
-            Debug.Log("Tried to draw sprite");
+            //Debug.Log("Tried to draw sprite");
             sLeaser.sprites = new FSprite[1];
-            Debug.Log(atlas.name);
+            
+            //Debug.Log(atlas.name);
             sLeaser.sprites[0] = new FSprite("snowcat_fireball", true);
+            sLeaser.sprites[0].color = new Color(1.0f, 0.86f, 0.53f, 1);
+          
+            
             AddToContainer(sLeaser, rCam, null);
         }
 
@@ -234,8 +268,12 @@ namespace SlugTemplate
             lastDarkness = darkness;
             darkness = rCam.room.Darkness(pos);
             darkness *= 1f - 0.5f * rCam.room.LightSourceExposure(pos);
+            /*foreach (FireParticles fire in fires)
+            {
+                fire.DrawSprites(sLeaser, rCam, timeStacker, camPos);
+            }*/
 
-            for (int i = 0; i < sLeaser.sprites.Length; i++)
+                for (int i = 0; i < sLeaser.sprites.Length; i++)
             {
                 sLeaser.sprites[i].x = pos.x - camPos.x;
                 sLeaser.sprites[i].y = pos.y - camPos.y;
@@ -254,7 +292,14 @@ namespace SlugTemplate
 
             //remove sprite
             if (slatedForDeletetion || room != rCam.room)
+            {
+                fakePObj.pos = new Vector2(-9999, -9999);
+                fakePObj.active = false;
+                
                 sLeaser.CleanSpritesAndRemove();
+            }
+                
+            //base.DrawSprites(sLeaser, rCam, timeStacker, camPos);
         }
 
         public override void ApplyPalette(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, RoomPalette palette)
