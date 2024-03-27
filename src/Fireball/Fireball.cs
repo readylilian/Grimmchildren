@@ -94,7 +94,7 @@ namespace SlugTemplate
             
             //This is stolen almost directly from weapon update to get it to hit things
             Vector2 pos = base.firstChunk.pos + base.firstChunk.vel;
-            fakePObj.pos = pos;
+            fakePObj.pos = pos + base.firstChunk.vel;
             //room.AddObject(new FireParticles());
             /* foreach (FireParticles fire in fires)
              {
