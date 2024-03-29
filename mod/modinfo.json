@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"authors": "GrimmChildren: too lazy to grab information right now",
 	"description": "Mod description: We'll get to it when we get to it",
-	"requirements": [ "slime-cubed.slugbase","fisobs","regionkit" ],
-	"requirements_names": [ "SlugBase","Fisobs","RegionKit" ],
+	"requirements": [ "slime-cubed.slugbase","fisobs","regionkit", "iteratorKit" ],
+	"requirements_names": [ "SlugBase","Fisobs","RegionKit","Iterator Kit"],
 	"tags": [ "Custom Slugcat", "Campaigns" ]
 }
