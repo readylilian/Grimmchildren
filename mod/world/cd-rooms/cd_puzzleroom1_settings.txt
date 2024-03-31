@@ -2,9 +2,9 @@ DangerType: Blizzard
 CeilingDrips: 0
 RainIntensity: 1
 RumbleIntensity: 1
-WaveSpeed: 0.5027964
-WaveLength: 0.8888193
-WaveAmplitude: 0.02404262
+WaveSpeed: 0.4991043
+WaveLength: 0.9995521
+WaveAmplitude: 0.001227484
 SecondWaveLength: 0.1666667
 SecondWaveAmplitude: 0
 Grime: 0
@@ -13,4 +13,5 @@ RandomItemSpearChance: 0
 Palette: 37
 Effects: Coldness-1-30-30, 
 PlacedObjects: LocalBlizzard><946.8071><504.447><-113~8~-107~95.60254~0.6956522~0.8695652~0.7065217, SnowSource><929.282><297.6974><Strip~68~113~50~86.60254~1~1, 
+RoomSpecificScriptActive: ON
 WetTerrain: OFF

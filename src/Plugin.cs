@@ -46,6 +46,7 @@ namespace SlugTemplate
             
             // Enable our custom hooks
             PlayerHooks.Init();
+            RoomScripts.Init();
             
             
             // Enables the options menu
