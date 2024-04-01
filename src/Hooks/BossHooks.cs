@@ -32,11 +32,13 @@ namespace SlugTemplate.Hooks
                 Debug.Log("Found Boss");
                 switch (bossBehavior)
                 {
+                    //Don't let it do anything
                     case Behavior.Frozen:
-
                         break;
                     case Behavior.Speaking:
+
                         break;
+                    //Once we're in the fight behave normally 
                     case Behavior.Normal:
                         orig(self, eu);
                         break;
