@@ -55,6 +55,7 @@ namespace SlugTemplate
             // Enable our custom hooks
             PlayerHooks.Init();
             FireHooks.Init();
+            BossHooks.Init();
             
             // Enables the options menu
             MachineConnector.SetRegisteredOI("GrimmChildrenMod", options);

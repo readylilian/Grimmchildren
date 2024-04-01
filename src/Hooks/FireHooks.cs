@@ -32,13 +32,10 @@ namespace SlugTemplate.Hooks
         public static void Init()
         {
             Debug.Log("Fireball is enabled");
-            //Content.Register(new FireballFisob());
 
             Content.Register(new FireballFisob());
             On.Player.SwallowObject += SnowSwallowObject;
             On.Room.AddObject += RoomAddFire;
-            //On.Weapon.SetRandomSpin += WeaponSetRandomSpin;
-            //Fireball.LoadSprites();
         }
 
         private static void WeaponSetRandomSpin(On.Weapon.orig_SetRandomSpin orig, Weapon self)
