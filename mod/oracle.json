@@ -1,8 +1,9 @@
 [
     {
-        "id": "SRS",
+        "id": "snowcat_iterator",
         "roomId": "CD_ITERATORROOM",
-        "airFriction": 1,
+        "gravity": 0.9,
+        "airFriction": 5,
         "annoyedScore": 5,
         "angryScore": 0,
         "talkHeight": 0,
@@ -95,8 +96,10 @@
                 },
                 {
                     "event": "afterGiveMark",
-                    "texts": [ "Little one… you seem cold, too… how awful" ],
+                    "texts": [ "Little one… you seem cold, how awful"],
                     "action": "giveKarma",
+                    "movement": "talk",
+                    "hold": 4,
                     "actionParam": 9
                 },
                 {
@@ -104,22 +107,23 @@
                     "action": "startPlayerConversation"
                 },
                 {
-                    "event": "playerConversation",
-                    "hold": 4,
-                    "movement": "talk",
-                    "texts": [
-                        "long ago, my source of power was severed…",
-                        "I did not immediately cease to function, but I have been running thin ",
-                        "If you want to return this area back to how it was… I will need your help…",
-                        "If you restore the four connectors, I will be able to regain my full functionality…",
-                        "Here, a gift to help you",
-                        "Do not fail me, little one"
+                    "event": "playerConversation", 
+                    "texts": ["long ago, my source of power was severed…",
+                    "I did not immediately cease to function, but I have been running thin ",
+                    "If you want to return this area back to how it was… I will need your help…",
+                    "If you restore the four connectors, I will be able to regain my full functionality…"
                     ]
                 },
                 {
                     "event": "playerConversation",
                     "gravity": 1
                 },
+                {
+                    "event": "fireballGift",
+                    "texts": ["Here, a gift to help you",
+                    "Do not fail me, little one"]
+                },
+                
                 {
                     "event": "noeventy",
                     "action": "kickPlayerOut",
