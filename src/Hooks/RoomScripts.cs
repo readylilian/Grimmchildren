@@ -14,17 +14,20 @@ public static class RoomScripts
         On.RoomSpecificScript.AddRoomSpecificScript += RoomSpecificScript_AddRoomSpecificScript;
     }
 
+    // Adding scripts to rooms
     private static void RoomSpecificScript_AddRoomSpecificScript(On.RoomSpecificScript.orig_AddRoomSpecificScript orig, Room room)
     {
         orig(room);
 
         if (room.abstractRoom.name == "CD_PUZZLEROOM1")
         {
-            room.AddObject(new PuzzleRoomEnergyCell(room));
+	        // Creation of nested class, it starts like 20 lines below this
+	        room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(14, 13), new Vector2(998.6288f, 1299.568f)));
         }
     }
 
 
+    // This is a single nested class, you would make a copy of this for other rooms if they need new function
     public sealed class PuzzleRoomEnergyCell : UpdatableAndDeletable
 	{
 		private EnergyCell myEnergyCell;
@@ -34,12 +37,15 @@ public static class RoomScripts
 		private bool finalPhase;
 		private bool lethalMode;
 		private int noCellPresenceTime;
+		private IntVector2 goalPosition;
+		private Vector2 startPosition;
 		
-		public PuzzleRoomEnergyCell(Room room)
+		public PuzzleRoomEnergyCell(Room room, IntVector2 goal, Vector2 start)
 		{
 			this.room = room;
             primed = false;
-            IntVector2 pos = new IntVector2(14, 13); // Goal
+            goalPosition = goal;
+            startPosition = start;
             
             // Block for if the orb is already at the goal of the level
             if (this.room.game.session is StoryGameSession /*&& TODO: Save Data check*/)
@@ -81,7 +87,6 @@ public static class RoomScripts
 		public override void Update(bool eu)
 		{
 			base.Update(eu);
-			Vector2 vector = new Vector2(998.6288f, 1299.568f);
 			
 			// Get Player 1
 			AbstractCreature firstAlivePlayer = room.game.FirstAlivePlayer;
@@ -100,7 +105,7 @@ public static class RoomScripts
 			    myEnergyCell == null)
 			{
 				AbstractPhysicalObject abstractPhysicalObject = new AbstractPhysicalObject(room.world,
-					MoreSlugcatsEnums.AbstractObjectType.EnergyCell, null, room.GetWorldCoordinate(vector),
+					MoreSlugcatsEnums.AbstractObjectType.EnergyCell, null, room.GetWorldCoordinate(startPosition),
 					room.game.GetNewID())
 				{
 					destroyOnAbstraction = true
@@ -108,20 +113,20 @@ public static class RoomScripts
 				room.abstractRoom.AddEntity(abstractPhysicalObject);
 				abstractPhysicalObject.RealizeInRoom();
 				myEnergyCell = (abstractPhysicalObject.realizedObject as EnergyCell);
-				myEnergyCell!.firstChunk.pos = vector;
+				myEnergyCell!.firstChunk.pos = startPosition;
 			}
 			
 			
 			// Cell has already been placed at goal
 			if (lethalMode)
 			{
-				vector = room.MiddleOfTile(new IntVector2(14, 13));
+				startPosition = room.MiddleOfTile(goalPosition);
 				if (foundCell != null)
 				{
 					foundCell.customAnimation = true;
 					foundCell.moveToTarget = 0.9f;
 					foundCell.scale = 20f;
-					foundCell.firstChunk.pos = vector;
+					foundCell.firstChunk.pos = startPosition;
 					foundCell.firstChunk.vel = Vector2.zero;
 				}
 
@@ -129,7 +134,7 @@ public static class RoomScripts
 				foreach (var abstractCreature in room.abstractRoom.creatures.Where(abstractCreature =>
 					         abstractCreature.creatureTemplate.type != CreatureTemplate.Type.Overseer &&
 					         abstractCreature.realizedCreature != null && !abstractCreature.state.dead &&
-					         Vector2.Distance(abstractCreature.realizedCreature.DangerPos, vector) < 100f))
+					         Vector2.Distance(abstractCreature.realizedCreature.DangerPos, startPosition) < 100f))
 				{
 					room.AddObject(new ShockWave(abstractCreature.realizedCreature.DangerPos, 150f, 0.4f, 30));
 					for (int i = 0; i < 30; i++)
@@ -221,7 +226,7 @@ public static class RoomScripts
 					if (!(foundCell.usingTime > 0f)) return;
 					
 					foundCell.KeepOff();
-					foundCell.FireUp(room.MiddleOfTile(new IntVector2(14, 13)));
+					foundCell.FireUp(room.MiddleOfTile(goalPosition));
 					foundCell.AllGraspsLetGoOfThisObject(true);
 					
 					// Save data variables will track this now instead of room save data
