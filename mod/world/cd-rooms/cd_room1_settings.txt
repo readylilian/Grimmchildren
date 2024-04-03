@@ -1,0 +1,2 @@
+Template: NONE
+PlacedObjects: DataPearl><220.1984><512.6933><0~0~0~0~Misc~0, DangleFruit><202.8235><456.094><0~0~2~3, WaterNut><347.3091><337.5596><0~0~2~3, DataPearl><-58.42999><449.3371><0~0~0~0~Misc~0, DataPearl><-27.91699><427.182><0~0~0~0~Misc~0, DataPearl><-37.90466><474.9258><0~0~0~0~Misc~0, DataPearl><9.919434><431.1436><0~0~0~0~Misc~0, DataPearl><44.06433><518.8242><0~0~0~0~Misc~0, 
