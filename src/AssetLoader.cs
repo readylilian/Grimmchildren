@@ -6,67 +6,71 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.ImageConversion; // Not building for some reason
+
+//using UnityEngine;
+
 //This entire piece of code was ripped pretty much wholesale from the mod Pearlcat
 namespace SlugTemplate
 {
-        public static class AssetLoader
+    public static class AssetLoader
+    {
+        public static Dictionary<string, Texture2D> Textures { get; } = new Dictionary<string, Texture2D>();
+
+
+        public static string GetUniqueName(string name)
         {
-            public static Dictionary<string, Texture2D> Textures { get; } = new Dictionary<string, Texture2D>();
+            return "snowcat_" + name;
+        }
 
-          
-            public static string GetUniqueName(string name)
+
+        public static FAtlas GetAtlas(string atlasName)
+        {
+            string uniqueName = AssetLoader.GetUniqueName(atlasName);
+            if (Futile.atlasManager.DoesContainAtlas(uniqueName))
             {
-                return "snowcat_" + name;
+                return Futile.atlasManager.LoadAtlas(uniqueName);
             }
-
-     
-            public static FAtlas GetAtlas(string atlasName)
+            string atlasDirName = "snowcat_atlases" + Path.AltDirectorySeparatorChar.ToString() + "snowcat_" + atlasName;
+            if (!Futile.atlasManager.DoesContainAtlas(atlasDirName))
             {
-                string uniqueName = AssetLoader.GetUniqueName(atlasName);
-                if (Futile.atlasManager.DoesContainAtlas(uniqueName))
-                {
-                    return Futile.atlasManager.LoadAtlas(uniqueName);
-                }
-                string atlasDirName = "snowcat_atlases" + Path.AltDirectorySeparatorChar.ToString() + "snowcat_" + atlasName;
-                if (!Futile.atlasManager.DoesContainAtlas(atlasDirName))
-                {
-                    UnityEngine.Debug.LogError("Atlas not found! (" + uniqueName + ")");
-                    return null;
-                }
-                return Futile.atlasManager.LoadAtlas(atlasDirName);
+                UnityEngine.Debug.LogError("Atlas not found! (" + uniqueName + ")");
+                return null;
             }
+            return Futile.atlasManager.LoadAtlas(atlasDirName);
+        }
 
-            public static Texture2D GetTexture(string textureName)
+        public static Texture2D GetTexture(string textureName)
+        {
+            if (!AssetLoader.Textures.ContainsKey(textureName))
             {
-                if (!AssetLoader.Textures.ContainsKey(textureName))
-                {
-                    return null;
-                }
-                Texture2D originalTexture = AssetLoader.Textures[textureName];
-                Texture2D copiedTexture = new Texture2D(originalTexture.width, originalTexture.height, TextureFormat.RGBA32, false);
-                Graphics.CopyTexture(originalTexture, copiedTexture);
-                return copiedTexture;
+                return null;
             }
+            Texture2D originalTexture = AssetLoader.Textures[textureName];
+            Texture2D copiedTexture = new Texture2D(originalTexture.width, originalTexture.height, TextureFormat.RGBA32, false);
+            Graphics.CopyTexture(originalTexture, copiedTexture);
+            return copiedTexture;
+        }
 
-            public static void LoadAssets()
-            {
-                AssetLoader.LoadAtlases();
-            //AssetLoader.LoadSprites();
-            //AssetLoader.LoadTextures();
+        public static void LoadAssets()
+        {
+            AssetLoader.LoadAtlases();
+            AssetLoader.LoadSprites();
+            AssetLoader.LoadTextures();
             Debug.Log("LoadAssets called");
         }
 
-            public static void LoadAtlases()
+        public static void LoadAtlases()
+        {
+            foreach (string filePath in AssetManager.ListDirectory("snowcat_atlases", false, false))
             {
-                foreach (string filePath in AssetManager.ListDirectory("snowcat_atlases", false, false))
+                if (!(Path.GetExtension(filePath) != ".txt"))
                 {
-                    if (!(Path.GetExtension(filePath) != ".txt"))
-                    {
-                        string atlasName = Path.GetFileNameWithoutExtension(filePath);
-                        Futile.atlasManager.LoadAtlas("snowcat_atlases" + Path.AltDirectorySeparatorChar.ToString() + atlasName);
-                    }
+                    string atlasName = Path.GetFileNameWithoutExtension(filePath);
+                    Futile.atlasManager.LoadAtlas("snowcat_atlases" + Path.AltDirectorySeparatorChar.ToString() + atlasName);
                 }
             }
+        }
 
         public static void LoadSprites()
         {
@@ -118,10 +122,10 @@ namespace SlugTemplate
 
         public const string ATLASES_DIRPATH = "snowcat_atlases";
 
-            public const string SPRITES_DIRPATH = "snowcat_sprites";
- 
-            public const string TEXTURES_DIRPATH = "snowcat_textures";
+        public const string SPRITES_DIRPATH = "snowcat_sprites";
 
-            public const TextureFormat TEXTURE_FORMAT = TextureFormat.RGBA32;
-        }
+        public const string TEXTURES_DIRPATH = "snowcat_textures";
+
+        public const TextureFormat TEXTURE_FORMAT = TextureFormat.RGBA32;
+    }
 }
