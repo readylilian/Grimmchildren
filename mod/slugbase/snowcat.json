@@ -5,6 +5,6 @@
 	"features": {
 		"select_menu_scene": "snowcat_scenes",
 		"select_menu_scene_ascended": "Ghost_Prototype",
-		"start_room": "CD_STARTINGROOM"
+		"start_room": "CD_TRUESTART"
 	}
 }

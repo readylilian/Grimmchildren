@@ -6,8 +6,8 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <Reference Include="../lib/*.dll">
-            <Private>false</Private>
+		<Reference Include="../lib/*.dll">
+			<Private>false</Private>
         </Reference>
     </ItemGroup>
     

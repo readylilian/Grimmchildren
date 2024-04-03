@@ -1,10 +1,11 @@
 DangerType: Blizzard
 CeilingDrips: 0
-WaveSpeed: 0.5228874
-WaveLength: 0.9376799
-WaveAmplitude: 0.01318101
+WaveSpeed: 0.5094938
+WaveLength: 0.97935
+WaveAmplitude: 0.006957261
 SecondWaveLength: 0
 SecondWaveAmplitude: 0
 Grime: 0
 WaterReflectionAlpha: 0
 Effects: Coldness-1-20-20, HeatWave-0-874-473, 
+PlacedObjects: IceBlock><382.8385><1044.071><100~50~-92^64~-24.20129^-34.78935~-100^0~100~Radial~0^-100, 
