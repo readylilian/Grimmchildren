@@ -21,8 +21,13 @@ public static class RoomScripts
 
         if (room.abstractRoom.name == "CD_PUZZLEROOM1")
         {
-	        // Creation of nested class, it starts like 20 lines below this
+	        // Creation of nested class, it starts like 20 lines below this (first coord is goal, second is orb)
 	        room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(14, 13), new Vector2(998.6288f, 1299.568f)));
+        }
+
+        else if (room.abstractRoom.name == "CD_PUZZLEROOM2")
+        {
+            room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(14, 13), new Vector2(707.2426f, 554.5851f)));
         }
     }
 
