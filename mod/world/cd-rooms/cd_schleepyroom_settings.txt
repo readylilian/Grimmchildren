@@ -1,0 +1,7 @@
+Template: NONE
+Palette: 62
+EffectColorA: 8
+EffectColorB: 8
+PlacedObjects: LanternOnStick><520.7392><268.5503><13~-51, 
+AmbientSounds: OMNI><AM_ENV-LushNight.ogg><735.3427><508.1236><0.3695652><0.8630434, OMNI><AM_ENV-Woods.ogg><747.5706><372.0629><0.4130435><0.6673913, OMNI><SO_NAT-Fire.ogg><537.0253><460.0516><0.2717391><0.9021739, 
+FadePalette: 11, 0.4021739
