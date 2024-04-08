@@ -18,7 +18,8 @@ namespace SlugTemplate
 
     internal class snowcatIterator
     {
-        static bool doFireball = false;
+        static public bool doFireball = false;
+        static public bool saved = false;
         static int playerConversationCount = 0;
 
         public static readonly Oracle.OracleID iteratorObject = new Oracle.OracleID("snowcat_iterator", register: true);
@@ -54,7 +55,7 @@ namespace SlugTemplate
 
                
                     cMOracleBehavior.roomGravity = 0.5f;
-                    FireHooks.Init();
+                    FireHooks.Apply();
                     break;
                 case "playerConversation":
 

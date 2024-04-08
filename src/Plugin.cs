@@ -59,8 +59,8 @@ namespace SlugTemplate
             On.OracleBehavior.Update += snowcatIterator.OracleBehavior_Update;
             // Enable our custom hooks
             PlayerHooks.Init();
-           // 
-            
+            // 
+            FireHooks.Init();
             // Enables the options menu
             MachineConnector.SetRegisteredOI("GrimmChildrenMod", options);
         }

@@ -35,10 +35,21 @@ namespace SlugTemplate.Hooks
             //Content.Register(new FireballFisob());
 
             Content.Register(new FireballFisob());
-            On.Player.SwallowObject += SnowSwallowObject;
-            On.Room.AddObject += RoomAddFire;
+            //Apply();
             //On.Weapon.SetRandomSpin += WeaponSetRandomSpin;
             //Fireball.LoadSprites();
+        }
+
+        public static void Apply()
+        {
+            On.Player.SwallowObject += SnowSwallowObject;
+            On.Room.AddObject += RoomAddFire;
+        }
+
+        public static void Unapply()
+        {
+            On.Player.SwallowObject -= SnowSwallowObject;
+            //On.Room.AddObject -= RoomAddFire;
         }
 
         private static void WeaponSetRandomSpin(On.Weapon.orig_SetRandomSpin orig, Weapon self)

@@ -77,7 +77,7 @@
                         "x": 241,
                         "y": 244
                     },
-                    "texts": [ "Little one… you seem cold, too… how awful" ],
+                    
                     "color": {
                         "r": 255,
                         "g": 0,
@@ -95,8 +95,7 @@
                     }
                 },
                 {
-                    "event": "afterGiveMark",
-                    "texts": [ "Little one… you seem cold, how awful"],
+                    "event": "afterGiveMark",       
                     "action": "giveKarma",
                     "movement": "talk",
                     "hold": 4,
@@ -108,7 +107,8 @@
                 },
                 {
                     "event": "playerConversation", 
-                    "texts": ["long ago, my source of power was severed…",
+                    "texts": ["Little one… you seem cold, how awful",
+                    "long ago, my source of power was severed…",
                     "I did not immediately cease to function, but I have been running thin ",
                     "If you want to return this area back to how it was… I will need your help…",
                     "If you restore the four connectors, I will be able to regain my full functionality…"
@@ -120,7 +120,7 @@
                 },
                 {
                     "event": "fireballGift",
-                    "texts": ["Here, a gift to help you",
+                    "texts": ["Here, a gift to help you","A gift of fire and heat",
                     "Do not fail me, little one"]
                 },
                 
