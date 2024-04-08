@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreSlugcats;
 using RWCustom;
+using SlugBase.SaveData;
 using UnityEngine;
 
 namespace SlugTemplate.Hooks;
@@ -22,12 +23,14 @@ public static class RoomScripts
         if (room.abstractRoom.name == "CD_PUZZLEROOM1")
         {
 	        // Creation of nested class, it starts like 20 lines below this (first coord is goal, second is orb)
-	        room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(14, 13), new Vector2(998.6288f, 1299.568f)));
+	        room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(14, 13), new Vector2(998.6288f, 1299.568f),
+		        "Puzzle1"));
         }
 
         else if (room.abstractRoom.name == "CD_PUZZLEROOM2")
         {
-            room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(14, 13), new Vector2(707.2426f, 554.5851f)));
+	        room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(14, 13), new Vector2(707.2426f, 554.5851f),
+		        "Puzzle2"));
         }
     }
 
@@ -44,13 +47,15 @@ public static class RoomScripts
 		private int noCellPresenceTime;
 		private IntVector2 goalPosition;
 		private Vector2 startPosition;
+		private string saveTerm;
 		
-		public PuzzleRoomEnergyCell(Room room, IntVector2 goal, Vector2 start)
+		public PuzzleRoomEnergyCell(Room room, IntVector2 goal, Vector2 start, string saveSpecifier)
 		{
 			this.room = room;
             primed = false;
             goalPosition = goal;
             startPosition = start;
+            saveTerm = saveSpecifier;
             
             // Block for if the orb is already at the goal of the level
             if (this.room.game.session is StoryGameSession /*&& TODO: Save Data check*/)
@@ -109,16 +114,22 @@ public static class RoomScripts
 			    /*TODO: Save data check  &&*/
 			    myEnergyCell == null)
 			{
+				// Create new energy cell
 				AbstractPhysicalObject abstractPhysicalObject = new AbstractPhysicalObject(room.world,
-					MoreSlugcatsEnums.AbstractObjectType.EnergyCell, null, room.GetWorldCoordinate(startPosition),
-					room.game.GetNewID())
-				{
-					destroyOnAbstraction = true
-				};
+					MoreSlugcatsEnums.AbstractObjectType.EnergyCell, null, room.GetWorldCoordinate(Vector2.zero),
+					room.game.GetNewID()); 
 				room.abstractRoom.AddEntity(abstractPhysicalObject);
 				abstractPhysicalObject.RealizeInRoom();
+				
+				// Put it in save data
+				if (AbstractPhysicalObject.UsesAPersistantTracker(abstractPhysicalObject))
+				{
+					room.game.GetStorySession.AddNewPersistentTracker(abstractPhysicalObject);
+					//(room.game.session as StoryGameSession).saveState.miscWorldSaveData.GetSlugBaseData().
+				}
 				myEnergyCell = (abstractPhysicalObject.realizedObject as EnergyCell);
 				myEnergyCell!.firstChunk.pos = startPosition;
+				ReloadRooms();
 			}
 			
 			
@@ -248,6 +259,24 @@ public static class RoomScripts
 					primed = false;
 					foundCell = null;
 					break;
+			}
+		}
+
+		private void ReloadRooms()
+		{
+			for (int i = room.world.activeRooms.Count - 1; i >= 0; i--)
+			{
+				if (room.world.activeRooms[i] != room.game.cameras[0].room)
+				{
+					if (room.game.roomRealizer != null)
+					{
+						room.game.roomRealizer.KillRoom(room.world.activeRooms[i].abstractRoom);
+					}
+					else
+					{
+						room.world.activeRooms[i].abstractRoom.Abstractize();
+					}
+				}
 			}
 		}
 	}
