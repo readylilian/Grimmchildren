@@ -56,7 +56,7 @@ public class PlacedIceBlock : SnowSource, IDrawable
             sLeaser.sprites[i].scaleY = _Data.yHandle.magnitude / 50;   
             sLeaser.sprites[i].x = _po.pos.x - camPos.x + _Data.xHandle.x/2 + _Data.yHandle.x / 2;
                 sLeaser.sprites[i].y = _po.pos.y - camPos.y + _Data.xHandle.y / 2 + _Data.yHandle.y/2;
-                UnityEngine.Debug.Log("Sin: " + Math.Sin(rotation) + " _Data.xHandle.x:" + _Data.xHandle.x + " Rotation:" + sLeaser.sprites[i].rotation);
+                //UnityEngine.Debug.Log("Sin: " + Math.Sin(rotation) + " _Data.xHandle.x:" + _Data.xHandle.x + " Rotation:" + sLeaser.sprites[i].rotation);
                 sLeaser.sprites[i].rotation = rotation;
         }
         //sLeaser.sprites[i].height / 2;
@@ -124,9 +124,24 @@ public class PlacedIceBlock : SnowSource, IDrawable
                     Console.WriteLine("CollisionCandidate = " + collisionCandidate.ToString());
                     centerBias = Custom.RotateAroundOrigo(centerBias, angle);
                     Console.WriteLine("centerBias = " + centerBias);
-
-                    //p.SetLocalAirFriction(5.0f);
+                    /*if(obj is Player cat && cat is Player)
+                    {
+                        cat.customPlayerGravity = 5.0f;
+                        p.PushOutOf(collisionCandidate + centerBias, 1f, -1);
+                        
+                    }
+                    else
+                    {
+                        p.gravity = 0.5f;
+                        p.PushOutOf(collisionCandidate + centerBias, 1f, -1);
+                        p.gravity = 1.0f;
+                    }*/
                     p.PushOutOf(collisionCandidate + centerBias, 1f, -1);
+                    //p.SetLocalAirFriction(5.0f);
+
+
+
+                    //kp.gravity = 2.0f;
                     //p.SetLocalAirFriction(1.0f);
                 }
             }

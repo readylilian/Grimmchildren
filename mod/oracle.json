@@ -133,12 +133,8 @@
                 {
                     "event": "playerAttack",
                     "random": true,
-                    "texts": [ "Stop that!", "STOP.", "DONT." ],
-                    "gravity": 1,
-                    "score": {
-                        "action": "subtract",
-                        "amount": 10
-                    }
+                    
+                    "gravity": 1
                 },
                 {
                     "event": "oracleAnnoyed",
@@ -149,10 +145,7 @@
                     "actionParam": "SU_A63"
                 },
                 {
-                    "event": "oracleAngry",
-                    "texts": [ "GET OUT!" ],
-                    "movement": "keepDistance",
-                    "action": "killPlayer"
+                    "event": "oracleAngry"
                 },
                 {
                     "event": "customCodeEvent",

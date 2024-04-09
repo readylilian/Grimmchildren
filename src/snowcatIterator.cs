@@ -10,6 +10,7 @@ using static IteratorKit.CMOracle.OracleJSON.OracleEventsJson;
 using static IteratorKit.IteratorKit;
 using IteratorKit.Debug;
 using SlugTemplate.Hooks;
+using UnityEngine;
 
 namespace SlugTemplate
 {
@@ -73,10 +74,28 @@ namespace SlugTemplate
             if (cmBehavior.oracle.ID == iteratorObject)
             {
                // Logger.LogInfo("event triggered " + eventName);
-                if (eventName == "myCustomEvent")
+                if (eventName == "playerEnter" && doFireball == false)
                 {
+                    cmBehavior.player.stun = 100;
+              
                     // run code your own event code
                 }
+                else if (eventName == "playerEnter")
+                {
+                    cmBehavior.hasNoticedPlayer = false;
+                    cmBehavior.idlePos = new Vector3(0, 0, 0);
+                }
+                if (eventName == "playerLeave" && doFireball == false)
+                {
+                    //cmBehavior.player.room = 
+
+                    // run code your own event code
+                }
+                if (eventName == "playerReturn")
+                {
+                    //cmBehavior.
+                }
+
             }
 
         }
