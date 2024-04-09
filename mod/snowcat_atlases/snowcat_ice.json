@@ -1,0 +1,20 @@
+{"frames": {
+
+"ice.png":
+{
+	"frame": {"x":2,"y":2,"w":80,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":50},
+	"sourceSize": {"w":80,"h":50}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "snowcat_ice.png",
+	"format": "RGBA8888",
+	"size": {"w":84,"h":54},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:65cb715da06414fad73485d79f4f2b97:4a674679b499df4b2c96e0685f3cdff3:2db096d11a96d11ff43d9814afb9185b$"
+}
+}
