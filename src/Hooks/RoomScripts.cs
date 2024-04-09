@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MoreSlugcats;
 using RWCustom;
@@ -194,7 +195,7 @@ public static class RoomScripts
 				}
 			}
 			
-			
+
 			// Cell has already been placed at goal
 			if (lethalMode)
 			{
@@ -274,7 +275,7 @@ public static class RoomScripts
 							return;
 						}
 
-						// Get teh active cell variable
+						// Get tth active cell variable
 						using List<UpdatableAndDeletable>.Enumerator enumerator2 = room.updateList.GetEnumerator();
 						while (enumerator2.MoveNext())
 						{
@@ -292,17 +293,34 @@ public static class RoomScripts
 						noCellPresenceTime = 0;
 						return;
 					}
-					foundCell.KeepOff();
-					primed = true;
+
+					
+					
+					if (Vector2.Distance(new Vector2(goalPosition.x * 18, goalPosition.y * 18),
+						    myEnergyCell.bodyChunks[0].pos) < 90)
+					{
+						foundCell.KeepOff();
+						primed = true;
+					}
+
 					return;
 				}
 				
 				// Cell is in room
 				case true when foundCell.room == room:
 				{
+					
+					
 					// Cell was just activated but animations still need to play
 					if (!(foundCell.usingTime > 0f)) return;
-					
+
+					// Don't go unless within distance
+					if (Vector2.Distance(new Vector2(goalPosition.x * 18, goalPosition.y * 18),
+						    myEnergyCell.bodyChunks[0].pos) >= 90)
+					{
+						return;
+					}
+
 					foundCell.KeepOff();
 					foundCell.FireUp(room.MiddleOfTile(goalPosition));
 					foundCell.AllGraspsLetGoOfThisObject(true);
