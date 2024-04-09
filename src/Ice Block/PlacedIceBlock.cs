@@ -39,7 +39,7 @@ public class PlacedIceBlock : SnowSource, IDrawable
 
     public void ApplyPalette(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, RoomPalette palette)
     {
-        
+        //fuck the police coming straight from the underground
     }
 
     public void DrawSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, float timeStacker, Vector2 camPos)
@@ -112,7 +112,7 @@ public class PlacedIceBlock : SnowSource, IDrawable
         foreach (UpdatableAndDeletable obj in room.updateList)
         {
             // TODO: Remove Player line
-            if (obj is PhysicalObject p && p is Player)
+            if ((obj is PhysicalObject p))
             {
                 foreach (BodyChunk chunk in p.bodyChunks)
                 {
@@ -124,8 +124,10 @@ public class PlacedIceBlock : SnowSource, IDrawable
                     Console.WriteLine("CollisionCandidate = " + collisionCandidate.ToString());
                     centerBias = Custom.RotateAroundOrigo(centerBias, angle);
                     Console.WriteLine("centerBias = " + centerBias);
-                    
-                    p.PushOutOf(collisionCandidate + centerBias, 0f, -1);
+
+                    //p.SetLocalAirFriction(5.0f);
+                    p.PushOutOf(collisionCandidate + centerBias, 1f, -1);
+                    //p.SetLocalAirFriction(1.0f);
                 }
             }
 
