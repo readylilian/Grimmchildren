@@ -21,6 +21,8 @@ public static class PlayerHooks
         AssetLoader.LoadAssets();
         ApplyPlayerGraphicsHooks();
         //MenuDepthIllustrationHook();
+        On.Player.Die += Player_Die;
+        On.PlayerProgression.SaveProgression += PlayerProgression_SaveProgression;  
     }
 
     private static void Player_Jump(On.Player.orig_Jump orig, Player self)
@@ -36,18 +38,42 @@ public static class PlayerHooks
         // This means it happens to all of them, in every campaign for each jump
     }
 
-/*    public static void MenuDepthIllustrationHook()
-    {
-        On.Menu.MenuScene.AddIllustration += MenuScene_AddIllustration;
-    }
-    public static void MenuScene_AddIllustration(On.Menu.MenuScene.orig_AddIllustration orig, Menu.MenuScene self, Menu.MenuIllustration newIllu)
-    {
-        orig.Invoke(self, newIllu);
-        if (newIllu is MenuDepthIllustration && newIllu.fileName == "snow.png")
+    /*    public static void MenuDepthIllustrationHook()
         {
-            newIllu.sprite
+            On.Menu.MenuScene.AddIllustration += MenuScene_AddIllustration;
         }
-    }*/
+        public static void MenuScene_AddIllustration(On.Menu.MenuScene.orig_AddIllustration orig, Menu.MenuScene self, Menu.MenuIllustration newIllu)
+        {
+            orig.Invoke(self, newIllu);
+            if (newIllu is MenuDepthIllustration && newIllu.fileName == "snow.png")
+            {
+                newIllu.sprite
+            }
+        }*/
+    public static void Player_Die(On.Player.orig_Die orig, Player self)
+    {
+        orig.Invoke(self);
+        UnityEngine.Debug.Log("Snowcat Died");
+        if (!snowcatIterator.saved)
+        {
+            FireHooks.Unapply();
+            UnityEngine.Debug.Log("Unapplied");
+            snowcatIterator.doFireball = false;
+        }
+    }
+
+    public static bool PlayerProgression_SaveProgression(On.PlayerProgression.orig_SaveProgression orig, PlayerProgression self, bool saveMaps, bool saveMiscProg)
+    {
+        orig.Invoke(self, saveMaps, saveMiscProg);
+        UnityEngine.Debug.Log("Saving ");
+        if (snowcatIterator.doFireball)
+        {
+            UnityEngine.Debug.Log("Saved");
+            snowcatIterator.saved = true;
+            return true;
+        }
+        return true;
+    }
 
 
 
