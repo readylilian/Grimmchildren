@@ -13,6 +13,7 @@ namespace SlugTemplate.Hooks
     {
         public static int fireBalls = 0;
         public static bool metIterator = true;
+        public static PlacedObject fakePObj;
         //private static bool filoaded = false;
 
         //This doesn't do much rn, would love to expand it out later.
@@ -35,7 +36,7 @@ namespace SlugTemplate.Hooks
             //Content.Register(new FireballFisob());
 
             Content.Register(new FireballFisob());
-            //Apply();
+            Apply();
             //On.Weapon.SetRandomSpin += WeaponSetRandomSpin;
             //Fireball.LoadSprites();
         }
@@ -72,7 +73,7 @@ namespace SlugTemplate.Hooks
                 firingState firing = new firingState();
                 firing.direction = new IntVector2(0, 1);
                 var abstr = new FireballAbstract(self.world, self.PlayersInRoom[0].abstractCreature.pos, self.game.GetNewID());
-                PlacedObject fakePObj = new PlacedObject(PlacedObject.Type.LightFixture, null);
+                if(fakePObj == null) fakePObj = new PlacedObject(PlacedObject.Type.LightFixture, null);
                 self.AddObject(new HolyFire(self, fakePObj, fakePObj.data as PlacedObject.LightFixtureData));
                 obj = new Fireball(abstr, fire.tailPos, firing.Velocity, fakePObj);
                 obj.room = self;
