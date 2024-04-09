@@ -342,28 +342,57 @@ public static class RoomScripts
 				.TryGet<bool>(saveTerm + "OrbSpawned", out orbSpawned);
 
 			// This rooms cell hasn't been spawned yet
-			if (room.game.session is StoryGameSession session && ! orbSpawned && myEnergyCell == null)
+			if (room.game.session is StoryGameSession session && !orbSpawned && myEnergyCell == null)
 			{
-				// Create new energy cell
 				AbstractPhysicalObject abstractPhysicalObject = new AbstractPhysicalObject(room.world,
-					MoreSlugcatsEnums.AbstractObjectType.EnergyCell, null, room.GetWorldCoordinate(Vector2.zero),
-					room.game.GetNewID()); 
-				
+					MoreSlugcatsEnums.AbstractObjectType.EnergyCell, null, room.GetWorldCoordinate(startPosition),
+					room.game.GetNewID());
+				abstractPhysicalObject.destroyOnAbstraction = true;
 				room.abstractRoom.AddEntity(abstractPhysicalObject);
 				abstractPhysicalObject.RealizeInRoom();
-				
-				// Put it in save data
-				if (AbstractPhysicalObject.UsesAPersistantTracker(abstractPhysicalObject))
+				myEnergyCell = (abstractPhysicalObject.realizedObject as EnergyCell);
+				myEnergyCell.firstChunk.pos = startPosition;
+			}
+
+			if (myEnergyCell != null && player != null && player.room == myEnergyCell.room && !orbSpawned)
+			{
+				//myEnergyCell.firstChunk.pos = startPosition;
+				//myEnergyCell.firstChunk.vel = Vector2.zero;
+
+				if (myEnergyCell.grabbedBy.Count > 0)
 				{
-					room.game.GetStorySession.AddNewPersistentTracker(abstractPhysicalObject);
 					room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
 						.Set(saveTerm + "OrbSpawned", true);
+					
+					room.DestroyObject(myEnergyCell.abstractPhysicalObject.ID);
+					
+					// Create new energy cell
+					AbstractPhysicalObject abstractPhysicalObject = new AbstractPhysicalObject(room.world,
+						MoreSlugcatsEnums.AbstractObjectType.EnergyCell, null, room.GetWorldCoordinate(Vector2.zero),
+						room.game.GetNewID()); 
+					
+					room.abstractRoom.AddEntity(abstractPhysicalObject);
+					abstractPhysicalObject.RealizeInRoom();
+				
+					// Put it in save data
+					if (AbstractPhysicalObject.UsesAPersistantTracker(abstractPhysicalObject))
+					{
+						room.game.GetStorySession.AddNewPersistentTracker(abstractPhysicalObject);
+					}
+					myEnergyCell = (abstractPhysicalObject.realizedObject as EnergyCell);
+					myEnergyCell!.firstChunk.pos = startPosition;
+					myEnergyCell.bodyChunks[0].vel = Vector2.zero;
+					ReloadRooms();
+
+					// left hand grab
+					player.SlugcatGrab(myEnergyCell, 0);
+
+					// Use right hand instead, if you've made it this far then one of your hands should be free
+					if (myEnergyCell.grabbedBy.Count == 0)
+					{
+						player.SlugcatGrab(myEnergyCell, 1);
+					} 
 				}
-				myEnergyCell = (abstractPhysicalObject.realizedObject as EnergyCell);
-				myEnergyCell!.allowStabilization = true;
-				myEnergyCell!.firstChunk.pos = startPosition;
-				myEnergyCell.bodyChunks[0].vel = new Vector2(0, 0);
-				//ReloadRooms();
 			}
 			
 			
@@ -431,13 +460,13 @@ public static class RoomScripts
 					// cell literally hasn't been found
 					if (foundCell != null)
 					{
-						while (foundCell.grabbedBy.Count > 0)
+						/*while (foundCell.grabbedBy.Count > 0)
 						{
 							Creature grabber = foundCell.grabbedBy[0].grabber;
 							foundCell.grabbedBy[0].Release();
 							grabber.Stun(10);
 							grabber.firstChunk.vel += new Vector2(0f, -5f);
-						}
+						}*/
 					}
 					else
 					{
