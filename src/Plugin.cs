@@ -43,6 +43,8 @@ namespace SlugTemplate
             // Add custom objects to the game
             
             // Add hooks to the game
+            Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
+                "ColdSnap", false);
             On.RainWorld.OnModsInit += RainWorld_OnModsInit;
         }
 
@@ -52,6 +54,8 @@ namespace SlugTemplate
         private void RainWorld_OnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld self)
         {
             orig(self);
+            
+            //On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
             
             // Required or keys mess up
             //On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
@@ -66,10 +70,15 @@ namespace SlugTemplate
             CMOracleBehavior.OnEventEnd += snowcatIterator.OnEventEnd;
             CMOracleBehavior.OnEventStart += snowcatIterator.OnEventStart;
             On.OracleBehavior.Update += snowcatIterator.OracleBehavior_Update;
+            //Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
+              //  "ColdSnap", false);
+            
             // Enable our custom hooks
             PlayerHooks.Init();
+            RoomScripts.Init();
             RoomHooks.Init();
             FireHooks.Init();
+
             
             
             // Enables the options menu
@@ -80,7 +89,7 @@ namespace SlugTemplate
         private void LoadResources(RainWorld rainWorld)
         {
             //Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
-            //"ColdSnap", false);
+            //"Gameplay", false);
             //Futile.atlasManager.LoadImage("atlases/icon_Fireball");
             //Futile.atlasManager.LoadImage("icon_Fireball");
         }

@@ -1,0 +1,24 @@
+Template: NONE
+DangerType: None
+CeilingDrips: 0
+RainIntensity: 0.75
+RumbleIntensity: 0.75
+WaveSpeed: 0.5017542
+WaveLength: 0.9846195
+WaveAmplitude: 0.0343163
+SecondWaveLength: 0.6557972
+SecondWaveAmplitude: 0.6195652
+Clouds: 0
+Grime: 0
+WaterReflectionAlpha: 0.2282609
+Palette: 62
+EffectColorA: 5
+EffectColorB: 8
+Effects: LethalWater-1-38-31, WaterViscosity-0.7065217-319-73, LavaSurface-1-580-56, SilenceWater-1-818-138, HeatWave-0.04347826-517-124, LightBurn-0-691-557, MurkyWater-1-677-384, 
+PlacedObjects: SteamPipe><749.6991><161.7308><-2~287, SteamPipe><340.572><160.5634><13~306, ColouredLightSource><570.3141><25.17612><100~50~FF6400~1001^-345~1~False~0~0~0.5~Always~0~100, ColouredLightSource><571.7328><24.69925><100~50~FF6400~999^-349~1~False~0~0~0.5~Always~0~100, DangleFruit><854.9475><646.2193><39~-192~2~5, DangleFruit><833.4492><647.7667><59~-154~4~6, DangleFruit><811.05><647.7555><81.00006~-172~3~5, FlyLure><134.4359><422.0738><-248~1~4~9, FirecrackerPlant><535.6733><517.1847><198~-120~2~3, FirecrackerPlant><600.0417><502.6956><131~-89~2~3, PlacedWaterfall><670.6234><426.0952><156~-118~4~1, PlacedWaterfall><338.0873><677.1163><100~50~4~1, UpsideDownWaterFall><505.5093><522.9498><16~159~1~0~1~-266~-110~0~Background~False~1, ColouredLightSource><1267.056><216.1919><726~145~FF5600~415^296~1~False~0.5~0~0.5~Always~0~100, ColouredLightSource><1220.667><217.182><100~50~FF4E00~222^221~1~False~0.5~0~0.5~Always~0~100, SnowSource><3780.843><659.6266><None~-119~-32~-106~-102.3975~0.5543478~1, SnowSource><3685.032><420.4474><Strip~-71~44~50~86.60254~1~1, SnowSource><3436.448><403.7809><Strip~2~89~50~86.60254~1~1, SnowSource><3536.443><183.053><Strip~-484~101~50~86.60254~1~1, LightBeam><2593.858><659.0817><0~-16~-6~-483~-1274~-428~-889~-208~0.5086955~1~0.01086957~1~None~0.2173913~0, LightSource><3746.657><657.8741><0.8043478~Environment~-1631~-530~-562~-147.3975~1~0~None~0~0, 
+AmbientSounds: OMNI><AM_ENV-Woods.ogg><760.923><368.3154><0.5326087><0.8043478, OMNI><SO_NAT-Fire.ogg><736.3193><259.9376><0.8586956><0.5108696, 
+FadePalette: 11, 0.3804348, 0, 0
+WetTerrain: OFF
+MorePalette0: 0, 0, 0.6304348, 1
+MorePalette1: 13, 0, 0, 0.6739131
+MorePalette2: 11, 0, 0, 0

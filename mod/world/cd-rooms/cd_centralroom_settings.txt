@@ -1,9 +1,12 @@
 DangerType: Blizzard
 CeilingDrips: 0
-WaveSpeed: 0.5150228
-WaveLength: 0.9075163
-WaveAmplitude: 0.01961074
+RainIntensity: 1
+WaveSpeed: 0.5275371
+WaveLength: 0.7711673
+WaveAmplitude: 0.04349019
 SecondWaveLength: 0.1666667
 SecondWaveAmplitude: 0
+Grime: 0
 Effects: Coldness-1-20-20, 
-PlacedObjects: SnowSource><621.6202><662.9021><None~723~62~50~86.60254~0.75~1, SnowSource><899.1994><1529.485><None~358~75~50~86.60254~0.7282609~1, SnowSource><293.3922><1527.168><None~370~102~50~86.60254~0.7282609~1, SnowSource><614.7015><2226.695><None~670~13~50~86.60254~0.7282609~1, 
+PlacedObjects: FreeformDecalOrSprite><334.0908><506.8711><-261~87~0;0^-23;21^-162;-115^-152;-145~Futile_White~1~Basic~Foreground~105~True~21A9C5, IceBlock><327.8996><512.327><515~16~-18^18~-138.9172^-138.9172~-8^5~0~Radial~-3.28456^-5.255295, IceBlock><569.0502><682.2574><240~-82~-107^-105~17.52411^-17.8579~2^20~0~UnSnow~-20.14796^2.014796, IceBlock><498.4214><594.316><346~42~-85^-2~0.5258329^-22.3479~-28^11~0~UnSnow~-11.43432^-29.10555, IceBlock><351.5677><536.1882><482~27~-43^-3~1.301692^-18.65759~-124^-15~0~UnSnow~9.028285^-74.63383, FreeformDecalOrSprite><588.0256><664.5516><137~-65~0;0^-18;15^-121;-84^-109;-104~Futile_White3~1~Basic~Foreground~105~True~21A9C5, FreeformDecalOrSprite><352.0258><517.9484><100~50~0;0^0;16^-44;9^-21;-14~Futile_White2~1~Basic~Foreground~105~True~21A9C5, FreeformDecalOrSprite><498.5564><592.9497><100~50~0;0^3;-21^-83;-19^-84;-2~Futile_White4~1~Basic~Foreground~105~True~21A9C5, 
+WetTerrain: OFF
