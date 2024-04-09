@@ -41,9 +41,11 @@ namespace SlugTemplate
         public void OnEnable()
         {
             // Add custom objects to the game
-            
+
             // Add hooks to the game
             Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
+               "ColdSnap", false);
+            Pom.Pom.RegisterManagedObject<PlacedIceBlockPhys, IceBlockPhysData, Pom.Pom.ManagedRepresentation>("Melting Block",
                 "ColdSnap", false);
             On.RainWorld.OnModsInit += RainWorld_OnModsInit;
         }
@@ -59,10 +61,7 @@ namespace SlugTemplate
             
             // Required or keys mess up
             //On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
-            Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
-                "ColdSnap", false);
-            Pom.Pom.RegisterManagedObject<PlacedIceBlockPhys, IceBlockPhysData, Pom.Pom.ManagedRepresentation>("Melting Block",
-                "ColdSnap", false);
+           
             // Honestly, no idea what the extra class does. I never had one in my mod.
             // This hook can probably be deleted if we never load resources
             On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
