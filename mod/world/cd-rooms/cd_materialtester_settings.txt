@@ -1,0 +1,4 @@
+Grime: 0
+Palette: 40
+Effects: Desaturation-0-20-20, BrokenPalette-0-645-509, 
+FadePalette: 41, 0
