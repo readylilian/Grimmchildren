@@ -124,7 +124,7 @@ public class PlacedIceBlock : SnowSource, IDrawable
                     Console.WriteLine("CollisionCandidate = " + collisionCandidate.ToString());
                     centerBias = Custom.RotateAroundOrigo(centerBias, angle);
                     Console.WriteLine("centerBias = " + centerBias);
-                    /*if(obj is Player cat && cat is Player)
+                    /*if(obj is Player cat)
                     {
                         cat.customPlayerGravity = 5.0f;
                         p.PushOutOf(collisionCandidate + centerBias, 1f, -1);

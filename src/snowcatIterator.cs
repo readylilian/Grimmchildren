@@ -84,6 +84,7 @@ namespace SlugTemplate
                 {
                     cmBehavior.hasNoticedPlayer = false;
                     cmBehavior.idlePos = new Vector3(0, 0, 0);
+                    
                 }
                 if (eventName == "playerLeave" && doFireball == false)
                 {
