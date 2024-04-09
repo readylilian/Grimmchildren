@@ -36,7 +36,7 @@ namespace SlugTemplate.Hooks
             //Content.Register(new FireballFisob());
 
             Content.Register(new FireballFisob());
-            Apply();
+            //Apply();
             //On.Weapon.SetRandomSpin += WeaponSetRandomSpin;
             //Fireball.LoadSprites();
         }
