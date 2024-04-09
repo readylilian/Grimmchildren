@@ -11,11 +11,13 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
 {
     private PlacedObject _po;
     private Vector2 center;
+    private float opacity = 1f;
+    private bool collision = false;
 
     public PlacedIceBlockPhys(PlacedObject owner, Room room) : base(owner.pos)
     {
         _po = owner;
-        colliding = true;
+        drawing = true;
     }
 
     private IceBlockPhysData _Data
@@ -27,7 +29,7 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
         }
     }
 
-    private bool colliding = true;
+    private bool drawing = true;
 
     public void AddToContainer(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, FContainer newContatiner)
     {
@@ -51,7 +53,7 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
         {
             fire.DrawSprites(sLeaser, rCam, timeStacker, camPos);
         }*/
-        if (colliding)
+        if (drawing)
         {
             for (int i = 0; i < sLeaser.sprites.Length; i++)
             {
@@ -62,6 +64,7 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
                 sLeaser.sprites[i].y = _po.pos.y - camPos.y + _Data.xHandle.y / 2 + _Data.yHandle.y / 2;
                 //UnityEngine.Debug.Log("Sin: " + Math.Sin(rotation) + " _Data.xHandle.x:" + _Data.xHandle.x + " Rotation:" + sLeaser.sprites[i].rotation);
                 sLeaser.sprites[i].rotation = rotation;
+                sLeaser.sprites[i].color = new Color(0.9f, 0.90f, 1.00f, opacity);
             }
 
             //remove sprite
@@ -103,7 +106,7 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
 
         //Debug.Log(atlas.name);
         sLeaser.sprites[0] = new FSprite("snowcat_ice", true);
-        sLeaser.sprites[0].color = new Color(0.7f, 0.70f, 1.00f, 1);
+        sLeaser.sprites[0].color = new Color(0.9f + (opacity - 1) * 2, 0.90f + (opacity - 1) * 2, 1.00f + (opacity - 1) * 2, opacity);
 
 
         AddToContainer(sLeaser, rCam, null);
@@ -114,6 +117,10 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
         // Pass over values as updated in dev mode
         pos = _Data.snowPivot + _po.pos;
         rad = _Data.radHandle.magnitude;
+        drawing = _Data.drawing;
+        if (!drawing) { _Data.collision = false; }
+        opacity = _Data.opacity;
+        collision = _Data.collision;
         shape = _Data.shape;
         intensity = _Data.intensity / 100f;
         
@@ -125,12 +132,12 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
         float angle = Custom.VecToDeg(_Data.yHandle);
         Console.WriteLine("Center = " + center + ", Angle = " + angle + ", Width = " + _Data.xHandle.magnitude +
                           ", Height = " + _Data.yHandle.magnitude);
-        //UnityEngine.Debug.Log(colliding);
+        //UnityEngine.Debug.Log(drawing);
 
         foreach (UpdatableAndDeletable obj in room.updateList)
         {
             // TODO: Remove Player line
-            if (obj is PhysicalObject p /*&& p is Player*/ && colliding)
+            if (obj is PhysicalObject p && p is Player && drawing)
             {
                 foreach (BodyChunk chunk in p.bodyChunks)
                 {
@@ -147,7 +154,24 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
                 }
             }
 
-            if (obj is Fireball f && colliding)
+            if (obj is PhysicalObject o && o is not Player && drawing && collision)
+            {
+                foreach (BodyChunk chunk in o.bodyChunks)
+                {
+                    Vector2 rotatedPosition = Custom.RotateAroundVector(chunk.pos, _po.pos, -angle);
+                    Console.WriteLine("RotatedPosition = " + rotatedPosition.ToString());
+                    Vector2 centerBias = (center - rotatedPosition).normalized * 0.01f;
+                    Vector2 collisionCandidate =
+                        Custom.RotateAroundVector(areaRect.GetClosestInteriorPoint(rotatedPosition), _po.pos, angle);
+                    Console.WriteLine("CollisionCandidate = " + collisionCandidate.ToString());
+                    centerBias = Custom.RotateAroundOrigo(centerBias, angle);
+                    Console.WriteLine("centerBias = " + centerBias);
+
+                    o.PushOutOf(collisionCandidate + centerBias, 0f, -1);
+                }
+            }
+
+            if (obj is Fireball f && drawing)
             {
                 //if (Math.Abs(Vector2.Distance(f.Position(), center)) < _Data.radHandle.magnitude)
                 if(_Data.xHandle.x > _Data.yHandle.x)
@@ -159,8 +183,10 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
                         {
 
                             f.Destroy();
-                            this.colliding = false;
-
+                            _Data.drawing = false;
+                            _Data.collision = false;
+                            this.drawing = false;
+                            
                             UnityEngine.Debug.Log("+ +");
                         }
                     }
@@ -171,7 +197,9 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
                         {
 
                             f.Destroy();
-                            this.colliding = false;
+                            _Data.drawing = false;
+                            _Data.collision = false;
+                            this.drawing = false;
 
                             UnityEngine.Debug.Log("+ -");
                         }
@@ -186,7 +214,9 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
                         {
 
                             f.Destroy();
-                            this.colliding = false;
+                            _Data.drawing = false;
+                            _Data.collision = false;
+                            this.drawing = false;
 
                             UnityEngine.Debug.Log("- +");
                         }
@@ -198,7 +228,9 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
                         {
 
                             f.Destroy();
-                            this.colliding = false;
+                            _Data.drawing = false;
+                            _Data.collision = false;
+                            this.drawing = false;
 
                             UnityEngine.Debug.Log("- -");
                         }

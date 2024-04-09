@@ -17,6 +17,9 @@ public class IceBlockPhysData : Pom.ManagedData
             Pom.DrivenVector2Field.DrivenControlType.rectangle, null),
         new Pom.Vector2Field("SnowPivot", new Vector2(-100f, 0f), Pom.Vector2Field.VectorReprType.none),
         new Pom.FloatField("Intensity", 0f, 100f, 100f),
+        new Pom.BooleanField("Drawing", true),
+        new Pom.BooleanField("Collision", true),
+        new Pom.FloatField("Opacity",0,1.0f,1.0f,0.05f),
         new Pom.ExtEnumField<PlacedObject.SnowSourceData.Shape>("Shape", PlacedObject.SnowSourceData.Shape.Radial),
         new Pom.DrivenVector2Field("Radius", "SnowPivot", new Vector2(0, 100), Pom.DrivenVector2Field.DrivenControlType.perpendicularOval)
     };
@@ -26,5 +29,8 @@ public class IceBlockPhysData : Pom.ManagedData
     [BackedByField("SnowPivot")] public Vector2 snowPivot;
     [BackedByField("Radius")] public Vector2 radHandle;
     [BackedByField("Intensity")] public float intensity;
+    [BackedByField("Drawing")] public bool drawing;
+    [BackedByField("Collision")] public bool collision;
+    [BackedByField("Opacity")] public float opacity;
     [BackedByField("Shape")] public PlacedObject.SnowSourceData.Shape shape;
 }
