@@ -130,7 +130,7 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
         foreach (UpdatableAndDeletable obj in room.updateList)
         {
             // TODO: Remove Player line
-            if (obj is PhysicalObject p && p is Player && colliding)
+            if (obj is PhysicalObject p /*&& p is Player*/ && colliding)
             {
                 foreach (BodyChunk chunk in p.bodyChunks)
                 {
