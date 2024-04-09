@@ -207,7 +207,7 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
                 
            /*     UnityEngine.Debug.Log("Saw Fireball: " + f.Position().x + " " + f.Position().y);
                 UnityEngine.Debug.Log("origin: " + (_po.pos.x + _Data.yHandle.x) + " " + (_po.pos.y + _Data.xHandle.y));
-                UnityEngine.Debug.Log("End: " + (_po.pos.x + _Data.xHandle.x) + " " + (_po.pos.y + _Data.yHandle.y));*/*/
+                UnityEngine.Debug.Log("End: " + (_po.pos.x + _Data.xHandle.x) + " " + (_po.pos.y + _Data.yHandle.y));*/
             }
         }
     }
