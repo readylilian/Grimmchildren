@@ -13,7 +13,8 @@ public static class RoomScripts
 	// Only necessary because a first build runs room scripts twice for some reason
 	private static bool room1Ran = false;
 	private static bool room2Ran = false;
-	
+    private static bool room3Ran = false;
+
     public static void Init()
     {
 	    On.ProcessManager.PostSwitchMainProcess += ProcessManager_PostSwitchMainProcess;
@@ -31,7 +32,8 @@ public static class RoomScripts
 	    {
 		    room1Ran = false;
 		    room2Ran = false;
-	    }
+            room3Ran = false;
+        }
 
 	    orig(self, ID);
     }
@@ -55,6 +57,13 @@ public static class RoomScripts
 	        room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(48, 15), new Vector2(217.3387f, 1360.429f),
 		        "Puzzle2"));
 	        room2Ran = true;
+        }
+
+        else if (room.abstractRoom.name == "CD_PUZZLEROOM3" && !room3Ran)
+        {
+            room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(48, 15), new Vector2(1230.535f, 240.053f),
+                "Puzzle3"));
+            room3Ran = true;
         }
     }
 
