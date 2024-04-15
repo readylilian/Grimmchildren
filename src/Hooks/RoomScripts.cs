@@ -49,21 +49,21 @@ public static class RoomScripts
         if (room.abstractRoom.name == "CD_PUZZLEROOM1" && !room1Ran)
         {
 	        // Creation of nested class, it starts like 20 lines below this (first coord is goal, second is orb)
-	        room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(14, 13), new Vector2(998.6288f, 1299.568f),
+	        room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(12, 13), new Vector2(998.6288f, 1299.568f),
 		        "Puzzle1"));
 	        room1Ran = true;
         }
 
         else if (room.abstractRoom.name == "CD_PUZZLEROOM2" && !room2Ran)
         {
-	        room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(48, 15), new Vector2(217.3387f, 1360.429f),
+	        room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(43, 13), new Vector2(217.3387f, 1360.429f),
 		        "Puzzle2"));
 	        room2Ran = true;
         }
 
         else if (room.abstractRoom.name == "CD_PUZZLEROOM3" && !room3Ran)
         {
-            room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(61, 122), new Vector2(1230.535f, 240.053f),
+            room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(55, 110), new Vector2(1230.535f, 240.053f),
                 "Puzzle3"));
             room3Ran = true;
         }
