@@ -14,6 +14,7 @@ public static class RoomScripts
 	private static bool room1Ran = false;
 	private static bool room2Ran = false;
     private static bool room3Ran = false;
+    private static bool room4Ran = false;
 
     public static void Init()
     {
@@ -33,6 +34,7 @@ public static class RoomScripts
 		    room1Ran = false;
 		    room2Ran = false;
             room3Ran = false;
+			room4Ran = false;
         }
 
 	    orig(self, ID);
@@ -64,6 +66,13 @@ public static class RoomScripts
             room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(61, 122), new Vector2(1230.535f, 240.053f),
                 "Puzzle3"));
             room3Ran = true;
+        }
+
+        else if (room.abstractRoom.name == "CD_PUZZLEROOM4" && !room4Ran)
+        {
+            room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(26, 11), new Vector2(2150.032f, 2920.698f),
+                "Puzzle4"));
+            room4Ran = true;
         }
     }
 
