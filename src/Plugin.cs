@@ -1,12 +1,17 @@
 ﻿using System;
 using BepInEx;
+using Fisobs.Core;
 using RWCustom;
 using Fisobs.Core;
 using UnityEngine;
 using SlugBase.Features;
 using SlugTemplate.Hooks;
+using SlugTemplate.Ice_Block;
 using static SlugBase.Features.FeatureTypes;
 using System.IO;
+using IteratorKit.CMOracle;
+using static IteratorKit.CMOracle.CMOracleBehavior;
+using static IteratorKit.IteratorKit;
 
 namespace SlugTemplate
 {
@@ -15,7 +20,7 @@ namespace SlugTemplate
     
     // Connects us to the api
     [BepInPlugin("GrimmChildrenMod", "GrimmChildren", "0.1.0")]
-    public class Plugin : BaseUnityPlugin
+    public sealed class Plugin : BaseUnityPlugin
     {
         public static Options options;
         
@@ -35,9 +40,14 @@ namespace SlugTemplate
         // Enable all mod hooks. This is the entry point for the entire mod
         public void OnEnable()
         {
+            // Add custom objects to the game
 
+            // Add hooks to the game
+            Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
+               "ColdSnap", false);
+            Pom.Pom.RegisterManagedObject<PlacedIceBlockPhys, IceBlockPhysData, Pom.Pom.ManagedRepresentation>("Melting Block",
+                "ColdSnap", false);
             On.RainWorld.OnModsInit += RainWorld_OnModsInit;
-
         }
 
        // public static readonly Oracle.OracleID SRS = new Oracle.OracleID("SRS", register: true);
@@ -47,13 +57,25 @@ namespace SlugTemplate
         {
             orig(self);
             
+            //On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
+            
+            // Required or keys mess up
+            //On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
+           
             // Honestly, no idea what the extra class does. I never had one in my mod.
             // This hook can probably be deleted if we never load resources
             On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
             //On.OracleBehavior.Update += OracleBehavior_Update;
-
+            CMOracleBehavior.OnEventEnd += snowcatIterator.OnEventEnd;
+            CMOracleBehavior.OnEventStart += snowcatIterator.OnEventStart;
+            On.OracleBehavior.Update += snowcatIterator.OracleBehavior_Update;
+            //Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
+              //  "ColdSnap", false);
+            
             // Enable our custom hooks
             PlayerHooks.Init();
+            RoomScripts.Init();
+            RoomHooks.Init();
             FireHooks.Init();
             BossHooks.Init();
             
@@ -64,6 +86,8 @@ namespace SlugTemplate
         // Load any resources, such as sprites or sounds
         private void LoadResources(RainWorld rainWorld)
         {
+            //Pom.Pom.RegisterManagedObject<PlacedIceBlock, IceBlockData, Pom.Pom.ManagedRepresentation>("IceBlock",
+            //"Gameplay", false);
             //Futile.atlasManager.LoadImage("atlases/icon_Fireball");
             //Futile.atlasManager.LoadImage("icon_Fireball");
         }

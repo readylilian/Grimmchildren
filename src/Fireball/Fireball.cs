@@ -61,7 +61,8 @@ namespace SlugTemplate
             fakePObj = fakeObj;
         }
         ~Fireball() {
-            
+            fakePObj.pos = new Vector2(-9999, -9999);
+            fakePObj.active = false;
         }
 
         //Update the state of the fireball

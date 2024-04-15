@@ -1,21 +1,22 @@
-DangerType: Blizzard
+DangerType: None
 CeilingDrips: 0
 RainIntensity: 1
 RumbleIntensity: 1
-WaveSpeed: 0.5000584
-WaveLength: 0.9999709
-WaveAmplitude: 0.0006043323
+WaveSpeed: 0.5013636
+WaveLength: 0.9993182
+WaveAmplitude: 0.006194712
 SecondWaveLength: 0.1666667
 SecondWaveAmplitude: 0
 Clouds: 0
 Grime: 0
-BkgDroneVolume: 0.3
+BkgDroneVolume: 0
 BkgDroneNoThreatVolume: 1
 RandomItemDensity: 0.5
 RandomItemSpearChance: 0.2
-WaterReflectionAlpha: 1
+WaterReflectionAlpha: 0
 Palette: 36
-EffectColorA: 8
-EffectColorB: 0
-Effects: SSSwarmers-0-221-103, Coldness-1-20-20, LightBurn-0.3043478-20-20, 
-FadePalette: 1, 0
+EffectColorA: 15
+EffectColorB: 6
+Effects: LavaSurface-1-954-470, WaterViscosity-0.5217391-970-336, WaterLights-0-965-411, LethalWater-0.01086957-766-531, SilenceWater-1-469-507, SSSwarmers-0-221-103, Coldness-1-20-20, LightBurn-0.3043478-20-20, 
+AmbientSounds: OMNI><AM_ENV-LushNight.ogg><763.0861><508.8646><0.3913043><0.6086956, OMNI><AM_ENV-Woods.ogg><440.0639><385.9395><0.4782609><0.5108696, OMNI><SO_NAT-Fire.ogg><567.1991><517.9811><0.3913043><0.7065217, 
+FadePalette: 39, 0.3043478
