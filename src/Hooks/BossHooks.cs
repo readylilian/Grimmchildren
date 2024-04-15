@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using RWCustom;
 
 namespace SlugTemplate.Hooks
 {
@@ -11,6 +12,8 @@ namespace SlugTemplate.Hooks
         static bool count = false;
         //Stop is the length of time it takes for dialog
         static float stop = 18;
+
+        static bool TESTING = true;
         enum Behavior
         {
             Frozen,
@@ -23,7 +26,7 @@ namespace SlugTemplate.Hooks
         {
             On.Lizard.Update += BossUpdate;
             On.RainWorld.Update += RainWorldOnUpdate;
-            bossBehavior = Behavior.Speaking;
+            bossBehavior = Behavior.Frozen;
         }
 
         private static void RainWorldOnUpdate(On.RainWorld.orig_Update orig, RainWorld self)
@@ -34,6 +37,13 @@ namespace SlugTemplate.Hooks
             {
                 return;
             }
+            //TESTING STUFF DON"T LEAVE THIS HERE
+            if (TESTING == true && rainWorldGame.cameras[0].room.roomSettings.name == "CD_CENTRALROOM")
+            {
+                Debug.Log("Testing");
+                SpawnBoss(rainWorldGame.cameras[0].pos, self, rainWorldGame);
+                TESTING = false;
+            }
             if (rainWorldGame.cameras[0].room.roomSettings.name == "CD_CENTRALROOM"
                 && count == false
                 && bossBehavior == Behavior.Speaking)
@@ -42,6 +52,7 @@ namespace SlugTemplate.Hooks
                 {
                     for (int j = 0; j < rainWorldGame.cameras[0].room.physicalObjects[i].Count; j++)
                     {
+                        Debug.Log(rainWorldGame.cameras[0].room.physicalObjects[i][j].ToString().ToLower());
                         if (rainWorldGame.cameras[0].room.physicalObjects[i][j].ToString().ToLower().Contains("lizard"))
                         {
                             if (rainWorldGame.cameras[0].hud.dialogBox == null)
@@ -73,6 +84,7 @@ namespace SlugTemplate.Hooks
                     bossBehavior = Behavior.Normal;
                 }
             }
+
         }
         private static void BossUpdate(On.Lizard.orig_Update orig, Lizard self, bool eu)
         {
@@ -107,6 +119,17 @@ namespace SlugTemplate.Hooks
             {
                 orig(self, eu);
             }
+        }
+        private static void SpawnBoss(Vector2 bossLocation, RainWorld self, RainWorldGame game)
+        {
+            CreatureTemplate.Type bossType = (CreatureTemplate.Type)ExtEnumBase.Parse(typeof(CreatureTemplate.Type), ExtEnum<CreatureTemplate.Type>.values.entries.Find(x => x.Equals("Boss")), ignoreCase: false);
+            IntVector2 tilePosition = game.cameras[0].room.GetTilePosition(bossLocation);
+            WorldCoordinate worldCoordinate = game.cameras[0].room.GetWorldCoordinate(tilePosition);
+            EntityID newID = game.GetNewID();
+            AbstractCreature abstractCreature = new AbstractCreature(game.world, StaticWorld.GetCreatureTemplate(bossType), null, worldCoordinate, newID);
+            game.cameras[0].room.abstractRoom.AddEntity(abstractCreature);
+            abstractCreature.RealizeInRoom();
+            Debug.Log("Spawning boss");
         }
     }
 }
