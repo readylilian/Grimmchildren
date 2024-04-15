@@ -263,6 +263,7 @@ namespace SlugTemplate
 
         public override void DrawSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, float timeStacker, Vector2 camPos)
         {
+            
             Vector2 pos = Vector2.Lerp(firstChunk.lastPos, firstChunk.pos, timeStacker);
             float num = Mathf.InverseLerp(305f, 380f, timeStacker);
             pos.y -= 20f * Mathf.Pow(num, 3f);
