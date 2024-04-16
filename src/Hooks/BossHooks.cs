@@ -28,7 +28,7 @@ namespace SlugTemplate.Hooks
         {
             On.Lizard.Update += BossUpdate;
             On.RainWorld.Update += RainWorldOnUpdate;
-            bossBehavior = Behavior.Frozen;
+            bossBehavior = Behavior.Normal;
         }
 
         private static void RainWorldOnUpdate(On.RainWorld.orig_Update orig, RainWorld self)
@@ -38,6 +38,11 @@ namespace SlugTemplate.Hooks
             if (!(self.processManager.currentMainLoop is RainWorldGame rainWorldGame))
             {
                 return;
+            }
+            if(bossOver)
+            {
+                var shortcut = rainWorldGame.cameras[0].room.shortcutsIndex[2];
+                rainWorldGame.cameras[0].room.lockedShortcuts.Remove(shortcut);
             }
             //If no boss spawn boss
             if (bossHere == false && rainWorldGame.cameras[0].room.roomSettings.name == "CD_CENTRALROOM")
@@ -75,6 +80,14 @@ namespace SlugTemplate.Hooks
                                 rainWorldGame.cameras[0].hud.dialogBox.NewMessage(self.inGameTranslator.Translate("These machines would sooner trap you with them then ever tell you the true path to freedom."), 60);
                                 rainWorldGame.cameras[0].hud.dialogBox.NewMessage(self.inGameTranslator.Translate("You have doomed us all!"), 60);
                                 count = true;
+
+                                foreach (var shortcut in rainWorldGame.cameras[0].room.shortcutsIndex)
+                                {
+                                    if (!rainWorldGame.cameras[0].room.lockedShortcuts.Contains(shortcut))
+                                    {
+                                        rainWorldGame.cameras[0].room.lockedShortcuts.Add(shortcut);
+                                    }
+                                }
                             }
                         }
                     }
