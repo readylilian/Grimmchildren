@@ -28,7 +28,7 @@ namespace SlugTemplate.Hooks
         {
             On.Lizard.Update += BossUpdate;
             On.RainWorld.Update += RainWorldOnUpdate;
-            bossBehavior = Behavior.Normal;
+            bossBehavior = Behavior.Frozen;
         }
 
         private static void RainWorldOnUpdate(On.RainWorld.orig_Update orig, RainWorld self)
