@@ -1,12 +1,13 @@
 DangerType: Blizzard
 CeilingDrips: 0
-WaveSpeed: 0.507057
-WaveLength: 0.8257825
-WaveAmplitude: 0.03527297
+WaveSpeed: 0.5040525
+WaveLength: 0.9818748
+WaveAmplitude: 0.006685213
 SecondWaveLength: 0
 SecondWaveAmplitude: 0
 Grime: 0
 WaterReflectionAlpha: 0
 Effects: Coldness-1-20-20, HeatWave-0-874-473, 
-PlacedObjects: IceBlock><248.8385><1201.071><100~50~-116^150~-40.43963^-31.27332~-100^0~0~UnSnow~0^-100, IceBlock><415.0647><1094.424><100~50~-176^106~-21.55805^-35.79451~-100^0~100~Radial~0^-100, IceBlock><516.6218><1075.475><100~50~-111^12~-4.770548^-44.12757~-100^0~100~Radial~0^-100, IceBlock><613.9954><1084.7><100~50~-103^-18~18.54096^-106.0955~-100^0~100~Radial~0^-100, IceBlock><710.4415><1123.69><100~50~-100^-49.09473~43.18075^-87.95393~-100^0~100~Radial~0^-100, IceBlock><-201.7549><1050.317><100~50~-100^-40~40^-100~-100^0~100~Radial~0^-100, IceBlock><778.645><1176.511><100~50~-77.96771^-66.27368~69.75451^-82.06274~-100^0~100~Radial~0^-100, 
+PlacedObjects: Melting Block><253.0892><1348.321><100~50~-74^0~0^-61.98371~-100^0~100~True~True~1~Radial~0^-100, Melting Block><254.1628><1206.884><100~50~-79^0~0^-67.44627~-100^0~100~True~True~1~Radial~0^-100, Melting Block><676.7579><418.8002><100~50~-143^-1~0.2945172^-42.11595~-100^0~0~True~True~1~UnSnow~0^-100, Melting Block><681.3279><520.8981><100~50~-122^0~0^-31.53093~-100^0~0~True~True~1~UnSnow~0^-100, Melting Block><326.0927><658.8735><100~50~-64^-1~1.628219^-104.206~-100^0~100~True~True~1~Radial~0^-100, Melting Block><687.8848><488.3365><100~50~-39^0~0^-70.72164~-100^0~0~True~True~1~Radial~0^-100, LightSource><856.3107><263.5464><1~Environment~0~100~50~86.60254~1~0~None~0~0, 
 RoomSpecificScriptActive: ON
+WetTerrain: OFF
