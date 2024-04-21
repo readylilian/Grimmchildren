@@ -40,6 +40,7 @@ public class PlacedIceBlock : SnowSource, IDrawable
     public void ApplyPalette(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, RoomPalette palette)
     {
         //fuck the police coming straight from the underground
+        //nice
     }
 
     public void DrawSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, float timeStacker, Vector2 camPos)
@@ -51,22 +52,21 @@ public class PlacedIceBlock : SnowSource, IDrawable
 
                 for (int i = 0; i < sLeaser.sprites.Length; i++)
             {
-            float rotation = Custom.VecToDeg(_Data.yHandle);
-            sLeaser.sprites[i].scaleX = _Data.xHandle.magnitude / 80;
-            sLeaser.sprites[i].scaleY = _Data.yHandle.magnitude / 50;   
-            sLeaser.sprites[i].x = _po.pos.x - camPos.x + _Data.xHandle.x/2 + _Data.yHandle.x / 2;
+                float rotation = Custom.VecToDeg(_Data.yHandle);
+                sLeaser.sprites[i].scaleX = _Data.xHandle.magnitude / 80;
+                sLeaser.sprites[i].scaleY = _Data.yHandle.magnitude / 50;   
+                sLeaser.sprites[i].x = _po.pos.x - camPos.x + _Data.xHandle.x/2 + _Data.yHandle.x / 2;
                 sLeaser.sprites[i].y = _po.pos.y - camPos.y + _Data.xHandle.y / 2 + _Data.yHandle.y/2;
                 //UnityEngine.Debug.Log("Sin: " + Math.Sin(rotation) + " _Data.xHandle.x:" + _Data.xHandle.x + " Rotation:" + sLeaser.sprites[i].rotation);
                 sLeaser.sprites[i].rotation = rotation;
-        }
-        //sLeaser.sprites[i].height / 2;
-        //remove sprite
-        if (slatedForDeletetion || room != rCam.room)
+            }
+            //sLeaser.sprites[i].height / 2;
+            //remove sprite
+            if (slatedForDeletetion || room != rCam.room)
             {
                 
                 sLeaser.CleanSpritesAndRemove();
             }
-        
     }
 
     public void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
@@ -105,8 +105,8 @@ public class PlacedIceBlock : SnowSource, IDrawable
         Rect areaRect = new Rect(_po.pos.x, _po.pos.y, _Data.xHandle.magnitude, _Data.yHandle.magnitude);
         center = areaRect.center;
         float angle = Custom.VecToDeg(_Data.yHandle);
-        Console.WriteLine("Center = " + center + ", Angle = " + angle + ", Width = " + _Data.xHandle.magnitude +
-                          ", Height = " + _Data.yHandle.magnitude);
+        //Console.WriteLine("Center = " + center + ", Angle = " + angle + ", Width = " + _Data.xHandle.magnitude +
+        //                  ", Height = " + _Data.yHandle.magnitude);
 
         
         foreach (UpdatableAndDeletable obj in room.updateList)
@@ -117,13 +117,13 @@ public class PlacedIceBlock : SnowSource, IDrawable
                 foreach (BodyChunk chunk in p.bodyChunks)
                 {
                     Vector2 rotatedPosition = Custom.RotateAroundVector(chunk.pos,_po.pos, -angle);
-                    Console.WriteLine("RotatedPosition = " + rotatedPosition.ToString());
+                    //Console.WriteLine("RotatedPosition = " + rotatedPosition.ToString());
                     Vector2 centerBias = (center - rotatedPosition).normalized * 0.01f;
                     Vector2 collisionCandidate =
                         Custom.RotateAroundVector(areaRect.GetClosestInteriorPoint(rotatedPosition), _po.pos, angle);
-                    Console.WriteLine("CollisionCandidate = " + collisionCandidate.ToString());
+                    //Console.WriteLine("CollisionCandidate = " + collisionCandidate.ToString());
                     centerBias = Custom.RotateAroundOrigo(centerBias, angle);
-                    Console.WriteLine("centerBias = " + centerBias);
+                    //Console.WriteLine("centerBias = " + centerBias);
                     /*if(obj is Player cat)
                     {
                         cat.customPlayerGravity = 5.0f;
