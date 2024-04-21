@@ -33,7 +33,6 @@ namespace SlugTemplate.Hooks
         public static void Init()
         {
             Debug.Log("Fireball is enabled");
-            //Content.Register(new FireballFisob());
 
             Content.Register(new FireballFisob());
             //Apply();

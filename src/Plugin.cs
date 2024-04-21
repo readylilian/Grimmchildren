@@ -77,8 +77,7 @@ namespace SlugTemplate
             RoomScripts.Init();
             RoomHooks.Init();
             FireHooks.Init();
-
-            
+            BossHooks.Init();
             
             // Enables the options menu
             MachineConnector.SetRegisteredOI("GrimmChildrenMod", options);

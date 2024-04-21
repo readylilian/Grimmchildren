@@ -8,13 +8,15 @@
 		"slime-cubed.slugbase",
 		"fisobs",
 		"regionkit",
-		"iteratorKit"
+		"iteratorKit",
+		"lizardcustomizer"
 	],
 	"requirements_names": [
 		"SlugBase",
 		"Fisobs",
 		"RegionKit",
-		"Iterator Kit"
+		"Iterator Kit",
+		"Custom Lizards"
 	],
 	"tags": [
 		"Custom Slugcat",
