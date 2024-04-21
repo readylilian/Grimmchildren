@@ -41,6 +41,29 @@ public static class RoomScripts
     }
 
 
+    // Meant to output if all puzzles are solved
+    public static bool AllOrbsCollected(Player player)
+    {
+	    bool puzzle1Complete;
+	    bool puzzle2Complete;
+	    bool puzzle3Complete;
+	    bool puzzle4Complete;
+	    
+	    player.room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
+		    .TryGet("Puzzle1" + "Completed", out puzzle1Complete);
+	    
+	    player.room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
+		    .TryGet("Puzzle2" + "Completed", out puzzle2Complete);
+	    
+	    player.room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
+		    .TryGet("Puzzle3" + "Completed", out puzzle3Complete);
+	    
+	    player.room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
+		    .TryGet("Puzzle4" + "Completed", out puzzle4Complete);
+
+	    return puzzle1Complete && puzzle2Complete && puzzle3Complete && puzzle4Complete;
+    }
+
     // Adding scripts to rooms
     private static void RoomSpecificScript_AddRoomSpecificScript(On.RoomSpecificScript.orig_AddRoomSpecificScript orig, Room room)
     {
@@ -98,7 +121,7 @@ public static class RoomScripts
             goalPosition = goal;
             startPosition = start;
             saveTerm = saveSpecifier;
-
+            
             bool puzzleCompleted = false;
             room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
 	            .TryGet(saveTerm + "Completed", out puzzleCompleted);
@@ -158,7 +181,7 @@ public static class RoomScripts
 			bool orbSpawned = false;
 			room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
 				.TryGet<bool>(saveTerm + "OrbSpawned", out orbSpawned);
-
+			
 			// This rooms cell hasn't been spawned yet
 			if (room.game.session is StoryGameSession session && !orbSpawned && myEnergyCell == null)
 			{
@@ -212,14 +235,13 @@ public static class RoomScripts
 					} 
 				}
 			}
-
+			
 
 			// orb proceeds to end of it's turn on animation
 			if (foundCell?.stage == 3 && !lethalMode)
 			{
 				lethalTimer += Time.deltaTime;
 
-				Console.WriteLine(lethalTimer);
 				if (lethalTimer >= 16)
 				{
 					lethalMode = true; // vortex can now kill you
@@ -309,7 +331,6 @@ public static class RoomScripts
 						
 						return;
 					}
-
 					
 					
 					if (Vector2.Distance(new Vector2(goalPosition.x * 18, goalPosition.y * 18),
