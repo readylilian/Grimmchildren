@@ -10,7 +10,6 @@ using System.Xml.Linq;
 using IL.Menu;
 
 namespace SlugTemplate.Hooks;
-
 public static class PlayerHooks
 {
     public static void Init()
@@ -66,6 +65,7 @@ public static class PlayerHooks
     {
         orig.Invoke(self, saveMaps, saveMiscProg);
         UnityEngine.Debug.Log("Saving ");
+        SlugBase.SaveData.SlugBaseSaveData.Set();
         if (snowcatIterator.doFireball)
         {
             UnityEngine.Debug.Log("Saved");
