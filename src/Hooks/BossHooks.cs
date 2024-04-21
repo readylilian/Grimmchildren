@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Threading;
 using System;
 using RWCustom;
 
@@ -28,7 +29,7 @@ namespace SlugTemplate.Hooks
         {
             On.Lizard.Update += BossUpdate;
             On.RainWorld.Update += RainWorldOnUpdate;
-            bossBehavior = Behavior.Frozen;
+            bossBehavior = Behavior.Speaking;
         }
 
         private static void RainWorldOnUpdate(On.RainWorld.orig_Update orig, RainWorld self)
@@ -50,8 +51,7 @@ namespace SlugTemplate.Hooks
                 SpawnBoss(new Vector2(384.9567f,1170.204f), self, rainWorldGame);
                 bossHere = true;
             }
-            if (rainWorldGame.cameras[0].room.roomSettings.name == "CD_CENTRALROOM"
-                && count == false)
+            if (rainWorldGame.cameras[0].room.roomSettings.name == "CD_CENTRALROOM")
             {
                 bool foundBoss = false;
                 for (int i = 0; i < rainWorldGame.cameras[0].room.physicalObjects.Length; i++)
@@ -64,7 +64,7 @@ namespace SlugTemplate.Hooks
                             foundBoss = true;
                             //If the boss dies then it's over, don't spawn or talk
                             bossOver = (rainWorldGame.cameras[0].room.abstractRoom.creatures.Find(x => x.Equals(boss))).state.dead;
-                            if (bossBehavior == Behavior.Speaking && !bossOver)
+                            if (bossBehavior == Behavior.Speaking && !bossOver && count == false)
                             {
                                 if (rainWorldGame.cameras[0].hud.dialogBox == null)
                                 {
@@ -98,6 +98,10 @@ namespace SlugTemplate.Hooks
                     Debug.Log("respawn boss");
                     bossHere = false;
                 }
+
+                Debug.Log("Found boss? " + foundBoss);
+                Debug.Log("Boss over? " + bossOver);
+                Debug.Log("Boss here?" + bossHere);
             }
             if (count)
             {
@@ -122,6 +126,18 @@ namespace SlugTemplate.Hooks
             game.cameras[0].room.abstractRoom.AddEntity(boss);
             boss.RealizeInRoom();
             Debug.Log("Spawning boss");
+
+            //WHEN RESPAWNING IF WE'RE FIGHTING LOCK THE DOORS
+            if(bossBehavior == Behavior.Speaking || bossBehavior == Behavior.Normal)
+            {
+                foreach (var shortcut in game.cameras[0].room.shortcutsIndex)
+                {
+                    if (!game.cameras[0].room.lockedShortcuts.Contains(shortcut))
+                    {
+                        game.cameras[0].room.lockedShortcuts.Add(shortcut);
+                    }
+                }
+            }
         }
 
         private static void BossUpdate(On.Lizard.orig_Update orig, Lizard self, bool eu)
