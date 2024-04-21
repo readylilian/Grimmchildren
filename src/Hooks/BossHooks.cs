@@ -42,7 +42,7 @@ namespace SlugTemplate.Hooks
             }
             if(bossOver)
             {
-                var shortcut = rainWorldGame.cameras[0].room.shortcutsIndex[2];
+                var shortcut = rainWorldGame.cameras[0].room.shortcutsIndex[0];
                 rainWorldGame.cameras[0].room.lockedShortcuts.Remove(shortcut);
             }
             //If no boss spawn boss
