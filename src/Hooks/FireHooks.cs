@@ -33,7 +33,6 @@ namespace SlugTemplate.Hooks
         public static void Init()
         {
             Debug.Log("Fireball is enabled");
-            //Content.Register(new FireballFisob());
 
             Content.Register(new FireballFisob());
             //THE LINE BELOW IS WHAT CONTROLS IF YOU START WITH THE FIREBALL OR NOT, UNCOMMENT TO HAVE FIREBALL FROM THE BEGINNING. (Im pretty sure theres a dedicated way to do this but it doesn't bug me so Im not bothering atm)
