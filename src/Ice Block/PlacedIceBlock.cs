@@ -11,6 +11,8 @@ public class PlacedIceBlock : SnowSource, IDrawable
 {
     private PlacedObject _po;
     private Vector2 center;
+    private float opacity = 1f;
+    private bool collision = false;
 
     public PlacedIceBlock(PlacedObject owner, Room room) : base(owner.pos)
     {
@@ -58,6 +60,7 @@ public class PlacedIceBlock : SnowSource, IDrawable
                 sLeaser.sprites[i].y = _po.pos.y - camPos.y + _Data.xHandle.y / 2 + _Data.yHandle.y/2;
                 //UnityEngine.Debug.Log("Sin: " + Math.Sin(rotation) + " _Data.xHandle.x:" + _Data.xHandle.x + " Rotation:" + sLeaser.sprites[i].rotation);
                 sLeaser.sprites[i].rotation = rotation;
+            sLeaser.sprites[i].color = new Color(1.0f, 1.00f, 1.00f, opacity);
         }
         //sLeaser.sprites[i].height / 2;
         //remove sprite
@@ -85,7 +88,7 @@ public class PlacedIceBlock : SnowSource, IDrawable
 
         //Debug.Log(atlas.name);
         sLeaser.sprites[0] = new FSprite("snowcat_ice", true);
-        sLeaser.sprites[0].color = new Color(1.0f, 1.00f, 1.00f, 1);
+        sLeaser.sprites[0].color = new Color(1.0f, 1.00f, 1.00f, opacity);
 
 
         AddToContainer(sLeaser, rCam, null);
@@ -97,6 +100,8 @@ public class PlacedIceBlock : SnowSource, IDrawable
         pos = _Data.snowPivot + _po.pos;
         rad = _Data.radHandle.magnitude;
         shape = _Data.shape;
+        opacity = _Data.opacity;
+        collision = _Data.collision;
         intensity = _Data.intensity / 100f;
         
         base.Update(eu);
@@ -112,7 +117,7 @@ public class PlacedIceBlock : SnowSource, IDrawable
         foreach (UpdatableAndDeletable obj in room.updateList)
         {
             // TODO: Remove Player line
-            if ((obj is PhysicalObject p))
+            if ((obj is PhysicalObject p) && (collision || p is Player))
             {
                 foreach (BodyChunk chunk in p.bodyChunks)
                 {

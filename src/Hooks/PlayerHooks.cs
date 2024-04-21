@@ -8,30 +8,42 @@ using BepInEx;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using IL.Menu;
+using SlugBase.SaveData;
+using System.Collections.Generic;
 
 namespace SlugTemplate.Hooks;
 
+
+ 
 public static class PlayerHooks
 {
+
+
+
     public static void Init()
     {
         // example of a hook
-        //On.Player.Jump += Player_Jump;
+       // On.Player.Jump += Player_Jump;
 
         AssetLoader.LoadAssets();
         ApplyPlayerGraphicsHooks();
         //MenuDepthIllustrationHook();
         On.Player.Die += Player_Die;
-        On.PlayerProgression.SaveProgression += PlayerProgression_SaveProgression;  
+        On.SaveState.LoadGame += SaveState_LoadGame;
+        On.PlayerProgression.SaveProgression += PlayerProgression_SaveProgression;
+        On.PlayerProgression.LoadGameState += PlayerProgression_LoadGameState;
     }
+
+   
 
     private static void Player_Jump(On.Player.orig_Jump orig, Player self)
     {
         // Call the original method we hook from first
         orig(self);
-
+     
+       // UnityEngine.Debug.Log(list);
         // Adding power to jump
-        self.jumpBoost *= 1f + 0.5f;
+        //self.jumpBoost *= 1f + 0.5f;
 
 
         // Currently, we don't have an if statement to specify which slugcat this happens to
@@ -62,13 +74,99 @@ public static class PlayerHooks
         }
     }
 
+    private static SaveState PlayerProgression_LoadGameState(On.PlayerProgression.orig_LoadGameState orig, PlayerProgression self, string saveFilePath, RainWorldGame game, bool saveAsDeathOrQuit)
+    {
+     /*   if (self.HasSaveData)
+        {
+
+            List<string> list = self.currentSaveState.unrecognizedSaveStrings;
+            foreach (string l in list)
+            {
+                UnityEngine.Debug.Log(l);
+                if (l == "FIREBALL")
+                {
+                    FireHooks.Apply();
+                }
+            }
+        }*/
+
+        if (self.currentSaveState.theGlow)
+        {
+            FireHooks.Apply();
+        }
+
+        return orig.Invoke(self, saveFilePath, game, saveAsDeathOrQuit);
+    }
+
+    private static void SaveState_LoadGame(On.SaveState.orig_LoadGame orig, SaveState self, string str, RainWorldGame game)
+    {
+        orig.Invoke(self, str, game);
+        /*  if (self.loaded)
+          {
+
+          }
+          if (self.loaded)
+          {*/
+        if(self.theGlow){
+            FireHooks.Apply();
+        }
+        List<string> list = self.unrecognizedSaveStrings;
+            foreach (string l in list)
+            {
+                UnityEngine.Debug.Log(l);
+                if (l == "FIREBALL")
+                {
+                    FireHooks.Apply();
+                }
+            }
+       // }
+    }
+
+/*    private static void PlayerProgression_LoadProgression(On.PlayerProgression.orig_LoadProgression orig, PlayerProgression self)
+    {
+        orig.Invoke(self);
+        UnityEngine.Debug.Log("Loading: ");
+        if (self.HasSaveData)
+        {
+            
+            List<string> list = self.currentSaveState.unrecognizedSaveStrings;
+            foreach (string l in list)
+            {
+                UnityEngine.Debug.Log(l);
+                if (l == "FIREBALL")
+                {
+                    FireHooks.Apply();
+                }
+            }
+        }
+       
+    }*/
+
+
     public static bool PlayerProgression_SaveProgression(On.PlayerProgression.orig_SaveProgression orig, PlayerProgression self, bool saveMaps, bool saveMiscProg)
     {
+       /* string[] firestring = { "FIREBALL" };
+        self.currentSaveState.AddUnrecognized(firestring);
+        UnityEngine.Debug.Log(self.GetProgLinesFromMemory());
+
+        self.currentSaveState.*/
+
+        /*List<string> list = self.currentSaveState.unrecognizedSaveStrings;
+        foreach (string l in list)
+        {
+            UnityEngine.Debug.Log(l);
+            if (l == "FIREBALL")
+            {
+                FireHooks.Apply();
+            }
+        }*/
+
         orig.Invoke(self, saveMaps, saveMiscProg);
-        UnityEngine.Debug.Log("Saving ");
+        //UnityEngine.Debug.Log("Saving ");
+        
         if (snowcatIterator.doFireball)
         {
-            UnityEngine.Debug.Log("Saved");
+            //UnityEngine.Debug.Log("Saved");
             snowcatIterator.saved = true;
             return true;
         }
