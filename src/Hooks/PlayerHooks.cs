@@ -31,7 +31,7 @@ public static class PlayerHooks
         On.Player.Die += Player_Die;
         On.SaveState.LoadGame += SaveState_LoadGame;
         On.PlayerProgression.SaveProgression += PlayerProgression_SaveProgression;
-        //On.PlayerProgression.LoadGameState += PlayerProgression_LoadGameState;
+        On.PlayerProgression.LoadGameState += PlayerProgression_LoadGameState;
     }
 
    
@@ -74,9 +74,9 @@ public static class PlayerHooks
         }
     }
 
- /*   private static SaveState PlayerProgression_LoadGameState(On.PlayerProgression.orig_LoadGameState orig, PlayerProgression self, string saveFilePath, RainWorldGame game, bool saveAsDeathOrQuit)
+    private static SaveState PlayerProgression_LoadGameState(On.PlayerProgression.orig_LoadGameState orig, PlayerProgression self, string saveFilePath, RainWorldGame game, bool saveAsDeathOrQuit)
     {
-        if (self.HasSaveData)
+     /*   if (self.HasSaveData)
         {
 
             List<string> list = self.currentSaveState.unrecognizedSaveStrings;
@@ -88,11 +88,15 @@ public static class PlayerHooks
                     FireHooks.Apply();
                 }
             }
+        }*/
+
+        if (self.currentSaveState.theGlow)
+        {
+            FireHooks.Apply();
         }
 
-
         return orig.Invoke(self, saveFilePath, game, saveAsDeathOrQuit);
-    }*/
+    }
 
     private static void SaveState_LoadGame(On.SaveState.orig_LoadGame orig, SaveState self, string str, RainWorldGame game)
     {

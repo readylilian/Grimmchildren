@@ -13,6 +13,7 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
     private Vector2 center;
     private float opacity = 1f;
     private bool collision = false;
+    private float steamTimer = 0f;
     Smoke.SteamSmoke steam;
     public PlacedIceBlockPhys(PlacedObject owner, Room room) : base(owner.pos)
     {
@@ -56,6 +57,7 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
         }*/
         if (drawing)
         {
+            steamTimer = 1f;
             for (int i = 0; i < sLeaser.sprites.Length; i++)
             {
                 float rotation = Custom.VecToDeg(_Data.yHandle);
@@ -87,7 +89,7 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
                     _po.pos.x,
                     _po.pos.y);    
                 
-                if (sLeaser.sprites[i].color.a > 0.01f)
+                if (steamTimer > 0.01f)
                 {
                     //I hate this but fuck me I guess
                     if (_Data.xHandle.x > _Data.yHandle.x)
@@ -130,12 +132,15 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
 
                         }
                     }
-                    sLeaser.sprites[i].color = Color.Lerp(sLeaser.sprites[i].color, Color.clear, 0.1f); ;
-                    steam.EmitSmoke(
-                    rectangle.Center,
-                    new Vector2(0, 20.0f),
-                    rectangle,
-                    0.5f);
+                        steamTimer -= 0.01f;
+                        steam.EmitSmoke(
+                        rectangle.Center,
+                        new Vector2(0, 20.0f),
+                        rectangle,
+                        0.5f);
+                        if (steamTimer < 0.5f) { sLeaser.sprites[i].color = Color.clear; }
+                        
+                    
                 }
                 
                 
