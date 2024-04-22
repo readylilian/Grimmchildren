@@ -334,7 +334,7 @@ public static class RoomScripts
 					
 					
 					if (Vector2.Distance(new Vector2(goalPosition.x * 18, goalPosition.y * 18),
-						    myEnergyCell.bodyChunks[0].pos) < 590)
+						    myEnergyCell.bodyChunks[0].pos) < 120)
 					{
 						foundCell.KeepOff();
 						primed = true;
@@ -353,7 +353,7 @@ public static class RoomScripts
 
 					// Don't go unless within distance
 					if (Vector2.Distance(new Vector2(goalPosition.x * 18, goalPosition.y * 18),
-						    myEnergyCell.bodyChunks[0].pos) >= 590)
+						    myEnergyCell.bodyChunks[0].pos) >= 120)
 					{
 						return;
 					}
