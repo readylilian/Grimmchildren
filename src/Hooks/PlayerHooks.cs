@@ -31,144 +31,129 @@ public static class PlayerHooks
         On.Player.Die += Player_Die;
         On.SaveState.LoadGame += SaveState_LoadGame;
         On.PlayerProgression.SaveProgression += PlayerProgression_SaveProgression;
-        On.PlayerProgression.LoadGameState += PlayerProgression_LoadGameState;
+        //On.PlayerProgression.LoadGameState += PlayerProgression_LoadGameState;
+        On.SaveState.SessionEnded += SaveState_SessionEnded;
+        On.RainWorldGame.ExitGame += RainWorldGame_ExitGame;
+        On.RainWorldGame.ExitToMenu += RainWorldGame_ExitToMenu;
+        On.RainWorldGame.RestartGame += RainWorldGame_RestartGame;
+        On.Room.Loaded += Room_Loaded;
+        //On.SaveState.
+        //On.SaveState.
+
     }
 
-   
+    private static void Room_Loaded(On.Room.orig_Loaded orig, Room self)
+    {
+        orig.Invoke(self);
+        bool hasFire = false;
+        try
+        {
+            self.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().TryGet("FIREBALL", out hasFire);
+        }
+        catch
+        {
+            Console.WriteLine("Failed");
+        }
+        
+        //SlugBase.SaveData.SaveDataExtension.GetSlugBaseData(game.GetStorySession.saveState.miscWorldSaveData).TryGet("FIREBALL", out hasFire);
+        //SlugBase.SaveData.SaveDataExtension.GetSlugBaseData(self.miscWorldSaveData).TryGet("FIREBALL",out hasFire);
+        if (hasFire)
+        {
+            FireHooks.metIterator = true;
+        }
+    }
+
+    private static void RainWorldGame_RestartGame(On.RainWorldGame.orig_RestartGame orig, RainWorldGame self)
+    {
+        orig.Invoke(self);
+
+        if (snowcatIterator.saved)
+        {
+            //game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+            self.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+        }
+    }
+
+    private static void RainWorldGame_ExitToMenu(On.RainWorldGame.orig_ExitToMenu orig, RainWorldGame self)
+    {
+        orig.Invoke(self);
+
+        if (snowcatIterator.saved)
+        {
+            //game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+            self.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+        }
+    }
+
+    private static void RainWorldGame_ExitGame(On.RainWorldGame.orig_ExitGame orig, RainWorldGame self, bool asDeath, bool asQuit)
+    {
+        orig.Invoke(self, asDeath, asQuit);
+
+        if (snowcatIterator.saved)
+        {
+            //game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+            self.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+        }
+    }
 
     private static void Player_Jump(On.Player.orig_Jump orig, Player self)
     {
         // Call the original method we hook from first
         orig(self);
      
-       // UnityEngine.Debug.Log(list);
-        // Adding power to jump
-        //self.jumpBoost *= 1f + 0.5f;
-
-
-        // Currently, we don't have an if statement to specify which slugcat this happens to
-        // This means it happens to all of them, in every campaign for each jump
+ 
     }
 
-    /*    public static void MenuDepthIllustrationHook()
-        {
-            On.Menu.MenuScene.AddIllustration += MenuScene_AddIllustration;
-        }
-        public static void MenuScene_AddIllustration(On.Menu.MenuScene.orig_AddIllustration orig, Menu.MenuScene self, Menu.MenuIllustration newIllu)
-        {
-            orig.Invoke(self, newIllu);
-            if (newIllu is MenuDepthIllustration && newIllu.fileName == "snow.png")
-            {
-                newIllu.sprite
-            }
-        }*/
+ 
     public static void Player_Die(On.Player.orig_Die orig, Player self)
     {
         orig.Invoke(self);
         UnityEngine.Debug.Log("Snowcat Died");
         if (!snowcatIterator.saved)
         {
-            FireHooks.Unapply();
+            //FireHooks.Unapply();
             UnityEngine.Debug.Log("Unapplied");
-            snowcatIterator.doFireball = false;
+            FireHooks.metIterator = false;
         }
-    }
-
-    private static SaveState PlayerProgression_LoadGameState(On.PlayerProgression.orig_LoadGameState orig, PlayerProgression self, string saveFilePath, RainWorldGame game, bool saveAsDeathOrQuit)
-    {
-     /*   if (self.HasSaveData)
-        {
-
-            List<string> list = self.currentSaveState.unrecognizedSaveStrings;
-            foreach (string l in list)
-            {
-                UnityEngine.Debug.Log(l);
-                if (l == "FIREBALL")
-                {
-                    FireHooks.Apply();
-                }
-            }
-        }*/
-
-        if (self.currentSaveState.theGlow)
-        {
-            FireHooks.Apply();
-        }
-
-        return orig.Invoke(self, saveFilePath, game, saveAsDeathOrQuit);
     }
 
     private static void SaveState_LoadGame(On.SaveState.orig_LoadGame orig, SaveState self, string str, RainWorldGame game)
     {
         orig.Invoke(self, str, game);
-        /*  if (self.loaded)
-          {
 
-          }
-          if (self.loaded)
-          {*/
-        if(self.theGlow){
-            FireHooks.Apply();
-        }
-        List<string> list = self.unrecognizedSaveStrings;
-            foreach (string l in list)
-            {
-                UnityEngine.Debug.Log(l);
-                if (l == "FIREBALL")
-                {
-                    FireHooks.Apply();
-                }
-            }
-       // }
-    }
-
-/*    private static void PlayerProgression_LoadProgression(On.PlayerProgression.orig_LoadProgression orig, PlayerProgression self)
-    {
-        orig.Invoke(self);
-        UnityEngine.Debug.Log("Loading: ");
-        if (self.HasSaveData)
+        bool hasFire = false;
+        //game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().TryGet("FIREBALL", out hasFire);
+        //SlugBase.SaveData.SaveDataExtension.GetSlugBaseData(game.GetStorySession.saveState.miscWorldSaveData).TryGet("FIREBALL", out hasFire);
+        
+        if (!hasFire)
         {
-            
-            List<string> list = self.currentSaveState.unrecognizedSaveStrings;
-            foreach (string l in list)
-            {
-                UnityEngine.Debug.Log(l);
-                if (l == "FIREBALL")
-                {
-                    FireHooks.Apply();
-                }
-            }
+            self.miscWorldSaveData.GetSlugBaseData().TryGet("FIREBALL", out hasFire);
         }
-       
-    }*/
-
+        //SlugBase.SaveData.SaveDataExtension.GetSlugBaseData(self.miscWorldSaveData).TryGet("FIREBALL",out hasFire);
+        if (hasFire)
+        {
+            FireHooks.metIterator = true;
+        }
+        
+    }
+    private static void SaveState_SessionEnded(On.SaveState.orig_SessionEnded orig, SaveState self, RainWorldGame game, bool survived, bool newMalnourished)
+    {
+        orig.Invoke(self, game, survived, newMalnourished);
+        if (snowcatIterator.saved)
+        {
+           //game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+           self.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+       }
+    }
 
     public static bool PlayerProgression_SaveProgression(On.PlayerProgression.orig_SaveProgression orig, PlayerProgression self, bool saveMaps, bool saveMiscProg)
     {
-       /* string[] firestring = { "FIREBALL" };
-        self.currentSaveState.AddUnrecognized(firestring);
-        UnityEngine.Debug.Log(self.GetProgLinesFromMemory());
-
-        self.currentSaveState.*/
-
-        /*List<string> list = self.currentSaveState.unrecognizedSaveStrings;
-        foreach (string l in list)
-        {
-            UnityEngine.Debug.Log(l);
-            if (l == "FIREBALL")
-            {
-                FireHooks.Apply();
-            }
-        }*/
-
         orig.Invoke(self, saveMaps, saveMiscProg);
-        //UnityEngine.Debug.Log("Saving ");
-        
-        if (snowcatIterator.doFireball)
+        if (FireHooks.metIterator)
         {
-            //UnityEngine.Debug.Log("Saved");
+
             snowcatIterator.saved = true;
-            return true;
+            self.currentSaveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
         }
         return true;
     }

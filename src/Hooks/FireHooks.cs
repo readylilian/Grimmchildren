@@ -12,7 +12,7 @@ namespace SlugTemplate.Hooks
     internal static class FireHooks
     {
         public static int fireBalls = 0;
-        public static bool metIterator = true;
+        public static bool metIterator = false;
         public static PlacedObject fakePObj;
         //private static bool filoaded = false;
 
@@ -36,7 +36,7 @@ namespace SlugTemplate.Hooks
 
             Content.Register(new FireballFisob());
             //THE LINE BELOW IS WHAT CONTROLS IF YOU START WITH THE FIREBALL OR NOT, UNCOMMENT TO HAVE FIREBALL FROM THE BEGINNING. (Im pretty sure theres a dedicated way to do this but it doesn't bug me so Im not bothering atm)
-            //Apply();
+            Apply();
             //On.Weapon.SetRandomSpin += WeaponSetRandomSpin;
             //Fireball.LoadSprites();
         }

@@ -56,13 +56,13 @@ namespace SlugTemplate
 
                
                     cMOracleBehavior.roomGravity = 0.5f;
-                    FireHooks.Apply();
+                    FireHooks.metIterator = true;
                     break;
                 case "playerConversation":
 
                     UnityEngine.Debug.Log("tried fireball");
+                    FireHooks.metIterator = true;
                     doFireball = true;
-
                     break;
 
             } 
@@ -74,7 +74,7 @@ namespace SlugTemplate
             if (cmBehavior.oracle.ID == iteratorObject)
             {
                // Logger.LogInfo("event triggered " + eventName);
-                if (eventName == "playerEnter" && doFireball == false)
+                if (eventName == "playerEnter" && FireHooks.metIterator == false)
                 {
                     cmBehavior.player.stun = 100;
               
@@ -86,7 +86,7 @@ namespace SlugTemplate
                     cmBehavior.idlePos = new Vector3(0, 0, 0);
                     
                 }
-                if (eventName == "playerLeave" && doFireball == false)
+                if (eventName == "playerLeave" && FireHooks.metIterator == false)
                 {
                     //cmBehavior.player.room = 
 
