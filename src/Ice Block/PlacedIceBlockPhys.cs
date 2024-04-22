@@ -193,8 +193,8 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
         Rect areaRect = new Rect(_po.pos.x, _po.pos.y, _Data.xHandle.magnitude, _Data.yHandle.magnitude);
         center = areaRect.center;
         float angle = Custom.VecToDeg(_Data.yHandle);
-        Console.WriteLine("Center = " + center + ", Angle = " + angle + ", Width = " + _Data.xHandle.magnitude +
-                          ", Height = " + _Data.yHandle.magnitude);
+        //Console.WriteLine("Center = " + center + ", Angle = " + angle + ", Width = " + _Data.xHandle.magnitude +
+          //                ", Height = " + _Data.yHandle.magnitude);
         //UnityEngine.Debug.Log(drawing);
 
         foreach (UpdatableAndDeletable obj in room.updateList)
@@ -205,13 +205,13 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
                 foreach (BodyChunk chunk in p.bodyChunks)
                 {
                     Vector2 rotatedPosition = Custom.RotateAroundVector(chunk.pos, _po.pos, -angle);
-                    Console.WriteLine("RotatedPosition = " + rotatedPosition.ToString());
+                   // Console.WriteLine("RotatedPosition = " + rotatedPosition.ToString());
                     Vector2 centerBias = (center - rotatedPosition).normalized * 0.01f;
                     Vector2 collisionCandidate =
                         Custom.RotateAroundVector(areaRect.GetClosestInteriorPoint(rotatedPosition), _po.pos, angle);
-                    Console.WriteLine("CollisionCandidate = " + collisionCandidate.ToString());
+                    //Console.WriteLine("CollisionCandidate = " + collisionCandidate.ToString());
                     centerBias = Custom.RotateAroundOrigo(centerBias, angle);
-                    Console.WriteLine("centerBias = " + centerBias);
+                    //Console.WriteLine("centerBias = " + centerBias);
 
                     p.PushOutOf(collisionCandidate + centerBias, 0f, -1);
                 }
@@ -222,13 +222,13 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
                 foreach (BodyChunk chunk in o.bodyChunks)
                 {
                     Vector2 rotatedPosition = Custom.RotateAroundVector(chunk.pos, _po.pos, -angle);
-                    Console.WriteLine("RotatedPosition = " + rotatedPosition.ToString());
+                    //Console.WriteLine("RotatedPosition = " + rotatedPosition.ToString());
                     Vector2 centerBias = (center - rotatedPosition).normalized * 0.01f;
                     Vector2 collisionCandidate =
                         Custom.RotateAroundVector(areaRect.GetClosestInteriorPoint(rotatedPosition), _po.pos, angle);
-                    Console.WriteLine("CollisionCandidate = " + collisionCandidate.ToString());
+                    //Console.WriteLine("CollisionCandidate = " + collisionCandidate.ToString());
                     centerBias = Custom.RotateAroundOrigo(centerBias, angle);
-                    Console.WriteLine("centerBias = " + centerBias);
+                    //Console.WriteLine("centerBias = " + centerBias);
 
                     o.PushOutOf(collisionCandidate + centerBias, 0f, -1);
                 }

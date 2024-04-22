@@ -41,6 +41,29 @@ public static class RoomScripts
     }
 
 
+    // Meant to output if all puzzles are solved
+    public static bool AllOrbsCollected(Player player)
+    {
+	    bool puzzle1Complete;
+	    bool puzzle2Complete;
+	    bool puzzle3Complete;
+	    bool puzzle4Complete;
+	    
+	    player.room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
+		    .TryGet("Puzzle1" + "Completed", out puzzle1Complete);
+	    
+	    player.room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
+		    .TryGet("Puzzle2" + "Completed", out puzzle2Complete);
+	    
+	    player.room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
+		    .TryGet("Puzzle3" + "Completed", out puzzle3Complete);
+	    
+	    player.room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
+		    .TryGet("Puzzle4" + "Completed", out puzzle4Complete);
+
+	    return puzzle1Complete && puzzle2Complete && puzzle3Complete && puzzle4Complete;
+    }
+
     // Adding scripts to rooms
     private static void RoomSpecificScript_AddRoomSpecificScript(On.RoomSpecificScript.orig_AddRoomSpecificScript orig, Room room)
     {
@@ -86,10 +109,10 @@ public static class RoomScripts
 		private EnergyCell foundCell;
 		private bool finalPhase;
 		private bool lethalMode;
-		private int noCellPresenceTime;
 		private IntVector2 goalPosition;
 		private Vector2 startPosition;
 		private string saveTerm;
+		private float lethalTimer = 0;
 		
 		public PuzzleRoomEnergyCell(Room room, IntVector2 goal, Vector2 start, string saveSpecifier)
 		{
@@ -99,16 +122,18 @@ public static class RoomScripts
             startPosition = start;
             saveTerm = saveSpecifier;
             
-            bool orbSpawned = false;
+            bool puzzleCompleted = false;
             room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
-	            .TryGet<bool>(saveTerm + "OrbSpawned", out orbSpawned);
+	            .TryGet(saveTerm + "Completed", out puzzleCompleted);
             
             // Block for if the orb is already been saved
-            if (this.room.game.session is StoryGameSession /*&& TODO: Save Data check*/)
+            if (this.room.game.session is StoryGameSession && puzzleCompleted)
             {
+	            lethalTimer = 20;
+	            
 	            // Spawn Cell at goal
-	           /* AbstractPhysicalObject abstractPhysicalObject = new AbstractPhysicalObject(this.room.world,
-		            MoreSlugcatsEnums.AbstractObjectType.EnergyCell, null, this.room.GetWorldCoordinate(pos),
+	            AbstractPhysicalObject abstractPhysicalObject = new AbstractPhysicalObject(this.room.world,
+		            MoreSlugcatsEnums.AbstractObjectType.EnergyCell, null, this.room.GetWorldCoordinate(goal),
 		            this.room.game.GetNewID())
 	            {
 		            destroyOnAbstraction = true
@@ -118,17 +143,15 @@ public static class RoomScripts
 	            
 	            // Turn Cell on
             	foundCell = (abstractPhysicalObject.realizedObject as EnergyCell);
-            	foundCell!.firstChunk.pos = this.room.MiddleOfTile(pos);
+            	foundCell!.firstChunk.pos = this.room.MiddleOfTile(goal);
             	foundCell.customAnimation = true;
             	foundCell.SetLocalGravity(0f);
             	foundCell.canBeHitByWeapons = false;
             	foundCell.FXCounter = 10000f;
             	
-	            // Make the room zero-grav and lethal
-	            RoomSettings.RoomEffect item = new RoomSettings.RoomEffect(RoomSettings.RoomEffect.Type.ZeroG, 1f, false);
-            	this.room.roomSettings.effects.Add(item);
+	            // Make the cell area lethal
             	lethalMode = true;
-            	return;*/
+            	return;
             }
 
             // Make sounds play for active orb
@@ -158,7 +181,7 @@ public static class RoomScripts
 			bool orbSpawned = false;
 			room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
 				.TryGet<bool>(saveTerm + "OrbSpawned", out orbSpawned);
-
+			
 			// This rooms cell hasn't been spawned yet
 			if (room.game.session is StoryGameSession session && !orbSpawned && myEnergyCell == null)
 			{
@@ -214,6 +237,18 @@ public static class RoomScripts
 			}
 			
 
+			// orb proceeds to end of it's turn on animation
+			if (foundCell?.stage == 3 && !lethalMode)
+			{
+				lethalTimer += Time.deltaTime;
+
+				if (lethalTimer >= 16)
+				{
+					lethalMode = true; // vortex can now kill you
+				}
+			}
+			
+
 			// Cell has already been placed at goal
 			if (lethalMode)
 			{
@@ -222,7 +257,7 @@ public static class RoomScripts
 				{
 					foundCell.customAnimation = true;
 					foundCell.moveToTarget = 0.9f;
-					foundCell.scale = 20f;
+					foundCell.scale = 10f;
 					foundCell.firstChunk.pos = startPosition;
 					foundCell.firstChunk.vel = Vector2.zero;
 				}
@@ -276,24 +311,14 @@ public static class RoomScripts
 					}
 					
 					// cell literally hasn't been found
-					if (foundCell != null)
-					{
-						/*while (foundCell.grabbedBy.Count > 0)
-						{
-							Creature grabber = foundCell.grabbedBy[0].grabber;
-							foundCell.grabbedBy[0].Release();
-							grabber.Stun(10);
-							grabber.firstChunk.vel += new Vector2(0f, -5f);
-						}*/
-					}
-					else
+					if (foundCell == null)
 					{
 						if (!flag)
 						{
 							return;
 						}
 
-						// Get tth active cell variable
+						// Get the active cell variable
 						using List<UpdatableAndDeletable>.Enumerator enumerator2 = room.updateList.GetEnumerator();
 						while (enumerator2.MoveNext())
 						{
@@ -303,15 +328,9 @@ public static class RoomScripts
 							foundCell = cell;
 							break;
 						}
-						if (foundCell == null)
-						{
-							noCellPresenceTime++;
-							return;
-						}
-						noCellPresenceTime = 0;
+						
 						return;
 					}
-
 					
 					
 					if (Vector2.Distance(new Vector2(goalPosition.x * 18, goalPosition.y * 18),
@@ -346,8 +365,8 @@ public static class RoomScripts
 					// Save data variables will track this now instead of room save data
 					(room.game.session as StoryGameSession)?.RemovePersistentTracker(foundCell.abstractPhysicalObject);
 					foundCell.canBeHitByWeapons = false;
-					// TODO: Implement save data
-					//room.game.GetStorySession.saveState.miscWorldSaveData.moonHeartRestored = true;
+					room.game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData()
+						.Set(saveTerm + "Completed", true);
 					finalPhase = true;
 					return;
 				}
