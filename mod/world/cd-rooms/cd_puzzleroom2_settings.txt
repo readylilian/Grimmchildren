@@ -1,8 +1,8 @@
 DangerType: Blizzard
 CeilingDrips: 0
-WaveSpeed: 0.5022924
-WaveLength: 0.9386913
-WaveAmplitude: 0.01492483
+WaveSpeed: 0.4399428
+WaveLength: 0.7774355
+WaveAmplitude: 0.03932965
 SecondWaveLength: 0
 SecondWaveAmplitude: 0
 Grime: 0
@@ -10,6 +10,6 @@ RandomItemDensity: 0.2065217
 RandomItemSpearChance: 0
 WaterReflectionAlpha: 0
 Effects: Coldness-1-20-20, HeatWave-0-874-473, 
-PlacedObjects: Melting Block><253.0892><1348.321><100~50~-74^0~0^-61.98371~-100^0~100~True~True~1~Radial~0^-100, Melting Block><254.1628><1206.884><100~50~-79^0~0^-67.44627~-100^0~100~True~True~1~Radial~0^-100, Melting Block><676.7579><418.8002><100~50~-143^-1~0.2945172^-42.11595~-100^0~0~True~True~1~UnSnow~0^-100, Melting Block><681.3279><520.8981><100~50~-122^0~0^-31.53093~-100^0~0~True~True~1~UnSnow~0^-100, Melting Block><326.0927><658.8735><100~50~-64^-1~1.628219^-104.206~-100^0~100~True~True~1~Radial~0^-100, Melting Block><687.8848><488.3365><100~50~-39^0~0^-70.72164~-100^0~0~True~True~1~Radial~0^-100, LightSource><856.3107><263.5464><1~Environment~0~100~50~86.60254~1~0~None~0~0, FreeformDecalOrSprite><819.8907><221.3921><100~50~0;0^75;0^75;84^0;84~OrbGoal~1~Basic~Background~255~False~FFFFFF, 
+PlacedObjects: Melting Block><253.0892><1348.321><100~50~-74^0~0^-61.98371~-100^0~100~True~True~1~Radial~0^-100, Melting Block><254.1628><1206.884><-279~-53~-79^0~0^-67.44627~-100^0~100~True~True~1~Radial~0^-100, Melting Block><676.7579><418.8002><100~50~-143^-1~0.2945172^-42.11595~-100^0~0~True~True~1~UnSnow~0^-100, Melting Block><681.3279><520.8981><100~50~-122^0~0^-31.53093~-100^0~0~True~True~1~UnSnow~0^-100, Melting Block><326.0927><658.8735><100~50~-64^-1~1.628219^-104.206~-100^0~100~True~True~1~Radial~0^-100, Melting Block><687.8848><488.3365><100~50~-39^0~0^-70.72164~-100^0~0~True~True~1~Radial~0^-100, LightSource><856.3107><263.5464><1~Environment~0~100~50~86.60254~1~0~None~0~0, FreeformDecalOrSprite><819.8907><221.3921><100~50~0;0^75;0^75;84^0;84~OrbGoal~1~Basic~Background~255~False~FFFFFF, SnowSource><943.303><1081.035><Radial~34~181~50~86.60254~1~1, SnowSource><934.697><1335.966><Radial~138~-36~50~86.60254~1~1, SnowSource><361.668><1078.892><Radial~252~214~50~86.60254~1~1, SnowSource><636.6508><1367.132><Radial~-9~135~50~86.60254~1~1, SnowSource><574.8374><1003.367><Radial~192~85~50~86.60254~1~1, SnowSource><251.2586><214.4498><Radial~121~236~50~86.60254~1~1, SnowSource><625.5677><545.8118><Radial~315~50~50~86.60254~1~1, SnowSource><928.6888><411.5658><Radial~-107~239~39~44.60251~1~0, 
 RoomSpecificScriptActive: ON
 WetTerrain: OFF
