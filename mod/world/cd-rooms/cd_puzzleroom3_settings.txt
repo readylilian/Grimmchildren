@@ -1,11 +1,11 @@
 DangerType: Blizzard
 CeilingDrips: 0
-WaveSpeed: 0.5103427
-WaveLength: 0.9504377
-WaveAmplitude: 0.01210377
+WaveSpeed: 0.5147829
+WaveLength: 0.9729486
+WaveAmplitude: 0.007451691
 SecondWaveLength: 0.1666667
 SecondWaveAmplitude: 0
 Grime: 0
 Effects: Coldness-1-30-30, 
-PlacedObjects: LightSource><1230.535><240.053><1~Environment~0~100~50~86.60254~1~0~None~0~0, LightSource><1109.824><2210.166><1~Environment~0~100~50~86.60254~1~0~None~0~0, LightSource><1230.535><240.053><1~Environment~0~100~50~86.60254~1~0~None~0~0, PlacedWaterfall><146.4581><2258.196><120~-222~1.173912~4, FreeformDecalOrSprite><1055.403><2145.675><-251~-179~0;0^112;-1^108;113^0;112~OrbGoal~1~Basic~Background~255~False~FFFFFF, 
+PlacedObjects: LightSource><1267.535><262.053><1~Environment~0~100~50~86.60254~1~0~None~0~0, LightSource><1109.824><2210.166><1~Environment~0~100~50~86.60254~1~0~None~0~0, PlacedWaterfall><146.4581><2258.196><120~-222~1.173912~4, FreeformDecalOrSprite><1055.403><2145.675><-251~-179~0;0^112;-1^108;113^0;112~OrbGoal~1~Basic~Background~255~False~FFFFFF, FreeformDecalOrSprite><1059.403><2145.675><100~50~0;0^85;0^85;112^-5;108~OrbGoal~1~Basic~ForegroundLights~255~False~FFFFFF, 
 RoomSpecificScriptActive: ON

@@ -86,7 +86,7 @@ public static class RoomScripts
 
         else if (room.abstractRoom.name == "CD_PUZZLEROOM3" && !room3Ran)
         {
-            room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(55, 110), new Vector2(1230.535f, 240.053f),
+            room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(55, 110), new Vector2(1267.535f, 262.053f),
                 "Puzzle3"));
             room3Ran = true;
         }
