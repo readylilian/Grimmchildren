@@ -13,11 +13,13 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
     private Vector2 center;
     private float opacity = 1f;
     private bool collision = false;
-
+    private float steamTimer = 0f;
+    Smoke.SteamSmoke steam;
     public PlacedIceBlockPhys(PlacedObject owner, Room room) : base(owner.pos)
     {
         _po = owner;
         drawing = true;
+        steam = new Smoke.SteamSmoke(room);
     }
 
     private IceBlockPhysData _Data
@@ -55,6 +57,7 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
         }*/
         if (drawing)
         {
+            steamTimer = 1f;
             for (int i = 0; i < sLeaser.sprites.Length; i++)
             {
                 float rotation = Custom.VecToDeg(_Data.yHandle);
@@ -80,8 +83,68 @@ public class PlacedIceBlockPhys : SnowSource, IDrawable
             {
                 /*sLeaser.sprites[i].x = center.x - camPos.x;
                 sLeaser.sprites[i].y = center.y - camPos.y;*/
-                sLeaser.sprites[0].color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
-            }
+                FloatRect rectangle = new FloatRect(
+                    _po.pos.x,
+                    _po.pos.y,
+                    _po.pos.x,
+                    _po.pos.y);    
+                
+                if (steamTimer > 0.01f)
+                {
+                    //I hate this but fuck me I guess
+                    if (_Data.xHandle.x > _Data.yHandle.x)
+                    {
+                        if (_Data.yHandle.y > _Data.xHandle.y)
+                        {
+                            rectangle.left = _po.pos.x + _Data.xHandle.x;
+                            rectangle.right = _po.pos.x + _Data.yHandle.x;
+                            rectangle.top = _po.pos.y + _Data.xHandle.y;
+                            rectangle.bottom = _po.pos.y + _Data.yHandle.y;
+
+                        }
+                        else
+                        {
+
+                            rectangle.left = _po.pos.x + _Data.xHandle.x;
+                            rectangle.right = _po.pos.x + _Data.yHandle.x;
+                            rectangle.top = _po.pos.y + _Data.yHandle.y;
+                            rectangle.bottom = _po.pos.y + _Data.xHandle.y;
+
+                        }
+
+                    }
+                    else
+                    {
+                        if (_Data.yHandle.y > _Data.xHandle.y)
+                        {
+                            rectangle.left = _po.pos.x + _Data.yHandle.x;
+                            rectangle.right = _po.pos.x + _Data.xHandle.x;
+                            rectangle.top = _po.pos.y + _Data.xHandle.y;
+                            rectangle.bottom = _po.pos.y + _Data.yHandle.y;
+
+                        }
+                        else
+                        {
+                            rectangle.left = _po.pos.x + _Data.yHandle.x;
+                            rectangle.right = _po.pos.x + _Data.xHandle.x;
+                            rectangle.top = _po.pos.y + _Data.yHandle.y;
+                            rectangle.bottom = _po.pos.y + _Data.xHandle.y;
+
+                        }
+                    }
+                        steamTimer -= 0.01f;
+                        steam.EmitSmoke(
+                        rectangle.Center,
+                        new Vector2(0, 20.0f),
+                        rectangle,
+                        0.5f);
+                        if (steamTimer < 0.5f) { sLeaser.sprites[i].color = Color.clear; }
+                        
+                    
+                }
+                
+                
+           }
             
 
         }

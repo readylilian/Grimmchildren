@@ -46,5 +46,6 @@ public static class RoomHooks
                  //  new IceBlock((self.roomSettings.placedObjects[i].data as PlacedObject.GridRectObjectData).Rect, self));
            }
         }
+        
     }
 }

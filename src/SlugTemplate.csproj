@@ -17,6 +17,12 @@
       </Reference>
     </ItemGroup>
     
+    <ItemGroup>
+      <Reference Update="..\lib\SlugBase.dll">
+        <Aliases></Aliases>
+      </Reference>
+    </ItemGroup>
+    
     <Target Name="GenerateMod" AfterTargets="PostBuildEvent">
 		<ItemGroup>
 			<RemovePlugins Include="../mod/plugins/*.dll" />
