@@ -30,15 +30,69 @@ public static class PlayerHooks
         //MenuDepthIllustrationHook();
         On.Player.Die += Player_Die;
         On.SaveState.LoadGame += SaveState_LoadGame;
-        On.PlayerProgression.SaveProgression += PlayerProgression_SaveProgression;
-        //On.PlayerProgression.LoadGameState += PlayerProgression_LoadGameState;
+        On.PlayerProgression.SaveProgression += PlayerProgression_SaveProgression;//
+        //On.PlayerProgression.LoadGameState += PlayerProgression_LoadGameState;//Not this one I think
         On.SaveState.SessionEnded += SaveState_SessionEnded;
-        On.RainWorldGame.ExitGame += RainWorldGame_ExitGame;
-        On.RainWorldGame.ExitToMenu += RainWorldGame_ExitToMenu;
-        On.RainWorldGame.RestartGame += RainWorldGame_RestartGame;
-        On.Room.Loaded += Room_Loaded;
+        //On.RainWorldGame.ExitGame += RainWorldGame_ExitGame;
+        //On.RainWorldGame.ExitToMenu += RainWorldGame_ExitToMenu;
+        //On.RainWorldGame.RestartGame += RainWorldGame_RestartGame;
+        //On.Room.Loaded += Room_Loaded;
+        //On.PlayerProgression.GetOrInitiateSaveState += PlayerProgression_GetOrInitiateSaveState;//
+        //On.PlayerProgression.LoadGameState += PlayerProgression_LoadGameState;//
+        On.PlayerProgression.SaveWorldStateAndProgression += PlayerProgression_SaveWorldStateAndProgression;//
+        On.PlayerProgression.SaveProgressionAndDeathPersistentDataOfCurrentState += PlayerProgression_SaveProgressionAndDeathPersistentDataOfCurrentState;//
+        
         //On.SaveState.
         //On.SaveState.
+
+    }
+
+ 
+    //Welcome to the wall of failures
+ /*   private static SaveState PlayerProgression_LoadGameState(On.PlayerProgression.orig_LoadGameState orig, PlayerProgression self, string saveFilePath, RainWorldGame game, bool saveAsDeathOrQuit)
+    {
+
+        bool hasFire = false;
+        try
+        {
+            self.currentSaveState.miscWorldSaveData.GetSlugBaseData().TryGet("FIREBALL", out hasFire);
+        }
+        catch
+        {
+            Console.WriteLine("Failed");
+        }
+
+        if (hasFire)
+        {
+            FireHooks.metIterator = true;
+        }
+
+
+
+        return orig.Invoke(self, saveFilePath, game, saveAsDeathOrQuit);
+    }*/
+
+    /*private static SaveState PlayerProgression_GetOrInitiateSaveState(On.PlayerProgression.orig_GetOrInitiateSaveState orig, PlayerProgression self, SlugcatStats.Name saveStateNumber, RainWorldGame game, ProcessManager.MenuSetup setup, bool saveAsDeathOrQuit)
+    {
+        bool hasFire = false;
+        try
+        {
+            self.currentSaveState.miscWorldSaveData.GetSlugBaseData().TryGet("FIREBALL", out hasFire);
+        }
+        catch
+        {
+            Console.WriteLine("Failed");
+        }
+        
+        if (hasFire)
+        {
+            FireHooks.metIterator = true;
+        }
+
+
+
+        return orig.Invoke(self, saveStateNumber, game, setup, saveAsDeathOrQuit);
+
 
     }
 
@@ -54,7 +108,7 @@ public static class PlayerHooks
         {
             Console.WriteLine("Failed");
         }
-        
+
         //SlugBase.SaveData.SaveDataExtension.GetSlugBaseData(game.GetStorySession.saveState.miscWorldSaveData).TryGet("FIREBALL", out hasFire);
         //SlugBase.SaveData.SaveDataExtension.GetSlugBaseData(self.miscWorldSaveData).TryGet("FIREBALL",out hasFire);
         if (hasFire)
@@ -94,7 +148,7 @@ public static class PlayerHooks
             //game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
             self.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
         }
-    }
+    }*/
 
     private static void Player_Jump(On.Player.orig_Jump orig, Player self)
     {
@@ -120,43 +174,67 @@ public static class PlayerHooks
     private static void SaveState_LoadGame(On.SaveState.orig_LoadGame orig, SaveState self, string str, RainWorldGame game)
     {
         orig.Invoke(self, str, game);
-
+        FireHooks.metIterator = false;
         bool hasFire = false;
         //game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().TryGet("FIREBALL", out hasFire);
         //SlugBase.SaveData.SaveDataExtension.GetSlugBaseData(game.GetStorySession.saveState.miscWorldSaveData).TryGet("FIREBALL", out hasFire);
+
         
-        if (!hasFire)
-        {
             self.miscWorldSaveData.GetSlugBaseData().TryGet("FIREBALL", out hasFire);
-        }
+       
         //SlugBase.SaveData.SaveDataExtension.GetSlugBaseData(self.miscWorldSaveData).TryGet("FIREBALL",out hasFire);
         if (hasFire)
         {
             FireHooks.metIterator = true;
         }
-        
+
     }
     private static void SaveState_SessionEnded(On.SaveState.orig_SessionEnded orig, SaveState self, RainWorldGame game, bool survived, bool newMalnourished)
     {
         orig.Invoke(self, game, survived, newMalnourished);
         if (snowcatIterator.saved)
         {
-           //game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
-           self.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
-       }
+            //game.GetStorySession.saveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+            self.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+        }
     }
 
+
+    ///SAVES, ONE OF THEM WORKS AND IDK WHICH
     public static bool PlayerProgression_SaveProgression(On.PlayerProgression.orig_SaveProgression orig, PlayerProgression self, bool saveMaps, bool saveMiscProg)
     {
-        orig.Invoke(self, saveMaps, saveMiscProg);
+        
         if (FireHooks.metIterator)
         {
 
             snowcatIterator.saved = true;
             self.currentSaveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
         }
-        return true;
+        return orig.Invoke(self, saveMaps, saveMiscProg);
     }
+
+    private static bool PlayerProgression_SaveWorldStateAndProgression(On.PlayerProgression.orig_SaveWorldStateAndProgression orig, PlayerProgression self, bool malnourished)
+    {
+        if (FireHooks.metIterator)
+        {
+
+            snowcatIterator.saved = true;
+            self.currentSaveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+        }
+        return orig.Invoke(self, malnourished); 
+    }
+
+    private static bool PlayerProgression_SaveProgressionAndDeathPersistentDataOfCurrentState(On.PlayerProgression.orig_SaveProgressionAndDeathPersistentDataOfCurrentState orig, PlayerProgression self, bool saveAsDeath, bool saveAsQuit)
+    {
+        if (FireHooks.metIterator)
+        {
+
+            snowcatIterator.saved = true;
+            self.currentSaveState.miscWorldSaveData.GetSlugBaseData().Set("FIREBALL", true);
+        }
+        return orig.Invoke(self,  saveAsDeath, saveAsQuit);
+    }
+
 
 
 
