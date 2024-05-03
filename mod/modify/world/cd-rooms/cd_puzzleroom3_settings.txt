@@ -1,0 +1,8 @@
+[FIND]FreeformDecalOrSprite><1061.403><2144.675><100~50~0;0^75;0^75;84^0;84~OrbGoal~1~Basic~Foreground~255~False~FFFFFF, 
+[REPLACE]
+[MERGE]
+WaveSpeed: 0.5108562
+WaveLength: 0.8656977
+WaveAmplitude: 0.02755738
+PlacedObjects: FreeformDecalOrSprite><1059.403><2145.675><100~50~0;0^85;0^85;112^-5;108~OrbGoal~1~Basic~ForegroundLights~255~False~FFFFFF, 
+[ENDMERGE]

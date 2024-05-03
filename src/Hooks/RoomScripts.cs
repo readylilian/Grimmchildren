@@ -88,7 +88,7 @@ public static class RoomScripts
 
         else if (room.abstractRoom.name == "CD_PUZZLEROOM3" && !room3Ran)
         {
-            room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(55, 110), new Vector2(1230.535f, 240.053f),
+            room.AddObject(new PuzzleRoomEnergyCell(room, new IntVector2(55, 110), new Vector2(1267.535f, 262.053f),
                 "Puzzle3"));
             room3Ran = true;
         }
@@ -336,7 +336,7 @@ public static class RoomScripts
 					
 					
 					if (Vector2.Distance(new Vector2(goalPosition.x * 18, goalPosition.y * 18),
-						    myEnergyCell.bodyChunks[0].pos) < 90)
+						    myEnergyCell.bodyChunks[0].pos) < 120)
 					{
 						foundCell.KeepOff();
 						primed = true;
@@ -355,7 +355,7 @@ public static class RoomScripts
 
 					// Don't go unless within distance
 					if (Vector2.Distance(new Vector2(goalPosition.x * 18, goalPosition.y * 18),
-						    myEnergyCell.bodyChunks[0].pos) >= 90)
+						    myEnergyCell.bodyChunks[0].pos) >= 120)
 					{
 						return;
 					}
