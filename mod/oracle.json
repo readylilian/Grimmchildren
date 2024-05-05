@@ -106,13 +106,22 @@
                     "action": "startPlayerConversation"
                 },
                 {
-                    "event": "playerConversation", 
-                    "texts": ["Little one… you seem cold, how awful",
-                    "long ago, my source of power was severed…",
-                    "I did not immediately cease to function, but I have been running thin ",
-                    "If you want to return this area back to how it was… I will need your help…",
-                    "If you restore the four connectors, I will be able to regain my full functionality…"
-                    ]
+                    "event": "playerConversation",
+                  "texts": [
+                    "Little one... you seem cold, too... how awful...",
+                    "You are wondering why the cold is getting more extreme?",
+                    "Iterators radiate immense heat when being powered, my presence thus affecting the climate in this area...",
+                    "But long ago, the connection to my source of power was severed...",
+                    "I did not immediately cease to function,but since then I have been running on an ever-dwindling supply",
+                    "of emergency energy, my power levels draining and so, in turn, did my heat levels.",
+                    "If you want to return this area back to how it was... I will need your help...",
+                    "If you reconnect the four Rarefaction Cells, I will be able to use their energy to regain my full functionality...",
+                    "What's that? The ice is blocking your path...? I did not know the situation outside was already so dire...",
+                    "Hmm...",
+                    "There is one solution I can think of. I can use the last of my power to grant you a gift, which should be enough to help you with your mission.",
+                    "Though this means I will cease to function until my power is restored... and should you fail in that goal...",
+
+                  ]
                 },
                 {
                     "event": "playerConversation",
@@ -120,8 +129,12 @@
                 },
                 {
                     "event": "fireballGift",
-                    "texts": ["Here, a gift to help you","A gift of fire and heat",
-                    "Do not fail me, little one"]
+                  "texts": [
+                    "I have granted you your gift. A gift of heat.",
+                    "The source is at the core of your very self.",
+                    "Use it to light any object on fire. This should help you unlock your path.",
+                    "Do not fail me, little one..."
+                  ]
                 },
                 
                 {

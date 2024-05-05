@@ -68,6 +68,8 @@ public static class RoomScripts
     private static void RoomSpecificScript_AddRoomSpecificScript(On.RoomSpecificScript.orig_AddRoomSpecificScript orig, Room room)
     {
         orig(room);
+		
+
 
         if (room.abstractRoom.name == "CD_PUZZLEROOM1" && !room1Ran)
         {
