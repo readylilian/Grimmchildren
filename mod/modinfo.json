@@ -2,8 +2,8 @@
 	"id": "GrimmChildren.ColdSnap",
 	"name": "Cold Snap",
 	"version": "1.0.0",
-	"authors": "GrimmChildren: too lazy to grab information right now",
-	"description": "Mod description: We'll get to it when we get to it",
+	"authors": "GrimmChildren: Collin Berg, Lily Ready, Zach Rubin, Chase Kellough, Donovan Scullion",
+	"description": "Mod description: The world you live in is cold, and getting colder. As the Snowcat you’ve been able to survive until now, but even you can’t last forever. Food is dwindling, and the world is freezing over. You leave the safety of your warm but desolate shelter in search of something, anything else.",
 	"requirements": [
 		"slime-cubed.slugbase",
 		"fisobs",
