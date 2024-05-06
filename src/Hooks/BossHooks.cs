@@ -27,7 +27,7 @@ namespace SlugTemplate.Hooks
         {
             On.Lizard.Update += BossUpdate;
             On.RainWorld.Update += RainWorldOnUpdate;
-            bossBehavior = Behavior.Speaking;
+            bossBehavior = Behavior.Frozen;
         }
 
         private static void RainWorldOnUpdate(On.RainWorld.orig_Update orig, RainWorld self)
@@ -91,6 +91,7 @@ namespace SlugTemplate.Hooks
                         }
                     }
                 }
+                
                 System.Collections.Generic.List<UpdatableAndDeletable> list = rainWorldGame.cameras[0].room.updateList;
                 var matching = list.Where(i => i.ToString().ToLower().Contains("ice"));
                 if (matching.Any() && bossBehavior == Behavior.Normal)
