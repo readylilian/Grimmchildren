@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Threading;
-using System;
-using RWCustom;
+﻿using RWCustom;
+using System.Linq;
+using UnityEngine;
 
 namespace SlugTemplate.Hooks
 {
@@ -29,7 +27,7 @@ namespace SlugTemplate.Hooks
         {
             On.Lizard.Update += BossUpdate;
             On.RainWorld.Update += RainWorldOnUpdate;
-            bossBehavior = Behavior.Frozen;
+            bossBehavior = Behavior.Speaking;
         }
 
         private static void RainWorldOnUpdate(On.RainWorld.orig_Update orig, RainWorld self)
@@ -40,7 +38,7 @@ namespace SlugTemplate.Hooks
             {
                 return;
             }
-            if(bossOver)
+            if (bossOver)
             {
                 var shortcut = rainWorldGame.cameras[0].room.shortcutsIndex[0];
                 rainWorldGame.cameras[0].room.lockedShortcuts.Remove(shortcut);
@@ -48,7 +46,7 @@ namespace SlugTemplate.Hooks
             //If no boss spawn boss
             if (bossHere == false && rainWorldGame.cameras[0].room.roomSettings.name == "CD_CENTRALROOM")
             {
-                SpawnBoss(new Vector2(384.9567f,1170.204f), self, rainWorldGame);
+                SpawnBoss(new Vector2(384.9567f, 1170.204f), self, rainWorldGame);
                 bossHere = true;
             }
             if (rainWorldGame.cameras[0].room.roomSettings.name == "CD_CENTRALROOM")
@@ -76,6 +74,7 @@ namespace SlugTemplate.Hooks
                                 rainWorldGame.cameras[0].microShake = 1f;
                                 rainWorldGame.cameras[0].hud.dialogBox.NewMessage(self.inGameTranslator.Translate("What have you done!"), 30);
                                 rainWorldGame.cameras[0].microShake = tempShake;
+                                rainWorldGame.cameras[0].hud.dialogBox.NewMessage(self.inGameTranslator.Translate("You have melted my salvation!"), 30);
                                 rainWorldGame.cameras[0].hud.dialogBox.NewMessage(self.inGameTranslator.Translate("Pea brained rat following false hope."), 60);
                                 rainWorldGame.cameras[0].hud.dialogBox.NewMessage(self.inGameTranslator.Translate("These machines would sooner trap you with them then ever tell you the true path to freedom."), 60);
                                 rainWorldGame.cameras[0].hud.dialogBox.NewMessage(self.inGameTranslator.Translate("You have doomed us all!"), 60);
@@ -92,8 +91,17 @@ namespace SlugTemplate.Hooks
                         }
                     }
                 }
+                System.Collections.Generic.List<UpdatableAndDeletable> list = rainWorldGame.cameras[0].room.updateList;
+                var matching = list.Where(i => i.ToString().ToLower().Contains("ice"));
+                if (matching.Any() && bossBehavior == Behavior.Normal)
+                {
+                    foreach (var item in matching)
+                    {
+                        item.Destroy();
+                    }
+                }
                 //if the boss ever despawns, respawn it in the same area
-                if(foundBoss == false && bossOver == false) 
+                if (foundBoss == false && bossOver == false)
                 {
                     Debug.Log("respawn boss");
                     bossHere = false;
@@ -128,7 +136,7 @@ namespace SlugTemplate.Hooks
             Debug.Log("Spawning boss");
 
             //WHEN RESPAWNING IF WE'RE FIGHTING LOCK THE DOORS
-            if(bossBehavior == Behavior.Speaking || bossBehavior == Behavior.Normal)
+            if (bossBehavior == Behavior.Speaking || bossBehavior == Behavior.Normal)
             {
                 foreach (var shortcut in game.cameras[0].room.shortcutsIndex)
                 {
@@ -139,7 +147,6 @@ namespace SlugTemplate.Hooks
                 }
             }
         }
-
         private static void BossUpdate(On.Lizard.orig_Update orig, Lizard self, bool eu)
         {
             if (self.ToString().Contains("Pink Lizard") || self.ToString().Contains("Boss"))
