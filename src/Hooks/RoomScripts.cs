@@ -225,7 +225,13 @@ public static class RoomScripts
 					myEnergyCell = (abstractPhysicalObject.realizedObject as EnergyCell);
 					myEnergyCell!.firstChunk.pos = startPosition;
 					myEnergyCell.bodyChunks[0].vel = Vector2.zero;
-					ReloadRooms();
+
+
+					/*if (AllOrbsCollected(player))
+					{
+						// Lets the boss spawn correctly
+						ReloadRooms();
+					}*/
 
 					// left hand grab
 					player.SlugcatGrab(myEnergyCell, 0);
@@ -335,7 +341,7 @@ public static class RoomScripts
 					}
 					
 					
-					if (Vector2.Distance(new Vector2(goalPosition.x * 18, goalPosition.y * 18),
+					if (Vector2.Distance(new Vector2(goalPosition.x * 20, goalPosition.y * 20),
 						    myEnergyCell.bodyChunks[0].pos) < 120)
 					{
 						foundCell.KeepOff();
@@ -354,7 +360,7 @@ public static class RoomScripts
 					if (!(foundCell.usingTime > 0f)) return;
 
 					// Don't go unless within distance
-					if (Vector2.Distance(new Vector2(goalPosition.x * 18, goalPosition.y * 18),
+					if (Vector2.Distance(new Vector2(goalPosition.x * 20, goalPosition.y * 20),
 						    myEnergyCell.bodyChunks[0].pos) >= 120)
 					{
 						return;
