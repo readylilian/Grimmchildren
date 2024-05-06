@@ -1,0 +1,18 @@
+Template: NONE
+DangerType: None
+WaveSpeed: 0.5013636
+WaveLength: 0.9993182
+WaveAmplitude: 0.006194712
+SecondWaveLength: 0.1666667
+SecondWaveAmplitude: 0
+Grime: 0
+BkgDroneVolume: 0
+WaterReflectionAlpha: 0
+Palette: 62
+EffectColorA: 15
+EffectColorB: 8
+Effects: LavaSurface-1-954-470, WaterViscosity-0.6956522-970-336, WaterLights-0-965-411, LethalWater-0.01086957-766-531, SilenceWater-1-469-507, 
+PlacedObjects: LanternOnStick><574.4496><270.7377><19~-49, SteamPipe><513.8018><211.5265><43~80, LanternOnStick><457.4341><247.422><-9~-30, InsectGroup><616.3702><258.6522><56~27~118~259~GrassHopper~0.2065217, 
+AmbientSounds: OMNI><AM_ENV-LushNight.ogg><763.0861><508.8646><0.3913043><0.6086956, OMNI><AM_ENV-Woods.ogg><440.0639><385.9395><0.4782609><0.5108696, OMNI><SO_NAT-Fire.ogg><567.1991><517.9811><0.3913043><0.7065217, 
+FadePalette: 11, 0.3152174
+WetTerrain: OFF
