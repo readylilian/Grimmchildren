@@ -10,7 +10,7 @@ namespace SlugTemplate.Hooks
         static float counter = 0f;
         static bool count = false;
         //Stop is the length of time it takes for dialog
-        static float stop = 18;
+        static float stop = 20;
 
         static bool bossHere = false;
         static bool bossOver = false;
@@ -59,6 +59,11 @@ namespace SlugTemplate.Hooks
                         //is the boss here?
                         if (rainWorldGame.cameras[0].room.physicalObjects[i][j].ToString().ToLower().Contains("boss"))
                         {
+                            if(bossBehavior == Behavior.Frozen && count == false
+                                && RoomScripts.AllOrbsCollected(rainWorldGame.cameras[0].room.PlayersInRoom[0]))
+                            {
+                                bossBehavior = Behavior.Speaking;
+                            }
                             foundBoss = true;
                             //If the boss dies then it's over, don't spawn or talk
                             bossOver = (rainWorldGame.cameras[0].room.abstractRoom.creatures.Find(x => x.Equals(boss))).state.dead;
@@ -89,16 +94,6 @@ namespace SlugTemplate.Hooks
                                 }
                             }
                         }
-                    }
-                }
-                
-                System.Collections.Generic.List<UpdatableAndDeletable> list = rainWorldGame.cameras[0].room.updateList;
-                var matching = list.Where(i => i.ToString().ToLower().Contains("ice"));
-                if (matching.Any() && bossBehavior == Behavior.Normal)
-                {
-                    foreach (var item in matching)
-                    {
-                        item.Destroy();
                     }
                 }
                 //if the boss ever despawns, respawn it in the same area
